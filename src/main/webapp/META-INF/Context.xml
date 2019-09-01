@@ -1,0 +1,14 @@
+<Context path="/">
+	<Resource
+			name="jdbc/mypool"
+			auth="Container"
+			type="javax.sql.DataSource"
+			driverClassName="com.mysql.cj.jdbc.Driver"
+			url="jdbc:mysql://localhost:3306/cruisecompany?serverTimezone=UTC"
+			username="root"
+			password="root"
+			maxActive="10"
+			maxIdle="4"
+			maxWait="10000"/>
+
+</Context>
