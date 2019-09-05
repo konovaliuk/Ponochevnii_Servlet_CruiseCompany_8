@@ -17,6 +17,7 @@ public class ServiceDaoImpl implements ServiceDao {
     private static final String CREATE = "INSERT INTO service (service_name) VALUES(?)";
     private static final String FIND_ALL = "SELECT * FROM service";
     private static final String FIND_BY_ID = "SELECT * FROM service WHERE id = ?";
+    private static final String FIND_BY_NAME = "SELECT * FROM service WHERE service_name = ?";
     private static final String UPDATE = "UPDATE service SET service_name = ? WHERE id = ?";
 
 
@@ -46,10 +47,25 @@ public class ServiceDaoImpl implements ServiceDao {
     }
 
     @Override
-    public Service findById(int id) throws GeneralCheckedException {
+    public Service findById(Long id) throws GeneralCheckedException {
         Service service = new Service();
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)){
-            preparedStatement.setInt(1, id);
+            preparedStatement.setLong(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next())
+                service = createService(rs);
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new GeneralCheckedException("Unsuccessful work with the database ", e);
+        }
+        return service;
+    }
+
+    @Override
+    public Service findByName(String serviceName) throws GeneralCheckedException {
+        Service service = new Service();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_NAME)){
+            preparedStatement.setString(1, serviceName);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next())
                 service = createService(rs);
@@ -67,7 +83,7 @@ public class ServiceDaoImpl implements ServiceDao {
 
     private Service createService(ResultSet rs) throws SQLException {
         Service service = new Service();
-        service.setId(rs.getInt("id"));
+        service.setId(rs.getLong("id"));
         service.setServiceName(rs.getString("service_name"));
         return service;
     }

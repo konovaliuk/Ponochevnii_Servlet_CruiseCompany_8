@@ -6,7 +6,7 @@
     <style>
         <%@include file="/resources/css/style.css"%>
     </style>
-    <title>Registration</title>
+    <title>Create excursion</title>
 </head>
 <body>
 
@@ -22,84 +22,50 @@
 </c:set>
 <jsp:include page="${hdr}"/>
 
-<h1 style="color: red">Cart.jsp</h1>
+<h1 style="color: red">createexcursion.jsp</h1>
 
 <div class="form-style-2">
 
-    
-	
-	
-	
-	
-	<table align="left" border="1" cellpadding="0" cellspacing="0" style="width: 700px">
-	<thead>
-		<tr>
-			<th scope="col">
-				<p>Port id</p>
-			</th>
-			<th scope="col">Excursion name</th>
-			<th scope="col">Price</th>
-			<th scope="col">Description</th>
-			<th scope="col">&nbsp;</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>select</td>
-			<td>&nbsp;</td>
-			<td>&nbsp;</td>
-			<td>&nbsp;</td>
-			<td>&nbsp;</td>
-		</tr>
-	</tbody>
-</table>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>create button</p>
-<form action="/command" method="post" name="createButton">&nbsp;</form>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-	
-	
-	
 
-
-
-
-
-
-
-<div class="form-style-2">
     <div class="form-style-2-heading">
-        Please Sign Up!
+        Select the port where you want to add the excursoins or create new port
     </div>
     <br/>
-<form name="registrationForm" method="POST" action="/controller">
-    <input type="hidden" name="command" value="signup"/> Login:
-    <br/><input type="text" name="login" value="${param.login}" autofocus/>
-    <br/><br/>Password:
-    <br/><input type="password" name="password" value="${param.password}"/>
-    <br/><br/>First name:
-    <br/><input type="text" name="firstname" value="${param.firstname}"/>
-    <br/><br/>Second name:
-    <br/><input type="text" name="secondname" value="${param.secondname}"/>
-    <br/><br/>Email:
-    <br/><input type="email" name="email" value="${param.email}"/>
-    <br/><br/>Telephone:
-    <br/><input type="tel" name="tel" value="${param.tel}"/>
-    <br/>
-    ${registrationMessage}
+    <form name="createnewportForm" method="post" action="/controller">
+        <input type="hidden" name="command" value="createport"/>
+        <input type="hidden" name="createnewportForm" value="createnewportForm"/>
+        <br/> <input type="submit" value="Create port"/>
+    </form>
+    <br/><br/><br/><br/>
 
-    <br/> <input type="submit" value="Registration"/>
-    <br/> ${errorMessage}
-</form>
+    <form name="createexcursionForm" method="post" action="/controller">
+        <select name="selectedport">
+            <option value="">Please select the port</option>
+            <c:forEach var="portn" items="${allPorts}">
+                <option value="${portn.id}">"${portn.id}", "${portn.country}", "${portn.city}"</option>
+            </c:forEach>
+        </select>
+
+        <br/>
+        <br/><br/>
+        <input type="hidden" name="command" value="createexcursion"/>
+        <input type="hidden" name="createexcursionForm" value="createexcursionForm"/> Название экскурсии: (максимум 100
+        символов)
+        <br/><input type="text" name="excursionName" value=""/>
+        <br/><br/>Описание экскурсии: (максимум 1000 символов)
+        <br/><textarea name="description" maxlength="2000" style="margin: 0px; height: 80px; width: 700px;"></textarea>
+        <br/><br/>Цена:
+        <br/><input type="number" name="price" value=""/>
+        <br/><br/>
+
+        <br/> <input type="submit" value="Create excursion"/>
+        <br/>
+        <p style="color: red">${errorMessage}</p>
+    </form>
+
+
 </div>
-</div>
+
+
 </body>
-</html>       
+</html>

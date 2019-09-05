@@ -6,20 +6,20 @@ import java.util.Objects;
 
 public class CruisePorts implements Serializable {
 
-    private static final long serialVersionUID = 2461804905903490613L;
+    private static final long serialVersionUID = 1521561311324302224L;
 
-    private int id;
+    private Long id = -1L;
     private String dateIn;
     private String dateOut;
-    private int cruiseId;
-    private int portId;
+    private Long cruiseId;
+    private Long portId;
 
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -42,20 +42,20 @@ public class CruisePorts implements Serializable {
     }
 
 
-    public int getCruiseId() {
+    public Long getCruiseId() {
         return cruiseId;
     }
 
-    public void setCruiseId(int cruiseId) {
+    public void setCruiseId(Long cruiseId) {
         this.cruiseId = cruiseId;
     }
 
 
-    public int getPortId() {
+    public Long getPortId() {
         return portId;
     }
 
-    public void setPortId(int portId) {
+    public void setPortId(Long portId) {
         this.portId = portId;
     }
 
@@ -64,9 +64,9 @@ public class CruisePorts implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CruisePorts that = (CruisePorts) o;
-        return id == that.id &&
-                cruiseId == that.cruiseId &&
-                portId == that.portId &&
+        return id.equals(that.id) &&
+                cruiseId.equals(that.cruiseId) &&
+                portId.equals(that.portId) &&
                 Objects.equals(dateIn, that.dateIn) &&
                 Objects.equals(dateOut, that.dateOut);
     }

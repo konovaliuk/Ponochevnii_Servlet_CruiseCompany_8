@@ -6,46 +6,46 @@ import java.util.Objects;
 
 public class Ticket implements Serializable {
 
-    private static final long serialVersionUID = 1895226117242503460L;
+    private static final long serialVersionUID = 6654417715039818441L;
 
-    private int id;
-    private int userId;
-    private int cruiseId;
-    private int ticketclassId;
+    private Long id = -1L;
+    private Long userId;
+    private Long cruiseId;
+    private Long ticketclassId;
 
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
 
-    public int getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
 
-    public int getCruiseId() {
+    public Long getCruiseId() {
         return cruiseId;
     }
 
-    public void setCruiseId(int cruiseId) {
+    public void setCruiseId(Long cruiseId) {
         this.cruiseId = cruiseId;
     }
 
 
-    public int getTicketclassId() {
+    public Long getTicketclassId() {
         return ticketclassId;
     }
 
-    public void setTicketclassId(int ticketclassId) {
+    public void setTicketclassId(Long ticketclassId) {
         this.ticketclassId = ticketclassId;
     }
 
@@ -54,10 +54,10 @@ public class Ticket implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Ticket ticket = (Ticket) o;
-        return id == ticket.id &&
-                userId == ticket.userId &&
-                cruiseId == ticket.cruiseId &&
-                ticketclassId == ticket.ticketclassId;
+        return id.equals(ticket.id) &&
+                userId.equals(ticket.userId) &&
+                cruiseId.equals(ticket.cruiseId) &&
+                ticketclassId.equals(ticket.ticketclassId);
     }
 
     @Override

@@ -24,7 +24,7 @@
 <h1 style="color: red">editaccount.jsp</h1>
 <div class="form-style-2">
     <div class="form-style-2-heading">
-        Login and phone must be unique!
+        Login and phone number must be unique!
     </div>
     <br/>
 <form name="editaccountForm" method="post" action="/controller">
@@ -33,6 +33,8 @@
     <br/><input type="text" name="login" value="${currenuser.login}" disabled/>
     <br/><br/>Password:
     <br/><input type="password" name="password" value=""/>
+    <br/><br/>Password (duplicate):
+    <br/><input type="password" name="password2" value="${param.password2}"/>
     <br/><br/>First name:
     <br/><input type="text" name="firstname" value="${currenuser.firstName}"/>
     <br/><br/>Second name:

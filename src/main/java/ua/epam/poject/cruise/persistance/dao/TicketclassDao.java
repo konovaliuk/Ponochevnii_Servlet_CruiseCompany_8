@@ -9,7 +9,7 @@ public interface TicketclassDao {
 
     List<Ticketclass> findAll() throws GeneralCheckedException;
 
-    Ticketclass findById(int id) throws GeneralCheckedException;
+    Ticketclass findById(Long id) throws GeneralCheckedException;
 
     Ticketclass findByTicketclassName(String className) throws GeneralCheckedException;
 

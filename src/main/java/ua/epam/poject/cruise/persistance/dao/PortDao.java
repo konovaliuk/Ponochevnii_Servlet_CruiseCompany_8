@@ -11,7 +11,7 @@ public interface PortDao {
 
     List<Port> findAll() throws GeneralCheckedException;
 
-    Port findById(int id) throws GeneralCheckedException;
+    Port findById(Long id) throws GeneralCheckedException;
 
     int update(Port port) throws GeneralCheckedException;
 

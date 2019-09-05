@@ -1,4 +1,4 @@
-package ua.epam.poject.cruise.persistance.dao.impl;
+package ua.epam.poject.cruise.persistance.dao.impl.printable;
 
 import org.apache.log4j.Logger;
 import ua.epam.poject.cruise.entity.printableentity.PrintableCruise;
@@ -16,10 +16,10 @@ public class PrintableCruiseDaoImpl implements PrintableCruiseDao {
 
     private static final Logger LOGGER = Logger.getLogger(PrintableCruiseDao.class);
 
-    private static final String FIND_ALL = "SELECT ship_name, country, city, date_in, date_out FROM cruise " +
-            "left join ship on ship_id = ship.id " +
-            "left join cruise_ports on cruise_id = cruise.id " +
-            "left join port on cruise_ports.port_id = port.id order by ship_name, date_in;";
+    private static final String FIND_ALL = "SELECT cruise.id, ship_name, country, city, date_in, date_out FROM cruise \n" +
+            "left join ship on ship_id = ship.id \n" +
+            "left join cruise_ports on cruise_ports.cruise_id = cruise.id \n" +
+            "left join port on cruise_ports.port_id = port.id order by cruise.id, date_in;";
 
     private Connection connection;
 
@@ -42,6 +42,7 @@ public class PrintableCruiseDaoImpl implements PrintableCruiseDao {
     }
     private PrintableCruise createPrintableCruise(ResultSet rs) throws SQLException {
         PrintableCruise printableCruise = new PrintableCruise();
+        printableCruise.setCruiseId(rs.getLong("id"));
         printableCruise.setShipName(rs.getString("ship_name"));
         printableCruise.setCountry(rs.getString("country"));
         printableCruise.setCity(rs.getString("city"));

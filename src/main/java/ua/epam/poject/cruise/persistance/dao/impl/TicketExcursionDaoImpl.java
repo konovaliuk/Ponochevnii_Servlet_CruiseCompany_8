@@ -29,15 +29,15 @@ public class TicketExcursionDaoImpl implements TicketExcursionDao {
 
 
     @Override
-    public int create(int ticketId, int excursionId) throws GeneralCheckedException {
+    public int create(Long ticketId, Long excursionId) throws GeneralCheckedException {
         return SQLExecutor.executeInsertUpdateDelete(connection, CREATE, ticketId, excursionId);
     }
 
     @Override
-    public List<TicketExcursion> findByTicketId(int id) throws GeneralCheckedException {
+    public List<TicketExcursion> findByTicketId(Long id) throws GeneralCheckedException {
         List<TicketExcursion> ticketExcursions = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_TICKET_ID)){
-            preparedStatement.setInt(1, id);
+            preparedStatement.setLong(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next())
                 ticketExcursions.add(createTicketExcursion(rs));
@@ -50,9 +50,9 @@ public class TicketExcursionDaoImpl implements TicketExcursionDao {
 
     private TicketExcursion createTicketExcursion(ResultSet rs) throws SQLException {
         TicketExcursion ticketExcursion = new TicketExcursion();
-        ticketExcursion.setId(rs.getInt("id"));
-        ticketExcursion.setTicketId(rs.getInt("ticket_id"));
-        ticketExcursion.setExcurisionId(rs.getInt("excurision_id"));
+        ticketExcursion.setId(rs.getLong("id"));
+        ticketExcursion.setTicketId(rs.getLong("ticket_id"));
+        ticketExcursion.setExcurisionId(rs.getLong("excurision_id"));
         return ticketExcursion;
     }
 

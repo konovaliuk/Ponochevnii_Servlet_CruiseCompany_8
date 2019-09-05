@@ -9,7 +9,7 @@ public interface CruisePortsDao {
 
     int create(CruisePorts cruisePorts) throws GeneralCheckedException;
 
-    List<CruisePorts> findAllByIdCruise(int idCruise) throws GeneralCheckedException;
+    List<CruisePorts> findAllByIdCruise(Long idCruise) throws GeneralCheckedException;
 
     int delete(CruisePorts cruisePorts) throws GeneralCheckedException;
 

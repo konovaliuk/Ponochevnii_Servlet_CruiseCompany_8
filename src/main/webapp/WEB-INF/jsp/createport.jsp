@@ -6,7 +6,7 @@
     <style>
         <%@include file="/resources/css/style.css"%>
     </style>
-    <title>Registration</title>
+    <title>Create port</title>
 </head>
 <body>
 
@@ -22,84 +22,31 @@
 </c:set>
 <jsp:include page="${hdr}"/>
 
-<h1 style="color: red">Cart.jsp</h1>
+<h1 style="color: red">createport.jsp</h1>
 
 <div class="form-style-2">
 
-    
-	
-	
-	
-	
-	<table align="left" border="1" cellpadding="0" cellspacing="0" style="width: 700px">
-	<thead>
-		<tr>
-			<th scope="col">
-				<p>Country port</p>
-			</th>
-			<th scope="col">City port</th>
-			<th scope="col">&nbsp;</th>
-			<th scope="col">&nbsp;</th>
-			<th scope="col">&nbsp;</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>&nbsp;</td>
-			<td>&nbsp;</td>
-			<td>&nbsp;</td>
-			<td>&nbsp;</td>
-			<td>&nbsp;</td>
-		</tr>
-	</tbody>
-</table>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>create button</p>
-<form action="/command" method="post" name="createButton">&nbsp;</form>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-	
-	
-	
+    <div class="form-style-2">
+        <div class="form-style-2-heading">
+            Create new port
+        </div>
+        <br/>
+        <form name="createportForm" method="post" action="/controller">
+            <input type="hidden" name="command" value="createport"/>
+            <input type="hidden" name="createportForm" value="createportForm"/> Страна:
+            <br/><input type="text" name="country" value=""/>
+            <br/><br/>Город:
+            <br/><input type="text" name="city" value=""/>
+            <br/>
 
-
-
-
-
-
-
-<div class="form-style-2">
-    <div class="form-style-2-heading">
-        Please Sign Up!
+            <br/> <input type="submit" value="Create port"/>
+            <br/>  <p style="color: red">${errorMessage}</p>
+        </form>
     </div>
-    <br/>
-<form name="registrationForm" method="POST" action="/controller">
-    <input type="hidden" name="command" value="signup"/> Login:
-    <br/><input type="text" name="login" value="${param.login}" autofocus/>
-    <br/><br/>Password:
-    <br/><input type="password" name="password" value="${param.password}"/>
-    <br/><br/>First name:
-    <br/><input type="text" name="firstname" value="${param.firstname}"/>
-    <br/><br/>Second name:
-    <br/><input type="text" name="secondname" value="${param.secondname}"/>
-    <br/><br/>Email:
-    <br/><input type="email" name="email" value="${param.email}"/>
-    <br/><br/>Telephone:
-    <br/><input type="tel" name="tel" value="${param.tel}"/>
-    <br/>
-    ${registrationMessage}
 
-    <br/> <input type="submit" value="Registration"/>
-    <br/> ${errorMessage}
-</form>
+
 </div>
-</div>
+
+
 </body>
-</html>       
+</html>

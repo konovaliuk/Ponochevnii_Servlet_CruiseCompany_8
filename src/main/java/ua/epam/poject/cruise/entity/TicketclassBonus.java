@@ -6,46 +6,46 @@ import java.util.Objects;
 
 public class TicketclassBonus implements Serializable {
 
-    private static final long serialVersionUID = 7487666675820370566L;
+    private static final long serialVersionUID = 3638833465921848343L;
 
-    private int id;
-    private int ticketclassId;
-    private int shipServiceId;
-    private int cruiseId;
+    private Long id = -1L;
+    private Long ticketclassId;
+    private Long shipServiceId;
+    private Long cruiseId;
 
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
 
-    public int getTicketclassId() {
+    public Long getTicketclassId() {
         return ticketclassId;
     }
 
-    public void setTicketclassId(int ticketclassId) {
+    public void setTicketclassId(Long ticketclassId) {
         this.ticketclassId = ticketclassId;
     }
 
 
-    public int getShipServiceId() {
+    public Long getShipServiceId() {
         return shipServiceId;
     }
 
-    public void setShipServiceId(int shipServiceId) {
+    public void setShipServiceId(Long shipServiceId) {
         this.shipServiceId = shipServiceId;
     }
 
 
-    public int getCruiseId() {
+    public Long getCruiseId() {
         return cruiseId;
     }
 
-    public void setCruiseId(int cruiseId) {
+    public void setCruiseId(Long cruiseId) {
         this.cruiseId = cruiseId;
     }
 
@@ -54,10 +54,10 @@ public class TicketclassBonus implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TicketclassBonus that = (TicketclassBonus) o;
-        return id == that.id &&
-                ticketclassId == that.ticketclassId &&
-                shipServiceId == that.shipServiceId &&
-                cruiseId == that.cruiseId;
+        return id.equals(that.id) &&
+                ticketclassId.equals(that.ticketclassId) &&
+                shipServiceId.equals(that.shipServiceId) &&
+                cruiseId.equals(that.cruiseId);
     }
 
     @Override

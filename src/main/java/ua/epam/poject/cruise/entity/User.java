@@ -6,9 +6,9 @@ import java.util.Objects;
 
 public class User implements Serializable {
 
-    private static final long serialVersionUID = -5609789434432090488L;
+    private static final long serialVersionUID = -521682735085544483L;
 
-    private int id;
+    private Long id = -1L;
     private String login;
     private String password;
     private String firstName;
@@ -17,15 +17,12 @@ public class User implements Serializable {
     private String tel;
     private Role role;
 
-    public User(){
-        id = -1;
-    }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -96,7 +93,7 @@ public class User implements Serializable {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     User user = (User) o;
-    return id == user.id &&
+    return id.equals(user.id) &&
             Objects.equals(login, user.login) &&
             Objects.equals(password, user.password) &&
             Objects.equals(firstName, user.firstName) &&

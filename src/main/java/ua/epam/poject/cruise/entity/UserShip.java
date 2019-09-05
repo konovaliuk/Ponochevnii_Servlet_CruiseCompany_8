@@ -6,36 +6,36 @@ import java.util.Objects;
 
 public class UserShip implements Serializable {
 
-  private static final long serialVersionUID = 4080231475093746548L;
+  private static final long serialVersionUID = -8580238139874789280L;
 
-  private int id;
-  private int shipId;
-  private int userId;
+  private Long id = -1L;
+  private Long shipId;
+  private Long userId;
 
 
-  public int getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
 
-  public int getShipId() {
+  public Long getShipId() {
     return shipId;
   }
 
-  public void setShipId(int shipId) {
+  public void setShipId(Long shipId) {
     this.shipId = shipId;
   }
 
 
-  public int getUserId() {
+  public Long getUserId() {
     return userId;
   }
 
-  public void setUserId(int userId) {
+  public void setUserId(Long userId) {
     this.userId = userId;
   }
 
@@ -44,9 +44,9 @@ public class UserShip implements Serializable {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     UserShip userShip = (UserShip) o;
-    return id == userShip.id &&
-            shipId == userShip.shipId &&
-            userId == userShip.userId;
+    return id.equals(userShip.id) &&
+            shipId.equals(userShip.shipId) &&
+            userId.equals(userShip.userId);
   }
 
   @Override

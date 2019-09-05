@@ -1,10 +1,12 @@
 package ua.epam.poject.cruise.commands;
 
+import ua.epam.poject.cruise.resource.ConfigurationManager;
+
 import javax.servlet.http.HttpServletRequest;
 
 public class Pay implements Action {
     @Override
     public String execute(HttpServletRequest request) {
-        return "/WEB-INF/jsp/pay.jsp";
+        return ConfigurationManager.getProperty("path.page.pay");
     }
 }

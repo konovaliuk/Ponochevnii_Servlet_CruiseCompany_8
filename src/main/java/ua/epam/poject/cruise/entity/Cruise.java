@@ -6,30 +6,30 @@ import java.util.Objects;
 
 public class Cruise implements Serializable {
 
-    private static final long serialVersionUID = 6222084818500985259L;
+    private static final long serialVersionUID = 8553876143248976405L;
 
-    private int id;
-    private int shipId;
+    private Long id = -1L;
+    private Long shipId;
     private double priceFirstClass;
     private double priceSecondClass;
     private double priceThirdClass;
     private double priceFourthClass;
 
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
 
-    public int getShipId() {
+    public Long getShipId() {
         return shipId;
     }
 
-    public void setShipId(int shipId) {
+    public void setShipId(Long shipId) {
         this.shipId = shipId;
     }
 
@@ -74,8 +74,8 @@ public class Cruise implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cruise cruise = (Cruise) o;
-        return id == cruise.id &&
-                shipId == cruise.shipId &&
+        return id.equals(cruise.id) &&
+                shipId.equals(cruise.shipId) &&
                 Double.compare(cruise.priceFirstClass, priceFirstClass) == 0 &&
                 Double.compare(cruise.priceSecondClass, priceSecondClass) == 0 &&
                 Double.compare(cruise.priceThirdClass, priceThirdClass) == 0 &&

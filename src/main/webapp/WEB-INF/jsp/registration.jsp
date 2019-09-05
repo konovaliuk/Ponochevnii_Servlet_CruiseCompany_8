@@ -33,6 +33,8 @@
     <br/><input type="text" name="login" value="${param.login}" autofocus/>
     <br/><br/>Password:
     <br/><input type="password" name="password" value="${param.password}"/>
+    <br/><br/>Password (duplicate):
+    <br/><input type="password" name="password2" value="${param.password2}"/>
     <br/><br/>First name:
     <br/><input type="text" name="firstname" value="${param.firstname}"/>
     <br/><br/>Second name:

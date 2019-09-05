@@ -17,12 +17,11 @@ public class ConnectionPool {
     private ConnectionPool() {
     }
 
-    public static Context ctx;
     private static DataSource ds;
 
     static {
         try {
-            ctx = new InitialContext();
+            Context ctx = new InitialContext();
             ds = (DataSource) ctx.lookup("java:comp/env/jdbc/mypool");
         } catch (NamingException e) {
             LOGGER.error(e);

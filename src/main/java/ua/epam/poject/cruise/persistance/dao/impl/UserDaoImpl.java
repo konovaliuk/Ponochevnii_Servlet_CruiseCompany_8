@@ -48,10 +48,10 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User findById(int id) throws GeneralCheckedException {
+    public User findById(Long id) throws GeneralCheckedException {
         User user = new User();
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)){
-            preparedStatement.setInt(1, id);
+            preparedStatement.setLong(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next())
                 user = createUser(rs);
@@ -64,6 +64,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User findByLoginAndPassword(String login, String password) throws GeneralCheckedException {
+        LOGGER.error("user logined");// TODO не забыть удалить
         User user = new User();
         if(login == null || password == null)
             return user;
@@ -88,7 +89,7 @@ public class UserDaoImpl implements UserDao {
 
     private User createUser(ResultSet rs) throws SQLException {
         User user = new User();
-        user.setId(rs.getInt("id"));
+        user.setId(rs.getLong("id"));
         user.setLogin(rs.getString("login"));
         user.setPassword(rs.getString("password"));
         user.setFirstName(rs.getString("first_name"));
@@ -96,7 +97,7 @@ public class UserDaoImpl implements UserDao {
         user.setEmail(rs.getString("email"));
         user.setTel(rs.getString("tel"));
         Role role = new Role();
-        role.setId(rs.getInt("role_id"));
+        role.setId(rs.getLong("role_id"));
         role.setRole(rs.getString("role"));
         user.setRole(role);
         return user;

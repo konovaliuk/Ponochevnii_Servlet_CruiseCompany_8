@@ -6,22 +6,22 @@ import java.util.Objects;
 
 public class Ship implements Serializable {
 
-    private static final long serialVersionUID = 7166590378846917289L;
+    private static final long serialVersionUID = 5204252774794816827L;
 
-    private int id;
+    private Long id = -1L;
     private String shipName;
-    private int nStaff;
-    private int nFirstClass;
-    private int nSecondClass;
-    private int nThirdClass;
-    private int nFourthClass;
+    private Long nStaff;
+    private Long nFirstClass;
+    private Long nSecondClass;
+    private Long nThirdClass;
+    private Long nFourthClass;
 
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -35,47 +35,47 @@ public class Ship implements Serializable {
     }
 
 
-    public int getNStaff() {
+    public Long getNStaff() {
         return nStaff;
     }
 
-    public void setNStaff(int nStaff) {
+    public void setNStaff(Long nStaff) {
         this.nStaff = nStaff;
     }
 
 
-    public int getNFirstClass() {
+    public Long getNFirstClass() {
         return nFirstClass;
     }
 
-    public void setNFirstClass(int nFirstClass) {
+    public void setNFirstClass(Long nFirstClass) {
         this.nFirstClass = nFirstClass;
     }
 
 
-    public int getNSecondClass() {
+    public Long getNSecondClass() {
         return nSecondClass;
     }
 
-    public void setNSecondClass(int nSecondClass) {
+    public void setNSecondClass(Long nSecondClass) {
         this.nSecondClass = nSecondClass;
     }
 
 
-    public int getNThirdClass() {
+    public Long getNThirdClass() {
         return nThirdClass;
     }
 
-    public void setNThirdClass(int nThirdClass) {
+    public void setNThirdClass(Long nThirdClass) {
         this.nThirdClass = nThirdClass;
     }
 
 
-    public int getNFourthClass() {
+    public Long getNFourthClass() {
         return nFourthClass;
     }
 
-    public void setNFourthClass(int nFourthClass) {
+    public void setNFourthClass(Long nFourthClass) {
         this.nFourthClass = nFourthClass;
     }
 
@@ -84,12 +84,12 @@ public class Ship implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Ship ship = (Ship) o;
-        return id == ship.id &&
-                nStaff == ship.nStaff &&
-                nFirstClass == ship.nFirstClass &&
-                nSecondClass == ship.nSecondClass &&
-                nThirdClass == ship.nThirdClass &&
-                nFourthClass == ship.nFourthClass &&
+        return id.equals(ship.id) &&
+                nStaff.equals(ship.nStaff) &&
+                nFirstClass.equals(ship.nFirstClass) &&
+                nSecondClass.equals(ship.nSecondClass) &&
+                nThirdClass.equals(ship.nThirdClass) &&
+                nFourthClass.equals(ship.nFourthClass) &&
                 Objects.equals(shipName, ship.shipName);
     }
 

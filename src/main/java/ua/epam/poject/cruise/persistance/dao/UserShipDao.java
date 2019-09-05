@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface UserShipDao {
 
-    int create(int shipId, int userId) throws GeneralCheckedException;
+    int create(Long shipId, Long userId) throws GeneralCheckedException;
 
-    List<UserShip> findByUserId(int userId) throws GeneralCheckedException;
+    List<UserShip> findByUserId(Long userId) throws GeneralCheckedException;
 
-    List<UserShip> findByShipId(int shipId) throws GeneralCheckedException;
+    List<UserShip> findByShipId(Long shipId) throws GeneralCheckedException;
 
     int delete(UserShip userShip) throws GeneralCheckedException;
 

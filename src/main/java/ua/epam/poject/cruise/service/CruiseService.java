@@ -2,11 +2,8 @@ package ua.epam.poject.cruise.service;
 
 import org.apache.log4j.Logger;
 import ua.epam.poject.cruise.entity.Cruise;
-import ua.epam.poject.cruise.entity.CruisePorts;
-import ua.epam.poject.cruise.entity.Ship;
 import ua.epam.poject.cruise.entity.printableentity.PrintableCruise;
 import ua.epam.poject.cruise.exceptions.GeneralCheckedException;
-import ua.epam.poject.cruise.persistance.dao.CruiseDao;
 import ua.epam.poject.cruise.persistance.dao.PrintableCruiseDao;
 import ua.epam.poject.cruise.persistance.datasource.AbstractDaoFactory;
 import ua.epam.poject.cruise.persistance.datasource.Atomizer;
@@ -20,23 +17,33 @@ public class CruiseService {
 
     private static final Logger LOGGER = Logger.getLogger(CruiseService.class);
 
-    private AbstractDaoFactory daoFactory = new MySqlDaoFactory();
+    private AbstractDaoFactory daoFactory = MySqlDaoFactory.getInstance();
 
-    void createNewCruise(Ship ship, List<CruisePorts> cruisePortsList, double priceFirstClass, double priceSecondClass, double priceThirdClass, double priceFourthClass){
-        try (Atomizer atomizer = AtomizerFactory.getAtomizer()){
+    // List<CruisePorts> cruisePortsList,
+    public int createCruise(Long selectedShip, double priceFirstClass, double priceSecondClass, double priceThirdClass, double priceFourthClass) {
+        try (Atomizer atomizer = AtomizerFactory.getAtomizer()) {
 
-                // создать новый круиз
-                // сделать записи в таблицу CruisePorts
-
-
+            // TODO создать новый круиз
+            // TODO сделать записи в таблицу CruisePorts
+            // TODO ...............
+            Cruise cruise = new Cruise();
+            cruise.setShipId(selectedShip);
+            cruise.setPriceFirstClass(priceFirstClass);
+            cruise.setPriceSecondClass(priceSecondClass);
+            cruise.setPriceThirdClass(priceThirdClass);
+            cruise.setPriceFourthClass(priceFourthClass);
 
             atomizer.recordChanges();
-        }  catch (Exception e) {
+
+            return 1;
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
+        return 0;
     }
 
-   public List<PrintableCruise> viewAllCruises(){
+    public List<PrintableCruise> viewAllCruises() {
         List<PrintableCruise> list = new ArrayList<>();
         PrintableCruiseDao printableCruiseDao = null;
         try {
@@ -46,9 +53,13 @@ public class CruiseService {
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);
         } finally {
-            if(printableCruiseDao != null)
+            if (printableCruiseDao != null)
                 printableCruiseDao.close();
         }
         return list;
     }
+
+//    public Object viewAllBonusesInEachCruise(User manager) {
+//
+//    }
 }

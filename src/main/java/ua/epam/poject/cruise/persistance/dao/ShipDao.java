@@ -11,7 +11,7 @@ public interface ShipDao {
 
     List<Ship> findAll() throws GeneralCheckedException;
 
-    Ship findById(int id) throws GeneralCheckedException;
+    Ship findById(Long id) throws GeneralCheckedException;
 
     int update(Ship ship) throws GeneralCheckedException;
 

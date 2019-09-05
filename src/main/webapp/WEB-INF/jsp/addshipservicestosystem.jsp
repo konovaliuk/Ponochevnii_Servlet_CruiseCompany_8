@@ -6,7 +6,7 @@
     <style>
         <%@include file="/resources/css/style.css"%>
     </style>
-    <title>Registration</title>
+    <title>Add ship services to system</title>
 </head>
 <body>
 
@@ -22,65 +22,42 @@
 </c:set>
 <jsp:include page="${hdr}"/>
 
-<h1 style="color: red">Cart.jsp</h1>
+<h1 style="color: red">addshipservicestosystem.jsp</h1>
 
 <div class="form-style-2">
 
+    <div class="form-style-2">
+        <div class="form-style-2-heading">
+            Add ship services to system
+        </div>
+        <br/>
+        <form name="addshipservicestosystemForm" method="post" action="/controller">
+            <input type="hidden" name="command" value="addshipservicestosystem"/>
+            <input type="hidden" name="addshipservicestosystemForm" value="addshipservicestosystemForm"/> Сервис:
+            <br/><input type="text" name="newServiseInSystem" value=""/>
+            <br/>
 
-
-
-
-
-<p>&nbsp;</p>
-<p>add ship service to db:</p>
-<p><input type="text"></p>
-<p>&nbsp;</p>
-<p>create button</p>
-<form action="/command" method="post" name="createButton">&nbsp;</form>
-<p>&nbsp;</p>
-
-
-
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-<div class="form-style-2">
-    <div class="form-style-2-heading">
-        Please Sign Up!
+            <br/> <input type="submit" value="Create service"/>
+            <br/>
+            <p style="color: red">${errorMessage}</p>
+        </form>
     </div>
-    <br/>
-<form name="registrationForm" method="POST" action="/controller">
-    <input type="hidden" name="command" value="signup"/> Login:
-    <br/><input type="text" name="login" value="${param.login}" autofocus/>
-    <br/><br/>Password:
-    <br/><input type="password" name="password" value="${param.password}"/>
-    <br/><br/>First name:
-    <br/><input type="text" name="firstname" value="${param.firstname}"/>
-    <br/><br/>Second name:
-    <br/><input type="text" name="secondname" value="${param.secondname}"/>
-    <br/><br/>Email:
-    <br/><input type="email" name="email" value="${param.email}"/>
-    <br/><br/>Telephone:
-    <br/><input type="tel" name="tel" value="${param.tel}"/>
-    <br/>
-    ${registrationMessage}
 
-    <br/> <input type="submit" value="Registration"/>
-    <br/> ${errorMessage}
-</form>
+
 </div>
+
+<br/><br/><br/><br/><br/>
+<table border="1" cellpadding="3" cellspacing="0" >
+    <thead>
+    <tr>
+        <td>Service name</td>
+    </tr>
+    </thead>
+    <c:forEach var="servicefromlist" items="${allServices}">
+    <tr>
+        <td><c:out value="${servicefromlist.serviceName}"/></td>
+    </tr>
+    </c:forEach>
 
 </body>
-</html>       
+</html>

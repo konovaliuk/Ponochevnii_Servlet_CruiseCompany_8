@@ -21,23 +21,22 @@
 </c:set>
 <jsp:include page="${hdr}"/>
 
-<h1 style="color: red">MyAccount.jsp</h1>
-customer
+<h1 style="color: red">myaccount.jsp</h1>
 
 <div class="form-style-2">
     <div class="form-style-2-heading">
-
+        Change account
     </div>
     <br/>
 
-    <form name="editaccountCustomer" method="POST" action="/controller">
+    <form name="editaccount" method="POST" action="/controller">
         <input type="hidden" name="command" value="editaccount"/>
         <br/> <input type="submit" value="Edit account"/>
     </form>
 
+    <br/>
+    <p style="color: red">${errorMessage}</p>
 
-    <br/> ${errorMessage}
-    </form>
 </div>
 
 

@@ -6,36 +6,36 @@ import java.util.Objects;
 
 public class TicketExcursion implements Serializable {
 
-    private static final long serialVersionUID = -5553719354594101519L;
+    private static final long serialVersionUID = 5481435514441179317L;
 
-    private int id;
-    private int excurisionId;
-    private int ticketId;
+    private Long id = -1L;
+    private Long excurisionId;
+    private Long ticketId;
 
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
 
-    public int getExcurisionId() {
+    public Long getExcurisionId() {
         return excurisionId;
     }
 
-    public void setExcurisionId(int excurisionId) {
+    public void setExcurisionId(Long excurisionId) {
         this.excurisionId = excurisionId;
     }
 
 
-    public int getTicketId() {
+    public Long getTicketId() {
         return ticketId;
     }
 
-    public void setTicketId(int ticketId) {
+    public void setTicketId(Long ticketId) {
         this.ticketId = ticketId;
     }
 
@@ -44,9 +44,9 @@ public class TicketExcursion implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TicketExcursion that = (TicketExcursion) o;
-        return id == that.id &&
-                excurisionId == that.excurisionId &&
-                ticketId == that.ticketId;
+        return id.equals(that.id) &&
+                excurisionId.equals(that.excurisionId) &&
+                ticketId.equals(that.ticketId);
     }
 
     @Override

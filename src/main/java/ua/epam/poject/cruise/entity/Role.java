@@ -7,28 +7,28 @@ import java.util.Objects;
 
 public class Role implements Serializable {
 
-    private static final long serialVersionUID = 7856128446527503104L;
+    private static final long serialVersionUID = 3570444846302102033L;
+
+    private Long id = -1L;
+    private String role;
 
     public static final String ROLE_ADMIN = "admin";
     public static final String ROLE_MANAGER = "manager";
     public static final String ROLE_CUSTOMER = "customer";
+//
+//    public Role(){}
+//
+//    public Role(Long id, String role) {
+//        this.id = id;
+//        this.role = role;
+//    }
 
-    private int id;
-    private String role;
 
-    public Role() {
-    }
-
-    public Role(int id, String role) {
-        this.id = id;
-        this.role = role;
-    }
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -46,7 +46,7 @@ public class Role implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Role role1 = (Role) o;
-        return id == role1.id &&
+        return id.equals(role1.id) &&
                 Objects.equals(role, role1.role);
     }
 

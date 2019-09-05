@@ -46,10 +46,10 @@ public class PortDaoImpl implements PortDao {
     }
 
     @Override
-    public Port findById(int id) throws GeneralCheckedException {
+    public Port findById(Long id) throws GeneralCheckedException {
         Port port = new Port();
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)){
-            preparedStatement.setInt(1, id);
+            preparedStatement.setLong(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next())
                 return createPort(rs);
@@ -67,7 +67,7 @@ public class PortDaoImpl implements PortDao {
 
     private Port createPort(ResultSet rs) throws SQLException {
         Port port = new Port();
-        port.setId(rs.getInt("id"));
+        port.setId(rs.getLong("id"));
         port.setCountry(rs.getString("country"));
         port.setCity(rs.getString("city"));
         return port;

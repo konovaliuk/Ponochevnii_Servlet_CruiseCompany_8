@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface TicketExcursionDao {
 
-    int create(int ticketId, int excursionId) throws GeneralCheckedException;
+    int create(Long ticketId, Long excursionId) throws GeneralCheckedException;
 
-    List<TicketExcursion> findByTicketId(int id) throws GeneralCheckedException;
+    List<TicketExcursion> findByTicketId(Long id) throws GeneralCheckedException;
 
     void close();
 }

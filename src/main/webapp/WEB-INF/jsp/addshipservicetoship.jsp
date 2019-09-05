@@ -6,7 +6,7 @@
     <style>
         <%@include file="/resources/css/style.css"%>
     </style>
-    <title>Registration</title>
+    <title>Add service to ship</title>
 </head>
 <body>
 
@@ -22,65 +22,93 @@
 </c:set>
 <jsp:include page="${hdr}"/>
 
-<h1 style="color: red">Cart.jsp</h1>
+<h1 style="color: red">addshipservicetoship.jsp</h1>
 
 <div class="form-style-2">
 
-
-
-
-
-
-<p>&nbsp;</p>
-<p>add ship service to db:</p>
-<p><input type="text"></p>
-<p>&nbsp;</p>
-<p>create button</p>
-<form action="/command" method="post" name="createButton">&nbsp;</form>
-<p>&nbsp;</p>
-
-
-
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-<div class="form-style-2">
     <div class="form-style-2-heading">
-        Please Sign Up!
+        Add service to ship or create new service in system
     </div>
-    <br/>
-<form name="registrationForm" method="POST" action="/controller">
-    <input type="hidden" name="command" value="signup"/> Login:
-    <br/><input type="text" name="login" value="${param.login}" autofocus/>
-    <br/><br/>Password:
-    <br/><input type="password" name="password" value="${param.password}"/>
-    <br/><br/>First name:
-    <br/><input type="text" name="firstname" value="${param.firstname}"/>
-    <br/><br/>Second name:
-    <br/><input type="text" name="secondname" value="${param.secondname}"/>
-    <br/><br/>Email:
-    <br/><input type="email" name="email" value="${param.email}"/>
-    <br/><br/>Telephone:
-    <br/><input type="tel" name="tel" value="${param.tel}"/>
-    <br/>
-    ${registrationMessage}
 
-    <br/> <input type="submit" value="Registration"/>
-    <br/> ${errorMessage}
+    <form name="selectshipservicesForm" method="post" action="/controller">
+        <input type="hidden" name="command" value="addshipservicetoship">
+        <input type="hidden" name="selectshipservicesForm" value="selectshipservicesForm">
+        <select name="selectedship">
+            <c:if test="${sship == null}">
+                <option value="">Please select the ship</option>
+            </c:if>
+            <c:if test="${sship != null}">
+                <option value="${sship.id}">${sship.id}. ${sship.shipName}</option>
+            </c:if>
+            <c:forEach var="shipn" items="${allShips}">
+                <option value="${shipn.id}">${shipn.id}. ${shipn.shipName}</option>
+            </c:forEach>
+        </select>
+        <br/><br/> <input type="submit" value="Select ship"/>
+        <br/><br/><br/><br/>
+
+
+        <select name="selectedservice">
+            <option value="">Please select the service</option>
+            <c:forEach var="servicen" items="${allServicesInSystem}">
+                <option value="${servicen.id}">${servicen.serviceName}</option>
+            </c:forEach>
+        </select>
+        <br/><br/>
+        <label><input type="radio" name="payable" value="0" checked> Free</label>
+        <label><input type="radio" name="payable" value="1"> Payable</label>
+        <br/>
+        <br/> <input type="submit" value="Add service to ship"/>
+        <br/>
+        <p style="color: red">${errorMessage}</p>
+    </form>
+
+
+<br/><br/><br/><br/>
+<form name="addshipservicestosystemForm" method="post" action="/controller">
+    <input type="hidden" name="command" value="addshipservicestosystem"/>
+    <br/> <input type="submit" value="Create service"/>
 </form>
 </div>
 
+
+
+<br/><br/><br/><br/><br/>
+<c:if test="${allServicesOnSelectedShip != null}">
+
+<div class="form-style-2">
+    <div class="form-style-2-heading">
+        Services that are on this ship
+    </div>
+
+
+    <form method="post" name="deleteservicesfromshipForm" action="/command">
+        <input type="hidden" name="command" value="deleteshipservicefromship">
+        <input type="hidden" name="selectedship" value="${sship.id}">
+
+        <table border="1" cellpadding="3" cellspacing="0">
+            <thead>
+            <tr>
+                <td>Service name</td>
+                <td>Payable</td>
+                <td>Delete</td>
+            </tr>
+            </thead>
+            <c:forEach var="servicefromlist" items="${allServicesOnSelectedShip}">
+                <tr>
+                    <td><c:out value="${servicefromlist.serviceName}"/></td>
+                    <td>
+                        <c:if test="${servicefromlist.payable == 0}"> <c:out value="free"/> </c:if>
+                        <c:if test="${servicefromlist.payable != 0}"> <c:out value="payable"/> </c:if>
+                    </td>
+                    <td><input type="checkbox" name="shipservice" value="${servicefromlist.serviceId}"></td>
+                </tr>
+            </c:forEach>
+        </table>
+        <br/><input type="submit" value="Удалить сервисы с корабля">
+    </form>
+
+    </c:if>
+</div>
 </body>
-</html>       
+</html>

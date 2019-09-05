@@ -6,18 +6,18 @@ import java.util.Objects;
 
 public class Port implements Serializable {
 
-  private static final long serialVersionUID = 8184595610979825187L;
+    private static final long serialVersionUID = 3172548908180446096L;
 
-  private int id;
+    private Long id = -1L;
     private String country;
     private String city;
 
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -44,7 +44,7 @@ public class Port implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Port port = (Port) o;
-        return id == port.id &&
+        return id.equals(port.id) &&
                 Objects.equals(country, port.country) &&
                 Objects.equals(city, port.city);
     }

@@ -3,13 +3,26 @@ package ua.epam.poject.cruise.persistance.datasource.impl;
 
 import org.apache.log4j.Logger;
 import ua.epam.poject.cruise.exceptions.GeneralCheckedException;
+import ua.epam.poject.cruise.persistance.dao.PrintableServiceOnShipDao;
 import ua.epam.poject.cruise.persistance.dao.impl.*;
+import ua.epam.poject.cruise.persistance.dao.impl.printable.PrintableCruiseDaoImpl;
+import ua.epam.poject.cruise.persistance.dao.impl.printable.PrintableServiceOnShipDaoImpl;
 import ua.epam.poject.cruise.persistance.datasource.AbstractDaoFactory;
 import ua.epam.poject.cruise.persistance.datasource.Atomizer;
 
 import java.sql.Connection;
 
 public class MySqlDaoFactory extends AbstractDaoFactory {
+
+    private static MySqlDaoFactory instance;
+    private MySqlDaoFactory(){}
+
+    public static MySqlDaoFactory getInstance(){
+        if(instance == null){
+            instance = new MySqlDaoFactory();
+        }
+        return instance;
+    }
 
     private static final Logger LOGGER = Logger.getLogger(MySqlDaoFactory.class);
 
@@ -24,7 +37,7 @@ public class MySqlDaoFactory extends AbstractDaoFactory {
     }
 
     @Override
-    public CruiseDaoImpl getUsersDaoImpl(Atomizer atomizer) {
+    public CruiseDaoImpl getCruiseDaoImpl(Atomizer atomizer) {
         return new CruiseDaoImpl((Connection) atomizer.get());
     }
 
@@ -76,7 +89,7 @@ public class MySqlDaoFactory extends AbstractDaoFactory {
     @Override
     public RoleDaoImpl getRoleDaoImpl() throws GeneralCheckedException {
         try {
-            return RoleDaoImpl.getInstance(ConnectionPool.getConnection());
+            return new RoleDaoImpl(ConnectionPool.getConnection());
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);
             throw new GeneralCheckedException("Unsuccessful work with the database ", e);
@@ -85,7 +98,7 @@ public class MySqlDaoFactory extends AbstractDaoFactory {
 
     @Override
     public RoleDaoImpl getRoleDaoImpl(Atomizer atomizer) {
-        return RoleDaoImpl.getInstance((Connection) atomizer.get());
+        return new RoleDaoImpl((Connection) atomizer.get());
     }
 
     @Override
@@ -119,9 +132,9 @@ public class MySqlDaoFactory extends AbstractDaoFactory {
     }
 
     @Override
-    public ShipServiceDaoImpl getShipServiceDaoImpl() throws GeneralCheckedException {
+    public ShipserviceDaoImpl getShipserviceDaoImpl() throws GeneralCheckedException {
         try {
-            return new ShipServiceDaoImpl(ConnectionPool.getConnection());
+            return new ShipserviceDaoImpl(ConnectionPool.getConnection());
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);
             throw new GeneralCheckedException("Unsuccessful work with the database ", e);
@@ -129,8 +142,8 @@ public class MySqlDaoFactory extends AbstractDaoFactory {
     }
 
     @Override
-    public ShipServiceDaoImpl getShipServiceDaoImpl(Atomizer atomizer) {
-        return new ShipServiceDaoImpl((Connection) atomizer.get());
+    public ShipserviceDaoImpl getShipserviceDaoImpl(Atomizer atomizer) {
+        return new ShipserviceDaoImpl((Connection) atomizer.get());
     }
 
     @Override
@@ -212,6 +225,16 @@ public class MySqlDaoFactory extends AbstractDaoFactory {
     public PrintableCruiseDaoImpl getPrintableCruiseDaoImpl() throws GeneralCheckedException {
         try {
             return new PrintableCruiseDaoImpl(ConnectionPool.getConnection());
+        } catch (GeneralCheckedException e) {
+            LOGGER.error(e);
+            throw new GeneralCheckedException("Unsuccessful work with the database ", e);
+        }
+    }
+
+    @Override
+    public PrintableServiceOnShipDao getPrintableServiceOnShipDao() throws GeneralCheckedException {
+        try {
+            return new PrintableServiceOnShipDaoImpl(ConnectionPool.getConnection());
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);
             throw new GeneralCheckedException("Unsuccessful work with the database ", e);

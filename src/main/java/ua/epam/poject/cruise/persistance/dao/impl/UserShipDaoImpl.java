@@ -29,15 +29,15 @@ public class UserShipDaoImpl implements UserShipDao {
     }
 
     @Override
-    public int create(int shipId, int userId) throws GeneralCheckedException {
+    public int create(Long shipId, Long userId) throws GeneralCheckedException {
         return SQLExecutor.executeInsertUpdateDelete(connection, CREATE, shipId, userId);
     }
 
     @Override
-    public List<UserShip> findByUserId(int userId) throws GeneralCheckedException {
+    public List<UserShip> findByUserId(Long userId) throws GeneralCheckedException {
         List<UserShip> userShips = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_USER_ID)){
-            preparedStatement.setInt(1, userId);
+            preparedStatement.setLong(1, userId);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next())
                 userShips.add(createUserShip(rs));
@@ -49,10 +49,10 @@ public class UserShipDaoImpl implements UserShipDao {
     }
 
     @Override
-    public List<UserShip> findByShipId(int shipId) throws GeneralCheckedException {
+    public List<UserShip> findByShipId(Long shipId) throws GeneralCheckedException {
         List<UserShip> userShips = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_SHIP_ID)){
-            preparedStatement.setInt(1, shipId);
+            preparedStatement.setLong(1, shipId);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next())
                 userShips.add(createUserShip(rs));
@@ -70,9 +70,9 @@ public class UserShipDaoImpl implements UserShipDao {
 
     private UserShip createUserShip(ResultSet rs) throws SQLException {
         UserShip userShip = new UserShip();
-        userShip.setId(rs.getInt("id"));
-        userShip.setShipId(rs.getInt("ship_id"));
-        userShip.setUserId(rs.getInt("user_id"));
+        userShip.setId(rs.getLong("id"));
+        userShip.setShipId(rs.getLong("ship_id"));
+        userShip.setUserId(rs.getLong("user_id"));
         return userShip;
     }
 

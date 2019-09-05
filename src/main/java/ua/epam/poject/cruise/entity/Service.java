@@ -6,17 +6,16 @@ import java.util.Objects;
 
 public class Service implements Serializable {
 
-    private static final long serialVersionUID = -1344770980255103859L;
+    private static final long serialVersionUID = 1863123368179992374L;
 
-    private int id;
+    private Long id = -1L;
     private String serviceName;
 
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -34,7 +33,7 @@ public class Service implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Service service = (Service) o;
-        return id == service.id &&
+        return id.equals(service.id) &&
                 Objects.equals(serviceName, service.serviceName);
     }
 

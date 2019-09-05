@@ -4,48 +4,47 @@ package ua.epam.poject.cruise.entity;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class ShipService implements Serializable {
+public class Shipservice implements Serializable {
 
-    private static final long serialVersionUID = 7261858530548175827L;
+    private static final long serialVersionUID = -1089820551304483447L;
 
-    private int id;
-    private int shipId;
-    private int payable;
-    private int serviceId;
+    private Long id = -1L;
+    private Long shipId;
+    private Integer payable;
+    private Long serviceId;
 
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
 
-    public int getShipId() {
+    public Long getShipId() {
         return shipId;
     }
 
-    public void setShipId(int shipId) {
+    public void setShipId(Long shipId) {
         this.shipId = shipId;
     }
 
 
-    public int getPayable() {
+    public Integer getPayable() {
         return payable;
     }
 
-    public void setPayable(int payable) {
+    public void setPayable(Integer payable) {
         this.payable = payable;
     }
 
 
-    public int getServiceId() {
+    public Long getServiceId() {
         return serviceId;
     }
 
-    public void setServiceId(int serviceId) {
+    public void setServiceId(Long serviceId) {
         this.serviceId = serviceId;
     }
 
@@ -53,11 +52,11 @@ public class ShipService implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ShipService that = (ShipService) o;
-        return id == that.id &&
-                shipId == that.shipId &&
-                payable == that.payable &&
-                serviceId == that.serviceId;
+        Shipservice that = (Shipservice) o;
+        return id.equals(that.id) &&
+                shipId.equals(that.shipId) &&
+                payable.equals(that.payable) &&
+                serviceId.equals(that.serviceId);
     }
 
     @Override

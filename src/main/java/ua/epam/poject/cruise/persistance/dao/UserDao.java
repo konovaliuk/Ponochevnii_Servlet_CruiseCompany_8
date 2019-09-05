@@ -28,7 +28,7 @@ public interface UserDao {
      * @param id
      * @return User of null if user not found
      */
-    User findById(int id) throws GeneralCheckedException;
+    User findById(Long id) throws GeneralCheckedException;
 
 
     /**

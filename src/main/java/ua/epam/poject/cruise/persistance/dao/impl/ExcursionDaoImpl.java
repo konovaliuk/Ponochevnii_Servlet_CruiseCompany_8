@@ -46,10 +46,10 @@ public class ExcursionDaoImpl implements ExcursionDao {
     }
 
     @Override
-    public Excurision findById(int id) throws GeneralCheckedException {
+    public Excurision findById(Long id) throws GeneralCheckedException {
         Excurision excurision = new Excurision();
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)){
-            preparedStatement.setInt(1, id);
+            preparedStatement.setLong(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next())
                 excurision = createExcurision(rs);
@@ -67,11 +67,11 @@ public class ExcursionDaoImpl implements ExcursionDao {
 
     private Excurision createExcurision(ResultSet rs) throws SQLException {
         Excurision excurision = new Excurision();
-        excurision.setId(rs.getInt("id"));
+        excurision.setId(rs.getLong("id"));
         excurision.setExcursionName(rs.getString("excursion_name"));
-        excurision.setPrice(rs.getInt("price"));
+        excurision.setPrice(rs.getDouble("price"));
         excurision.setDescription(rs.getString("description"));
-        excurision.setPortId(rs.getInt("port_id"));
+        excurision.setPortId(rs.getLong("port_id"));
         return excurision;
     }
 

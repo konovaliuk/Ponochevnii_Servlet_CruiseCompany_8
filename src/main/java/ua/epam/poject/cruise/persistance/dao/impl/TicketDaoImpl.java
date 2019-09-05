@@ -46,10 +46,10 @@ public class TicketDaoImpl implements TicketDao {
     }
 
     @Override
-    public Ticket findById(int id) throws GeneralCheckedException {
+    public Ticket findById(Long id) throws GeneralCheckedException {
         Ticket ticket = new Ticket();
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)){
-            preparedStatement.setInt(1, id);
+            preparedStatement.setLong(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next())
                 return createTicket(rs);
@@ -67,10 +67,10 @@ public class TicketDaoImpl implements TicketDao {
 
     private Ticket createTicket(ResultSet rs) throws SQLException {
         Ticket ticket = new Ticket();
-        ticket.setId(rs.getInt("id"));
-        ticket.setUserId(rs.getInt("user_id"));
-        ticket.setCruiseId(rs.getInt("cruise_id"));
-        ticket.setTicketclassId(rs.getInt("ticketclass_id"));
+        ticket.setId(rs.getLong("id"));
+        ticket.setUserId(rs.getLong("user_id"));
+        ticket.setCruiseId(rs.getLong("cruise_id"));
+        ticket.setTicketclassId(rs.getLong("ticketclass_id"));
         return ticket;
     }
 

@@ -66,11 +66,11 @@
 
         <form name="addservicestoshipAdmin" method="POST" action="/controller">
             <input type="hidden" name="command" value="addshipservicetoship"/>
-            <br/> <input type="submit" value="Add services to ship"/>
+            <br/> <input type="submit" value="Add/remove services to ship"/>
         </form>
 
 
-            <br/> ${errorMessage}
+            <br/> <p style="color: red">${errorMessage}</p>
         </form>
     </div>
 

@@ -34,10 +34,10 @@ public class CruisePortsDaoImpl implements CruisePortsDao {
     }
 
     @Override
-    public List<CruisePorts> findAllByIdCruise(int idCruise) throws GeneralCheckedException {
+    public List<CruisePorts> findAllByIdCruise(Long idCruise) throws GeneralCheckedException {
         List<CruisePorts> cruisePorts = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID_CRUISE)){
-            preparedStatement.setInt(1, idCruise);
+            preparedStatement.setLong(1, idCruise);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next())
                 cruisePorts.add(createCruisePorts(rs));
@@ -55,11 +55,11 @@ public class CruisePortsDaoImpl implements CruisePortsDao {
 
     private CruisePorts createCruisePorts(ResultSet rs) throws SQLException {
         CruisePorts cruisePorts = new CruisePorts();
-        cruisePorts.setId(rs.getInt("id"));
+        cruisePorts.setId(rs.getLong("id"));
         cruisePorts.setDateIn(rs.getString("date_in"));
         cruisePorts.setDateOut(rs.getString("date_out"));
-        cruisePorts.setCruiseId(rs.getInt("cruise_id"));
-        cruisePorts.setPortId(rs.getInt("port_id"));
+        cruisePorts.setCruiseId(rs.getLong("cruise_id"));
+        cruisePorts.setPortId(rs.getLong("port_id"));
         return cruisePorts;
     }
 

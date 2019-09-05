@@ -11,7 +11,7 @@ public interface TicketDao {
 
     List<Ticket> findAll() throws GeneralCheckedException;
 
-    Ticket findById(int id) throws GeneralCheckedException;
+    Ticket findById(Long id) throws GeneralCheckedException;
 
     int update(Ticket ticket) throws GeneralCheckedException;
 

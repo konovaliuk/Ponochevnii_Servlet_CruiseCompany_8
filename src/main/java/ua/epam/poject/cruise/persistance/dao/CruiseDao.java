@@ -11,7 +11,9 @@ public interface CruiseDao {
 
     List<Cruise> findAll() throws GeneralCheckedException;
 
-    Cruise findById(int id) throws GeneralCheckedException;
+    Cruise findById(Long id) throws GeneralCheckedException;
+
+    List<Cruise> findAllByShipId(Long shipId) throws GeneralCheckedException;
 
     int update(Cruise cruise) throws GeneralCheckedException;
 

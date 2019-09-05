@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 import ua.epam.poject.cruise.entity.Ticketclass;
 import ua.epam.poject.cruise.exceptions.GeneralCheckedException;
 import ua.epam.poject.cruise.persistance.dao.TicketclassDao;
-import ua.epam.poject.cruise.persistance.datasource.impl.SQLExecutor;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -27,7 +26,7 @@ public class TicketclassDaoImpl implements TicketclassDao {
     @Override
     public List<Ticketclass> findAll() throws GeneralCheckedException {
         List<Ticketclass> ticketclasses = new ArrayList<>();
-        try (Statement statement = connection.createStatement()){
+        try (Statement statement = connection.createStatement()) {
             ResultSet rs = statement.executeQuery(FIND_ALL);
             while (rs.next())
                 ticketclasses.add(createTicketclass(rs));
@@ -39,10 +38,10 @@ public class TicketclassDaoImpl implements TicketclassDao {
     }
 
     @Override
-    public Ticketclass findById(int id) throws GeneralCheckedException {
+    public Ticketclass findById(Long id) throws GeneralCheckedException {
         Ticketclass ticketclass = new Ticketclass();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)){
-            preparedStatement.setInt(1, id);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
+            preparedStatement.setLong(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next())
                 return createTicketclass(rs);
@@ -56,7 +55,7 @@ public class TicketclassDaoImpl implements TicketclassDao {
     @Override
     public Ticketclass findByTicketclassName(String className) throws GeneralCheckedException {
         Ticketclass ticketclass = new Ticketclass();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_TICKET_CLASS_NAME)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_TICKET_CLASS_NAME)) {
             preparedStatement.setString(1, className);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next())
@@ -70,13 +69,13 @@ public class TicketclassDaoImpl implements TicketclassDao {
 
     private Ticketclass createTicketclass(ResultSet rs) throws SQLException {
         Ticketclass ticketclass = new Ticketclass();
-        ticketclass.setId(rs.getInt("id"));
+        ticketclass.setId(rs.getLong("id"));
         ticketclass.setTicketclassName(rs.getString("ticketclass_name"));
         return ticketclass;
     }
 
-    public void close(){
-        if(connection != null) {
+    public void close() {
+        if (connection != null) {
             try {
                 connection.close();
             } catch (SQLException e) {

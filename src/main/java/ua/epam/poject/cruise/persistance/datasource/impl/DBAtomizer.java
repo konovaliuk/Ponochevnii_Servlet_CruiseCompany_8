@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 import static java.sql.Connection.TRANSACTION_SERIALIZABLE;
 
-public class DBAtomizer<T extends Connection> implements Atomizer {
+public class DBAtomizer implements Atomizer {
 
     private static final Logger LOGGER = Logger.getLogger(DBAtomizer.class);
 

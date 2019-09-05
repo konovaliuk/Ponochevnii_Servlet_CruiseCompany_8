@@ -12,6 +12,8 @@ import java.io.IOException;
 
 public class Controller extends HttpServlet {
 
+    private static final long serialVersionUID = 4941185773431111964L;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html; charset=UTF-8");
@@ -46,25 +48,16 @@ public class Controller extends HttpServlet {
         System.out.println("req.getParameter(\"email\") = " + req.getParameter("email"));
         System.out.println("req.getParameter(\"tel\") = " + req.getParameter("tel"));
         System.out.println("req.getParameter(\"registrationForm\") = " + req.getParameter("registrationForm"));
+        System.out.println("req.getParameter(\"excursionName\") = " + req.getParameter("excursionName"));
+        System.out.println("req.getParameter(\"description\") = " + req.getParameter("description"));
+
 //
         processRequest(req, resp);
     }
 
-    private void processRequest2(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        System.out.println(" ++++++++++++++++++++++++++++++++++++++++++++++++     request.getParameter(\"command\")" + request.getParameter("command"));
-
-//        Action action = ActionStorage.getInstance().getAction(request);
-//        String page = action.execute(request);
-        String page = "/WEB-INF/HeaderRegistred.jsp";
-
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
-        dispatcher.forward(request, response);
-    }
-
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-            System.out.println(" ++++++++++++++++++++++++++++++++++++++++++++++++     request.getParameter(\"command\")" + request.getParameter("command"));
+        System.out.println(" ++++++++++++++++++++++++++++++++++++++++++++++++     request.getParameter(\"command\")" + request.getParameter("command"));
 
         ActionStorage actionStorage = ActionStorage.getInstance();
         Action action = actionStorage.getAction(request);

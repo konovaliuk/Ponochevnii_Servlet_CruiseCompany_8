@@ -27,63 +27,26 @@
 
 <br/>
 <h1 style="color: red">startPage.jsp</h1>
-Здесь будет содержимое страницы
-<br/><br/>
-<br/><a href="/signin">Перейти на signin.jsp</a>
-<br/><a href="/error">Перейти на error.jsp</a>
 
-
-<form method="post" action="/controller">
-    <input type="hidden" name="command" value="addshipservicestodb"/>
-    <input type="submit" value="add ship services to db">
-</form>
-
-<form method="post" action="/controller">
-    <input type="hidden" name="command" value="addshipservicestoship"/>
-    <input type="submit" value="add ship services to ship">
-</form>
-
-<form method="post" action="/controller">
-    <input type="hidden" name="command" value="viewcart"/>
-    <input type="submit" value="view cart">
-</form>
-
-<form method="post" action="/controller">
-    <input type="hidden" name="command" value="changeuserrole"/>
-    <input type="submit" value="change user role">
-</form>
-
-
-<form method="post" action="/controller">
-    <input type="hidden" name="command" value="createcruise"/>
-    <input type="submit" value="create cruise">
-</form>
-
-<form method="post" action="/controller">
-    <input type="hidden" name="command" value="createexcursion"/>
-    <input type="submit" value="create excursion">
-</form>
-
-<form method="post" action="/controller">
-    <input type="hidden" name="command" value="viewexcursioninports"/>
-    <input type="submit" value="view excursion in ports">
-</form>
-
-<form method="post" action="/controller">
-    <input type="hidden" name="command" value="add ship services to db"/>
-    <input type="submit" value="addshipservicestodb">
-</form>
 <hr/>
-<table border="1">
+<table border="1" cellpadding="3" cellspacing="0">
+    <thead><tr>
+        <td>Cruise id</td>
+        <td>Ship name</td>
+        <td>Country</td>
+        <td>City</td>
+        <td>Date in</td>
+        <td>Date out</td>
+    </tr>
+    </thead>
     <c:forEach var="cruisefromlist" items="${allCruises}">
-        <tr><td><c:out value="${cruisefromlist.shipName}"/></td>
-            <td><c:out value="${cruisefromlist.country}"/>
-            </td><td><c:out value="${cruisefromlist.city}"/></td>
+        <tr><td><c:out value="${cruisefromlist.cruiseId}"/></td>
+            <td><c:out value="${cruisefromlist.shipName}"/></td>
+            <td><c:out value="${cruisefromlist.country}"/></td>
+            <td><c:out value="${cruisefromlist.city}"/></td>
             <td><c:out value="${cruisefromlist.dateIn}"/></td>
             <td><c:out value="${cruisefromlist.dateOut}"/></td>
         </tr>
-
-
     </c:forEach>
 
 </table>

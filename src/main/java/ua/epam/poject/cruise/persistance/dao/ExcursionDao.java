@@ -11,7 +11,7 @@ public interface ExcursionDao {
 
     List<Excurision> findAll() throws GeneralCheckedException;
 
-    Excurision findById(int id) throws GeneralCheckedException;
+    Excurision findById(Long id) throws GeneralCheckedException;
 
     int update(Excurision excurision) throws GeneralCheckedException;
 

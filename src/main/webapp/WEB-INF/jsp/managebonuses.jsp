@@ -90,29 +90,31 @@
 
 <div class="form-style-2">
     <div class="form-style-2-heading">
-        Please Sign Up!
+        Login and phone must be unique!
     </div>
     <br/>
-<form name="registrationForm" method="POST" action="/controller">
-    <input type="hidden" name="command" value="signup"/> Login:
-    <br/><input type="text" name="login" value="${param.login}" autofocus/>
-    <br/><br/>Password:
-    <br/><input type="password" name="password" value="${param.password}"/>
-    <br/><br/>First name:
-    <br/><input type="text" name="firstname" value="${param.firstname}"/>
-    <br/><br/>Second name:
-    <br/><input type="text" name="secondname" value="${param.secondname}"/>
-    <br/><br/>Email:
-    <br/><input type="email" name="email" value="${param.email}"/>
-    <br/><br/>Telephone:
-    <br/><input type="tel" name="tel" value="${param.tel}"/>
-    <br/>
-    ${registrationMessage}
-
-    <br/> <input type="submit" value="Registration"/>
-    <br/> ${errorMessage}
-</form>
+    <form name="managebonusesForm" method="post" action="/controller">
+        <input type="hidden" name="command" value="managebonuses"/>
+        <input type="hidden" name="managebonusesForm" value="managebonusesForm"/> Login:
+        <br/><input type="text" name="login" value="${currenuser.login}" disabled/>
+        <br/><br/>Password:
+        <br/><input type="password" name="password" value=""/>
+        <br/><br/>First name:
+        <br/><input type="text" name="firstname" value="${currenuser.firstName}"/>
+        <br/><br/>Second name:
+        <br/><input type="text" name="secondname" value="${currenuser.secondName}"/>
+        <br/><br/>Email:
+        <br/><input type="email" name="email" value="${currenuser.email}"/>
+        <br/><br/>Telephone:
+        <br/><input type="tel" name="tel" value="${currenuser.tel}"/>
+        <br/>
+        ${editAccountMessage}
+        ${editAccountErrorMessage}
+        <br/> <input type="submit" value="Edit Account"/>
+        <br/>  <p style="color: red">${errorMessage}</p>
+    </form>
 </div>
+
 
 </body>
 </html>       

@@ -46,10 +46,10 @@ public class ShipDaoImpl implements ShipDao {
     }
 
     @Override
-    public Ship findById(int id) throws GeneralCheckedException {
+    public Ship findById(Long id) throws GeneralCheckedException {
         Ship ship = new Ship();
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)){
-            preparedStatement.setInt(1, id);
+            preparedStatement.setLong(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next())
                 ship = createShip(rs);
@@ -67,13 +67,13 @@ public class ShipDaoImpl implements ShipDao {
 
     private Ship createShip(ResultSet rs) throws SQLException {
         Ship ship = new Ship();
-        ship.setId(rs.getInt("id"));
+        ship.setId(rs.getLong("id"));
         ship.setShipName(rs.getString("ship_name"));
-        ship.setNStaff(rs.getInt("n_staff"));
-        ship.setNFirstClass(rs.getInt("n_first_class"));
-        ship.setNSecondClass(rs.getInt("n_second_class"));
-        ship.setNThirdClass(rs.getInt("n_third_class"));
-        ship.setNFourthClass(rs.getInt("n_fourth_class"));
+        ship.setNStaff(rs.getLong("n_staff"));
+        ship.setNFirstClass(rs.getLong("n_first_class"));
+        ship.setNSecondClass(rs.getLong("n_second_class"));
+        ship.setNThirdClass(rs.getLong("n_third_class"));
+        ship.setNFourthClass(rs.getLong("n_fourth_class"));
         return ship;
     }
 

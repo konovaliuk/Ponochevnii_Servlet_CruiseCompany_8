@@ -6,7 +6,7 @@
     <style>
         <%@include file="/resources/css/style.css"%>
     </style>
-    <title>Registration</title>
+    <title>Create ship</title>
 </head>
 <body>
 
@@ -22,65 +22,39 @@
 </c:set>
 <jsp:include page="${hdr}"/>
 
-<h1 style="color: red">Cart.jsp</h1>
+<h1 style="color: red">createship.jsp</h1>
 
 <div class="form-style-2">
 
+    <div class="form-style-2">
+        <div class="form-style-2-heading">
+            Create new ship
+        </div>
+        <br/>
+        <form name="createshipForm" method="post" action="/controller">
+            <input type="hidden" name="command" value="createship"/>
+            <input type="hidden" name="createshipForm" value="createshipForm"/> Название корабля:
+            <br/><input type="text" name="shipName" value=""/>
+            <br/><br/>Количество персонала:
+            <br/><input type="text" name="nStaff" value=""/>
+            <br/><br/>Количество билетов первого класса:
+            <br/><input type="text" name="nFirstClass" value=""/>
+            <br/><br/>Количество билетов второго класса:
+            <br/><input type="text" name="nSecondClass" value=""/>
+            <br/><br/>Количество билетов третьего класса:
+            <br/><input type="text" name="nThirdClass" value=""/>
+            <br/><br/>Количество билетов четвертого класса:
+            <br/><input type="text" name="nFourthClass" value=""/>
+            <br/>
 
-
-
-
-
-<p>&nbsp;</p>
-<p>add ship service to db:</p>
-<p><input type="text"></p>
-<p>&nbsp;</p>
-<p>create button</p>
-<form action="/command" method="post" name="createButton">&nbsp;</form>
-<p>&nbsp;</p>
-
-
-
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-<div class="form-style-2">
-    <div class="form-style-2-heading">
-        Please Sign Up!
+            <br/> <input type="submit" value="Create ship"/>
+            <br/>  <p style="color: red">${errorMessage}</p>
+        </form>
     </div>
-    <br/>
-<form name="registrationForm" method="POST" action="/controller">
-    <input type="hidden" name="command" value="signup"/> Login:
-    <br/><input type="text" name="login" value="${param.login}" autofocus/>
-    <br/><br/>Password:
-    <br/><input type="password" name="password" value="${param.password}"/>
-    <br/><br/>First name:
-    <br/><input type="text" name="firstname" value="${param.firstname}"/>
-    <br/><br/>Second name:
-    <br/><input type="text" name="secondname" value="${param.secondname}"/>
-    <br/><br/>Email:
-    <br/><input type="email" name="email" value="${param.email}"/>
-    <br/><br/>Telephone:
-    <br/><input type="tel" name="tel" value="${param.tel}"/>
-    <br/>
-    ${registrationMessage}
 
-    <br/> <input type="submit" value="Registration"/>
-    <br/> ${errorMessage}
-</form>
+
 </div>
+
 
 </body>
-</html>       
+</html>

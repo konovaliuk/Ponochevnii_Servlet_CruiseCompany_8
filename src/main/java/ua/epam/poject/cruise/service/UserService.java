@@ -12,31 +12,37 @@ import ua.epam.poject.cruise.persistance.datasource.impl.MySqlDaoFactory;
 import ua.epam.poject.cruise.service.constants.UserServiceConst;
 import ua.epam.poject.cruise.util.PasswordEncryptor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserService {
 
-    private AbstractDaoFactory daoFactory = new MySqlDaoFactory();
+    private AbstractDaoFactory daoFactory = MySqlDaoFactory.getInstance();
     private PasswordEncryptor encryptor = new PasswordEncryptor();
 
     private static final Logger LOGGER = Logger.getLogger(UserService.class);
 
     // войти
-    public User findUserByLoginPassword(String login, String password){
+    public User findUserByLoginPassword(String login, String password) {
         User user = new User();
-        if(login == null || login.equals("") || password == null || password.equals(""))
+        if (login == null || login.equals("") || password == null || password.equals(""))
             return user;
+        UserDao userDao = null;
         try {
-            UserDao userDao = daoFactory.getUserDaoImpl();
+            userDao = daoFactory.getUserDaoImpl();
             user = userDao.findByLoginAndPassword(login, encryptor.encode(password));
-            userDao.close();
         } catch (GeneralCheckedException e) {
             LOGGER.info(e);
+        } finally {
+            if (userDao != null)
+                userDao.close();
         }
         return user;
     }
 
-    public User findUserById(int id){
+    public User findUserById(Long id) {
         User user = new User();
-        if(id < 1) return user;
+        if (id < 1) return user;
 
         try {
             UserDao userDao = daoFactory.getUserDaoImpl();
@@ -57,7 +63,7 @@ public class UserService {
             roleDao = daoFactory.getRoleDaoImpl();
 
             User user = userDao.findByLoginAndPassword(login, encryptor.encode(password));
-            if(user.getId() != -1)
+            if (user.getId() != -1)
                 return UserServiceConst.USER_ALREADY_EXIST;
 
             user.setLogin(login);
@@ -68,28 +74,27 @@ public class UserService {
             user.setTel(tel);
             user.setRole(roleDao.findByRole(Role.ROLE_CUSTOMER));
 
-            int result = userDao.create(user);
-            return result;
+            return userDao.create(user);
 
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);
         } finally {
-            if(userDao != null)
+            if (userDao != null)
                 userDao.close();
-            if(roleDao != null)
+            if (roleDao != null)
                 roleDao.close();
         }
         return UserServiceConst.UNSUCCESSFULL_USER_CREATION;
     }
 
     public int editAccount(User oldUser, User newUser) {
-        if(oldUser == null || oldUser.getId() == -1 || oldUser.getLogin() == null || oldUser.getPassword() == null)
+        if (oldUser == null || oldUser.getId() == -1 || oldUser.getLogin() == null || oldUser.getPassword() == null)
             return UserServiceConst.USER_DOES_NOT_EXIST;
 
-        if(newUser == null || newUser.getLogin() == null || newUser.getPassword() == null)
+        if (newUser == null || newUser.getLogin() == null || newUser.getPassword() == null)
             return UserServiceConst.UNSUCCESSFULL_USER_UPDATE;
 
-        if(oldUser.getLogin() != newUser.getLogin())
+        if (!oldUser.getLogin().equals(newUser.getLogin()))
             return UserServiceConst.USER_CANNOT_CHANGE_LOGIN;
         UserDaoImpl userDao = null;
         RoleDao roleDao = null;
@@ -98,7 +103,7 @@ public class UserService {
             roleDao = daoFactory.getRoleDaoImpl();
 
             User userFromDB = userDao.findByLoginAndPassword(oldUser.getLogin(), oldUser.getPassword());
-            if(userFromDB.getId() == -1)
+            if (userFromDB.getId() == -1)
                 return UserServiceConst.USER_DOES_NOT_EXIST;
 
             userFromDB.setPassword(newUser.getPassword());
@@ -111,62 +116,91 @@ public class UserService {
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);
         } finally {
-            if(userDao != null)
+            if (userDao != null)
                 userDao.close();
-            if(roleDao != null)
+            if (roleDao != null)
                 roleDao.close();
         }
         return UserServiceConst.UNSUCCESSFULL_USER_CREATION;
     }
 
-    public int changeUserRole(User oldUser, User adminUser, Role newRole){
-        if(oldUser == null || oldUser.getId() == -1 || oldUser.getLogin() == null || oldUser.getPassword() == null)
+    public int changeUserRole(User oldUser, User adminUser, Role newRole) {
+        if (oldUser == null || oldUser.getId() <= 1 || oldUser.getLogin() == null || oldUser.getPassword() == null)
             return UserServiceConst.USER_DOES_NOT_EXIST;
 
-        if(adminUser == null || adminUser.getId() == -1 || adminUser.getLogin() == null || adminUser.getPassword() == null)
+        if (adminUser == null || adminUser.getId() <= 1 || adminUser.getLogin() == null || adminUser.getPassword() == null)
             return UserServiceConst.USER_DOES_NOT_EXIST;
 
-        User adminFromDB = null;
-        User oldUserFromDB = null;
+        User adminFromDB;
         UserDaoImpl userDao = null;
         RoleDao roleDao = null;
         try {
             userDao = daoFactory.getUserDaoImpl();
             roleDao = daoFactory.getRoleDaoImpl();
 
-            adminFromDB = userDao.findByLoginAndPassword(adminFromDB.getLogin(), adminFromDB.getPassword());
-            if(adminFromDB.getId() == -1)
+            adminFromDB = userDao.findByLoginAndPassword(adminUser.getLogin(), adminUser.getPassword());
+            if (adminFromDB.getId() == -1)
                 return UserServiceConst.ADMIN_DOES_NOT_EXIST;
 
-            if(!adminFromDB.getRole().equals(roleDao.findByRole(Role.ROLE_ADMIN)))
+            if (!adminFromDB.getRole().equals(roleDao.findByRole(Role.ROLE_ADMIN)))
                 return UserServiceConst.ADMIN_DOES_NOT_EXIST;
 
-            if(!roleDao.isRoleExist(newRole))
+            if (!roleDao.isRoleExist(newRole))
                 return UserServiceConst.ROLE_DOES_NOT_EXIST;
 
-            oldUserFromDB.setRole(newRole);
-            return userDao.update(oldUserFromDB);
+            oldUser.setRole(newRole);
+            return userDao.update(oldUser);
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);
         } finally {
-            if(userDao != null)
-                userDao.close();
-            if(roleDao != null)
-                roleDao.close();
+            if (userDao != null)
+                    userDao.close();
+            if (roleDao != null)
+                    roleDao.close();
         }
         return UserServiceConst.UNSUCCESSFULL_ROLE_UPDATING;
     }
 
-    public User fillFieldsUser(int id, String login, String password, String firstName, String secondName, String email, String tel, Role role){
+    public User fillFieldsUser(Long id, String login, String password, String firstName, String secondName, String email, String tel, Role role) {
         User user = new User();
         user.setId(id);
         user.setLogin(login);
-        user.setPassword(password);
+        user.setPassword(encryptor.encode(password));
         user.setFirstName(firstName);
         user.setSecondName(secondName);
         user.setEmail(email);
         user.setTel(tel);
         user.setRole(role);
         return user;
+    }
+
+    public Role findRoleByRoleName(String roleName) {
+        RoleDao roleDao = null;
+        Role role = new Role();
+        try {
+            roleDao = daoFactory.getRoleDaoImpl();
+            role = roleDao.findByRole(roleName);
+        } catch (GeneralCheckedException e) {
+            LOGGER.error(e);
+        } finally {
+            if (roleDao != null)
+                roleDao.close();
+        }
+        return role;
+    }
+
+    public List<Role> findAllRoles() {
+        RoleDao roleDao = null;
+        List<Role> list = new ArrayList<>();
+        try {
+            roleDao = daoFactory.getRoleDaoImpl();
+            list = roleDao.findAll();
+        } catch (GeneralCheckedException e) {
+            LOGGER.error(e);
+        } finally {
+            if (roleDao != null)
+                    roleDao.close();
+        }
+        return list;
     }
 }

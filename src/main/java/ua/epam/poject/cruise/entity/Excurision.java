@@ -6,20 +6,20 @@ import java.util.Objects;
 
 public class Excurision implements Serializable {
 
-    private static final long serialVersionUID = 5579012676943126634L;
+    private static final long serialVersionUID = -1507889583830858085L;
 
-    private int id;
+    private Long id = -1L;
     private String excursionName;
     private double price;
     private String description;
-    private int portId;
+    private Long portId;
 
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -51,11 +51,11 @@ public class Excurision implements Serializable {
     }
 
 
-    public int getPortId() {
+    public Long getPortId() {
         return portId;
     }
 
-    public void setPortId(int portId) {
+    public void setPortId(Long portId) {
         this.portId = portId;
     }
 
@@ -64,9 +64,9 @@ public class Excurision implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Excurision that = (Excurision) o;
-        return id == that.id &&
+        return id.equals(that.id) &&
                 Double.compare(that.price, price) == 0 &&
-                portId == that.portId &&
+                portId.equals(that.portId) &&
                 Objects.equals(excursionName, that.excursionName) &&
                 Objects.equals(description, that.description);
     }
