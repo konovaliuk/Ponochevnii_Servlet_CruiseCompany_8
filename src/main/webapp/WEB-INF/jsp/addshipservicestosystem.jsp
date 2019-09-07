@@ -1,6 +1,9 @@
-﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+﻿<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="message"/>
 
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <html>
 <head>
     <style>
@@ -46,13 +49,11 @@
 
 </div>
 
-<br/><br/><br/><br/><br/>
+<br/><br/><br/>
+<div class="form-style-2-heading">
+    Existing services in the system:
+</div>
 <table border="1" cellpadding="3" cellspacing="0" >
-    <thead>
-    <tr>
-        <td>Service name</td>
-    </tr>
-    </thead>
     <c:forEach var="servicefromlist" items="${allServices}">
     <tr>
         <td><c:out value="${servicefromlist.serviceName}"/></td>

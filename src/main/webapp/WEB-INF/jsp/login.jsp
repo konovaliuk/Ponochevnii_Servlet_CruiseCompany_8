@@ -1,5 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="message"/>
+
+<!DOCTYPE html>
 <html>
 <head>
     <title>Title</title>
@@ -30,6 +35,7 @@
     <br/>
     <form method="post" action="/controller">
         <input type="hidden" name="command" value="signin"/>
+        <input type="hidden" name="signinForm" value="signinForm"/>
         <label for="name">User name
             <input class="input-field" type="text" id="name" name="login">
         </label>
@@ -38,7 +44,7 @@
         </label>
         <input type="submit" value="Login">
     </form>
-    <br/> <p style="color: red">${errorMessage}</p>
+    <br/> <p style="color: red"><c:if test="${not empty errorMessage}"><fmt:message key="message.loginerror"/></c:if></p>
 </div>
 </body>
 </html>

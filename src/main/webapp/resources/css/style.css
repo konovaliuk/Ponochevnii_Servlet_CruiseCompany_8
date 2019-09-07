@@ -100,6 +100,11 @@
     margin: 6px;
 }
 
+.header-button-left {
+    float: left;
+    margin: 6px;
+}
+
 .header-form {
     display: inline-block;
     float: right;

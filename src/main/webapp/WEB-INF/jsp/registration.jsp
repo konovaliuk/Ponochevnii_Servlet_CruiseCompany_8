@@ -1,6 +1,9 @@
-﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+﻿<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<fmt:setLocale value="${language}" />
+<fmt:setBundle basename="message"/>
 
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <html>
 <head>
     <style>
@@ -30,6 +33,7 @@
     <br/>
 <form name="registrationForm" method="POST" action="/controller">
     <input type="hidden" name="command" value="signup"/> Login:
+    <input type="hidden" name="signupForm" value="signupForm"/>
     <br/><input type="text" name="login" value="${param.login}" autofocus/>
     <br/><br/>Password:
     <br/><input type="password" name="password" value="${param.password}"/>
@@ -37,7 +41,7 @@
     <br/><input type="password" name="password2" value="${param.password2}"/>
     <br/><br/>First name:
     <br/><input type="text" name="firstname" value="${param.firstname}"/>
-    <br/><br/>Second name:
+    <br/><br/>Last name:
     <br/><input type="text" name="secondname" value="${param.secondname}"/>
     <br/><br/>Email:
     <br/><input type="email" name="email" value="${param.email}"/>
