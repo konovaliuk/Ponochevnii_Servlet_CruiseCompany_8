@@ -9,7 +9,7 @@
     <style>
         <%@include file="/resources/css/style.css"%>
     </style>
-    <title>Create excursion</title>
+    <title><fmt:message key="message.createexcursion.title"/></title>
 </head>
 <body>
 
@@ -31,19 +31,19 @@
 
 
     <div class="form-style-2-heading">
-        Select the port where you want to add the excursoins or create new port
+        <fmt:message key="message.createexcursion.selectorcreateport"/>
     </div>
     <br/>
     <form name="createnewportForm" method="post" action="/controller">
         <input type="hidden" name="command" value="createport"/>
         <input type="hidden" name="createnewportForm" value="createnewportForm"/>
-        <br/> <input type="submit" value="Create port"/>
+        <br/> <input type="submit" value="<fmt:message key="message.createexcursion.createportbtn"/>"/>
     </form>
     <br/><br/><br/><br/>
 
     <form name="createexcursionForm" method="post" action="/controller">
         <select name="selectedport">
-            <option value="">Please select the port</option>
+            <option value=""><fmt:message key="message.createexcursion.selectport"/></option>
             <c:forEach var="portn" items="${allPorts}">
                 <option value="${portn.id}">"${portn.id}", "${portn.country}", "${portn.city}"</option>
             </c:forEach>
@@ -52,18 +52,19 @@
         <br/>
         <br/><br/>
         <input type="hidden" name="command" value="createexcursion"/>
-        <input type="hidden" name="createexcursionForm" value="createexcursionForm"/> Название экскурсии: (максимум 100
-        символов)
+        <input type="hidden" name="createexcursionForm" value="createexcursionForm"/> <fmt:message key="message.createexcursion.excursionname"/>
         <br/><input type="text" name="excursionName" value=""/>
-        <br/><br/>Описание экскурсии: (максимум 1000 символов)
+        <br/><br/><fmt:message key="message.createexcursion.excursiondesc"/>
         <br/><textarea name="description" maxlength="2000" style="margin: 0px; height: 80px; width: 700px;"></textarea>
-        <br/><br/>Цена:
+        <br/><br/><fmt:message key="message.createexcursion.price"/>
         <br/><input type="number" name="price" value=""/>
         <br/><br/>
 
-        <br/> <input type="submit" value="Create excursion"/>
+        <br/> <input type="submit" value="<fmt:message key="message.createexcursion.createexcurbtn"/>"/>
         <br/>
-        <p style="color: red">${errorMessage}</p>
+        <p style="color: red">
+            <c:if test="${not empty createexcursionMessage}"><fmt:message key="${createexcursionMessage}"/></c:if>
+        </p>
     </form>
 
 

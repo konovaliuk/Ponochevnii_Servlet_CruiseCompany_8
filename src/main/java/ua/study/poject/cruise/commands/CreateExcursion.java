@@ -31,11 +31,11 @@ public class CreateExcursion implements Action {
 
             int result = portExcursionService.createExcursion(excursionName, price, description, portId);
             if (result <= 0) {
-                request.getSession().setAttribute("errorMessage", "Не удалось создать экскурсию, проверьте правильность заполнения полей");
-            } else request.getSession().setAttribute("errorMessage", "Экскурсия успешно создана");
+                request.getSession().setAttribute("createexcursionMessage", "message.createexcursion.errfaild");
+            } else request.getSession().setAttribute("createexcursionMessage", "message.createexcursion.ok");
 
         }catch (NumberFormatException e){
-            request.getSession().setAttribute("errorMessage", "Не удалось создать экскурсию, проверьте правильность заполнения полей");
+            request.getSession().setAttribute("createexcursionMessage", "message.createexcursion.errfaild");
         }
         return ConfigurationManager.getProperty("path.page.createexcursion");
     }
