@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Title</title>
+    <title><fmt:message key="message.login.title"/></title>
     <style>
         <%@include file="/resources/css/style.css"%>
     </style>
@@ -30,21 +30,24 @@
 <h1 style="color: red">login.jsp</h1>
 <div class="form-style-2">
     <div class="form-style-2-heading">
-        Please Sign In!
+        <fmt:message key="message.login.signin"/>
     </div>
     <br/>
     <form method="post" action="/controller">
         <input type="hidden" name="command" value="signin"/>
         <input type="hidden" name="signinForm" value="signinForm"/>
-        <label for="name">User name
+        <label for="name"><fmt:message key="message.login.login"/>
             <input class="input-field" type="text" id="name" name="login">
         </label>
-        <label for="password">Password
+        <label for="password"><fmt:message key="message.login.password"/>
             <input class="input-field" type="password" id="password" name="password">
         </label>
-        <input type="submit" value="Login">
+        <input type="submit" value="<fmt:message key="message.login.tologin"/>">
     </form>
-    <br/> <p style="color: red"><c:if test="${not empty errorMessage}"><fmt:message key="message.loginerror"/></c:if></p>
+    <p style="color: red">
+        <c:if test="${not empty signinMessage}"><fmt:message key="${signinMessage}"/></c:if>
+    </p>
+
 </div>
 </body>
 </html>

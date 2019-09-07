@@ -3,7 +3,6 @@ package ua.study.poject.cruise.commands;
 import ua.study.poject.cruise.entity.Service;
 import ua.study.poject.cruise.entity.Ship;
 import ua.study.poject.cruise.resource.ConfigurationManager;
-import ua.study.poject.cruise.resource.MessageManager;
 import ua.study.poject.cruise.service.ShipService;
 import ua.study.poject.cruise.service.ShipserviceService;
 
@@ -33,7 +32,6 @@ public class AddShipServicesToShip implements Action {
         if (selectedShip == null || selectedShip.equals("")) {
             request.getSession().setAttribute("addShipServiceToShipMessage",
                     "message.addshipservicetoship.error");
-            //<fmt:message key="message.loginerror"/>
             return ConfigurationManager.getProperty("path.page.addshipservicetoship");
         }
 
@@ -50,7 +48,8 @@ public class AddShipServicesToShip implements Action {
             }
 
         } catch (NumberFormatException e) {
-        request.getSession().setAttribute("errorMessage", "Не удалось найти такой корабль в системе");
+            request.getSession().setAttribute("addShipServiceToShipMessage",
+                    "message.addshipservicetoship.errorshipnotfound");
         return ConfigurationManager.getProperty("path.page.addshipservicetoship");
     }
 
@@ -65,29 +64,34 @@ public class AddShipServicesToShip implements Action {
         try{
             selectedserviceLong = Long.parseLong(selectedserviceIdStr);
         } catch (NumberFormatException e) {
-            request.getSession().setAttribute("errorMessage", "Не удалось найти такой сервис в системе");
+            request.getSession().setAttribute("addShipServiceToShipMessage",
+                    "message.addshipservicetoship.errorservicenotfound");
             return ConfigurationManager.getProperty("path.page.addshipservicetoship");
         }
 
         Service service = shipserviceService.getServeceById(selectedserviceLong);
 
         if (service.getId() == -1) {
-            request.getSession().setAttribute("errorMessage", "Такого сервиса в системе нет");
+            request.getSession().setAttribute("addShipServiceToShipMessage",
+                    "message.addshipservicetoship.errorservicenotfound");
             return ConfigurationManager.getProperty("path.page.addshipservicetoship");
         }
 
         if(shipService.isServicePresentOnThisShip(selectedShipId, service.getId())){
-            request.getSession().setAttribute("errorMessage", "Такой сервис уже есть на корабле, выберите другой");
+            request.getSession().setAttribute("addShipServiceToShipMessage",
+                    "message.addshipservicetoship.errorserviceduplicate");
             return ConfigurationManager.getProperty("path.page.addshipservicetoship");
         }
 
         int result = shipService.addNewServiceToShip(selectedShipId, payable,service.getId());
 
         if (result <= 0) {
-            request.getSession().setAttribute("errorMessage", "Не удалось добавить сервис, проверьте правильность заполнения полей");
+            request.getSession().setAttribute("addShipServiceToShipMessage",
+                    "message.addshipservicetoship.errorservicefaild");
         } else {
             request.getSession().setAttribute("allServices", shipserviceService.getAllServisesInSystem());
-            request.getSession().setAttribute("errorMessage", "Сервис успешно добавлен");
+            request.getSession().setAttribute("addShipServiceToShipMessage",
+                    "message.addshipservicetoship.serviceadded");
             request.getSession().setAttribute("allServicesOnSelectedShip", shipService.getAllServicesByShipId(selectedShipId));
         }
 

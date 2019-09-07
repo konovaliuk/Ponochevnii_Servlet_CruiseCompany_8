@@ -26,13 +26,13 @@ public class SingUp implements Action {
         }
 
         if(request.getParameter(LOGIN).equals("") || request.getParameter(PASSWORD).equals("")){
-            request.getSession().setAttribute("errorMessage", "Поля Login и Password должны быть заполнены обязательно");
+            request.getSession().setAttribute("registrMessage", "message.register.erroremptyfild");
             return ConfigurationManager.getProperty("path.page.signup");
         }
 
         UserService userService = new UserService();
         if(!request.getParameter(PASSWORD).equals(request.getParameter(PASSWORD2))){
-            request.getSession().setAttribute("errorMessage", "Пароли в 1 и 2 поле не совпадают");
+            request.getSession().setAttribute("registrMessage", "message.register.errorpass1and2");
             return ConfigurationManager.getProperty("path.page.signup");
         }
 
@@ -44,7 +44,7 @@ public class SingUp implements Action {
             User newUser = userService.findUserByLoginPassword(request.getParameter(LOGIN), request.getParameter(PASSWORD));
 //TODO сделать уведомления почему не удалось создать юзера
             if(newUser.getId() < 0){
-                request.getSession().setAttribute("errorMessage", "Не удалось зарегистроровать пользователя. Попробуйте еще раз.");
+                request.getSession().setAttribute("registrMessage", "message.register.errorthereisuser");
                 return ConfigurationManager.getProperty("path.page.signup");
             }
 
@@ -52,9 +52,7 @@ public class SingUp implements Action {
             request.getSession().setAttribute("allCruises", new CruiseService().viewAllCruises());
             return ConfigurationManager.getProperty("path.page.startpage");
         }
-        request.getSession().setAttribute("messageError", "Тута какое-то сообщение");
-        System.out.println(" userId = " + userId);
-        request.getSession().setAttribute("errorLoginPassMessage", "Не удалось зарегистроровать пользователя. Попробуйте еще раз.");
+        request.getSession().setAttribute("registrMessage", "message.register.errorthereisuser");
         return ConfigurationManager.getProperty("path.page.signup");
     }
 }

@@ -9,7 +9,7 @@
     <style>
         <%@include file="/resources/css/style.css"%>
     </style>
-    <title>Registration</title>
+    <title><fmt:message key="message.register.title"/></title>
 </head>
 <body>
 
@@ -28,30 +28,32 @@
 <h1 style="color: red">registration.jsp</h1>
 <div class="form-style-2">
     <div class="form-style-2-heading">
-        Please Sign Up!
+        <fmt:message key="message.register.registrationadv"/>
     </div>
     <br/>
 <form name="registrationForm" method="POST" action="/controller">
-    <input type="hidden" name="command" value="signup"/> Login:
+    <input type="hidden" name="command" value="signup"/> <fmt:message key="message.register.login"/>
     <input type="hidden" name="signupForm" value="signupForm"/>
     <br/><input type="text" name="login" value="${param.login}" autofocus/>
-    <br/><br/>Password:
+    <br/><br/><fmt:message key="message.register.password"/>
     <br/><input type="password" name="password" value="${param.password}"/>
-    <br/><br/>Password (duplicate):
+    <br/><br/><fmt:message key="message.register.passworddupl"/>
     <br/><input type="password" name="password2" value="${param.password2}"/>
-    <br/><br/>First name:
+    <br/><br/><fmt:message key="message.register.firstname"/>
     <br/><input type="text" name="firstname" value="${param.firstname}"/>
-    <br/><br/>Last name:
+    <br/><br/><fmt:message key="message.register.lastname"/>
     <br/><input type="text" name="secondname" value="${param.secondname}"/>
-    <br/><br/>Email:
+    <br/><br/><fmt:message key="message.register.email"/>
     <br/><input type="email" name="email" value="${param.email}"/>
-    <br/><br/>Telephone:
+    <br/><br/><fmt:message key="message.register.tel"/>
     <br/><input type="tel" name="tel" value="${param.tel}"/>
     <br/>
-    ${registrationMessage}
 
-    <br/> <input type="submit" value="Registration"/>
-    <br/> <p style="color: red">${errorMessage}</p>
+
+    <br/> <input type="submit" value="<fmt:message key="message.register.registrbtn"/>"/>
+    <p style="color: red">
+        <c:if test="${not empty registrMessage}"><fmt:message key="${registrMessage}"/></c:if>
+    </p>
 </form>
 </div>
 

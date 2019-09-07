@@ -32,8 +32,7 @@ public class SingIn implements Action {
             request.getSession().setAttribute("allCruises", new CruiseService().viewAllCruises());
             page = ConfigurationManager.getProperty("path.page.startpage");
         } else {
-            String mess = MessageManager.getProperty("message.loginerror");
-            request.getSession().setAttribute(StringConstantsStorage.loginErrorMessage, mess);
+            request.getSession().setAttribute("signinMessage", "message.loginerror");
             page = ConfigurationManager.getProperty("path.page.signin");
         }
         return page;
