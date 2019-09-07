@@ -30,17 +30,17 @@ public class AddShipServicesToSystem implements Action {
         Service shipService = shipServiceService.getServeceByName(newServiseInSystem);
 
         if (shipService.getId() != -1) {
-            request.getSession().setAttribute("errorMessage", "Такой сервис уже есть в системе");
+            request.getSession().setAttribute("addshipservicestosystemMessage", "message.addshipservicestosystem.servicealreadyexist");
             return ConfigurationManager.getProperty("path.page.addshipservicestosystem");
         }
 
         int result = shipServiceService.addNewServiceToSystem(newServiseInSystem);
 
         if (result <= 0) {
-            request.getSession().setAttribute("errorMessage", "Не удалось создать сервис, проверьте правильность заполнения полей");
+            request.getSession().setAttribute("addshipservicestosystemMessage", "message.addshipservicestosystem.faildtocreate");
         } else {
             request.getSession().setAttribute("allServices", shipServiceService.getAllServisesInSystem());
-            request.getSession().setAttribute("errorMessage", "Сервис успешно создан");
+            request.getSession().setAttribute("addshipservicestosystemMessage", "message.addshipservicestosystem.creationok");
         }
 
         return ConfigurationManager.getProperty("path.page.addshipservicestosystem");

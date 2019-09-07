@@ -9,7 +9,7 @@
     <style>
         <%@include file="/resources/css/style.css"%>
     </style>
-    <title>Add ship services to system</title>
+    <title><fmt:message key="message.addshipservicestosystem.title"/></title>
 </head>
 <body>
 
@@ -31,18 +31,20 @@
 
     <div class="form-style-2">
         <div class="form-style-2-heading">
-            Add ship services to system
+            <fmt:message key="message.addshipservicestosystem.title"/>
         </div>
         <br/>
         <form name="addshipservicestosystemForm" method="post" action="/controller">
             <input type="hidden" name="command" value="addshipservicestosystem"/>
-            <input type="hidden" name="addshipservicestosystemForm" value="addshipservicestosystemForm"/> Сервис:
+            <input type="hidden" name="addshipservicestosystemForm" value="addshipservicestosystemForm"/><fmt:message key="message.addshipservicestosystem.service"/>
             <br/><input type="text" name="newServiseInSystem" value=""/>
             <br/>
 
-            <br/> <input type="submit" value="Create service"/>
+            <br/> <input type="submit" value="<fmt:message key="message.addshipservicestosystem.createservicebtn"/>"/>
             <br/>
-            <p style="color: red">${errorMessage}</p>
+            <p style="color: red">
+                <c:if test="${not empty addshipservicestosystemMessage}"><fmt:message key="${addshipservicestosystemMessage}"/></c:if>
+            </p>
         </form>
     </div>
 
@@ -51,7 +53,7 @@
 
 <br/><br/><br/>
 <div class="form-style-2-heading">
-    Existing services in the system:
+    <fmt:message key="message.addshipservicestosystem.existinginsystem"/>
 </div>
 <table border="1" cellpadding="3" cellspacing="0" >
     <c:forEach var="servicefromlist" items="${allServices}">
