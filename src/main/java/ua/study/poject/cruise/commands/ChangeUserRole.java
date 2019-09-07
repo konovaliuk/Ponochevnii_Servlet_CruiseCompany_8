@@ -28,25 +28,25 @@ public class ChangeUserRole implements Action {
 
         User oldUser = userService.findUserByLoginPassword(login, password);
         if (oldUser.getId() < 1) {
-            request.getSession().setAttribute("errorMessage", "Пользователь с таким логином и паролем не найден");
+            request.getSession().setAttribute("changeuserroleMessage", "message.changeuserrole.errnouser");
             return ConfigurationManager.getProperty("path.page.changeuserrole");
         }
         Role newRole = userService.findRoleByRoleName(request.getParameter("selectedrole"));
 
         if (newRole.getId() < 1) {
-            request.getSession().setAttribute("errorMessage", "Такая роль не найдена, попробуйте еще раз");
+            request.getSession().setAttribute("changeuserroleMessage", "message.changeuserrole.errnorole");
             return ConfigurationManager.getProperty("path.page.changeuserrole");
         }
         User userInSession = (User) request.getSession().getAttribute(StringConstantsStorage.userKeyInSession);
         if (!userInSession.getRole().getRole().equals(Role.ROLE_ADMIN)) {
-            request.getSession().setAttribute("errorMessage", "Только администратор может менять роли пользователя");
+            request.getSession().setAttribute("changeuserroleMessage", "message.changeuserrole.errnotadmin");
             return ConfigurationManager.getProperty("path.page.startpage");
         }
         int result = userService.changeUserRole(oldUser, userInSession, newRole);
         if (result <= 0) {
-            request.getSession().setAttribute("errorMessage", "Не удалось изменить роль пользователя, проверьте правильность заполнения полей");
+            request.getSession().setAttribute("changeuserroleMessage", "message.changeuserrole.errfaild");
         } else {
-            request.getSession().setAttribute("errorMessage", "Роль успешно изменена");
+            request.getSession().setAttribute("changeuserroleMessage", "message.changeuserrole.ok");
             if (userInSession.getId().equals(oldUser.getId())) {
                 oldUser.setRole(newRole);
                 request.getSession().setAttribute(StringConstantsStorage.userKeyInSession, oldUser);

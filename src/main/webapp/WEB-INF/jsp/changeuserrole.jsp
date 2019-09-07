@@ -9,7 +9,7 @@
     <style>
         <%@include file="/resources/css/style.css"%>
     </style>
-    <title>Change user role</title>
+    <title><fmt:message key="message.changeuserrole.title"/></title>
 </head>
 <body>
 
@@ -28,29 +28,31 @@
 <h1 style="color: red">changeuserrole.jsp</h1>
 <div class="form-style-2">
     <div class="form-style-2-heading">
-        You can change user role!
+        <fmt:message key="message.changeuserrole.title"/>
     </div>
     <br/>
     <form name="changeuserroleForm" method="post" action="/controller">
         <input type="hidden" name="command" value="changeuserrole"/>
         <input type="hidden" name="changeuserroleForm" value="changeuserroleForm"/>
-        <br/><br/>User login:
+        <br/><br/><fmt:message key="message.changeuserrole.userlogin"/>
         <br/><input type="text" name="login" value="" autofocus/>
-        <br/><br/>User password:
+        <br/><br/><fmt:message key="message.changeuserrole.userlpassword"/>
         <br/><input type="password" name="password" value=""/>
         <br/><br/>
 
-        New user role:
+        <fmt:message key="message.changeuserrole.newuserrole"/>
         <br/><select name="selectedrole">
-            <option value="">Please select new role</option>
+            <option value=""><fmt:message key="message.changeuserrole.selectnewrole"/></option>
             <c:forEach var="rolen" items="${allRoles}">
                 <option value="${rolen.role}">${rolen.role}</option>
             </c:forEach>
         </select>
 
         <br/>
-        <br/> <input type="submit" value="Change the role"/>
-        <br/>  <p style="color: red">${errorMessage}</p>
+        <br/> <input type="submit" value="<fmt:message key="message.changeuserrole.changerolebtn"/>"/>
+        <p style="color: red">
+            <c:if test="${not empty changeuserroleMessage}"><fmt:message key="${changeuserroleMessage}"/></c:if>
+        </p>
     </form>
 </div>
 
