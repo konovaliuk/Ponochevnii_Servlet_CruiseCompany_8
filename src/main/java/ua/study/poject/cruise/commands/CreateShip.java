@@ -35,10 +35,10 @@ public class CreateShip implements Action {
 
             int result = shipService.createShip(shipName, nStaff, nFirstClass, nSecondClass, nThirdClass, nFourthClass);
             if (result <= 0) {
-                request.getSession().setAttribute("errorMessage", "Не удалось создать корабль, проверьте правильность заполнения полей");
-            } else request.getSession().setAttribute("errorMessage", "Корабль успешно создан");
+                request.getSession().setAttribute("createshipMessage", "message.createship.errfailed");
+            } else request.getSession().setAttribute("createshipMessage", "message.createship.ok");
         } catch (NumberFormatException e) {
-            request.getSession().setAttribute("errorMessage", "Не удалось создать корабль, проверьте правильность заполнения полей");
+            request.getSession().setAttribute("createshipMessage", "message.createship.errfailed");
         }
         return ConfigurationManager.getProperty("path.page.createship");
     }
