@@ -2,8 +2,11 @@ package ua.study.poject.cruise.service;
 
 import org.apache.log4j.Logger;
 import ua.study.poject.cruise.entity.Cruise;
+import ua.study.poject.cruise.entity.CruisePorts;
 import ua.study.poject.cruise.entity.printableentity.PrintableCruise;
 import ua.study.poject.cruise.exceptions.GeneralCheckedException;
+import ua.study.poject.cruise.persistance.dao.CruiseDao;
+import ua.study.poject.cruise.persistance.dao.CruisePortsDao;
 import ua.study.poject.cruise.persistance.dao.PrintableCruiseDao;
 import ua.study.poject.cruise.persistance.datasource.AbstractDaoFactory;
 import ua.study.poject.cruise.persistance.datasource.Atomizer;
@@ -19,13 +22,12 @@ public class CruiseService {
 
     private AbstractDaoFactory daoFactory = MySqlDaoFactory.getInstance();
 
-    // List<CruisePorts> cruisePortsList,
-    public int createCruise(Long selectedShip, double priceFirstClass, double priceSecondClass, double priceThirdClass, double priceFourthClass) {
+    public int createCruise(Long selectedShip, double priceFirstClass, double priceSecondClass, double priceThirdClass, double priceFourthClass, List<CruisePorts> cruisePortsList) {
         try (Atomizer atomizer = AtomizerFactory.getAtomizer()) {
 
-            // TODO создать новый круиз
-            // TODO сделать записи в таблицу CruisePorts
-            // TODO ...............
+            CruiseDao cruiseDao = daoFactory.getCruiseDaoImpl(atomizer);
+            CruisePortsDao cruisePortsDao = daoFactory.getCruisePortsDaoImpl(atomizer);
+
             Cruise cruise = new Cruise();
             cruise.setShipId(selectedShip);
             cruise.setPriceFirstClass(priceFirstClass);
@@ -33,14 +35,24 @@ public class CruiseService {
             cruise.setPriceThirdClass(priceThirdClass);
             cruise.setPriceFourthClass(priceFourthClass);
 
+            int cruiseId = cruiseDao.create(cruise);
+
+            int result;
+            for(CruisePorts tempCP : cruisePortsList){
+                tempCP.setCruiseId((long)cruiseId);
+                result = cruisePortsDao.create(tempCP);
+                if(result < 1)
+                    throw new GeneralCheckedException("Не удалось записать порты для круиза №" + cruiseId);
+            }
+
             atomizer.recordChanges();
 
-            return 1;
+            return cruiseId;
 
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Ошибка при работе с CruiseDao или CruisePortsDao");
         }
-        return 0;
+        return -1;
     }
 
     public List<PrintableCruise> viewAllCruises() {

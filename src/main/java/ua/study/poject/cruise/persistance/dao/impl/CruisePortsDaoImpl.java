@@ -18,6 +18,8 @@ public class CruisePortsDaoImpl implements CruisePortsDao {
     private static final Logger LOGGER = Logger.getLogger(CruisePortsDaoImpl.class);
 
     private static final String CREATE = "INSERT INTO cruise_ports (date_in, date_out, cruise_id, port_id) VALUES(?, ?, ?, ?)";
+    private static final String CREATE_START_PORT = "INSERT INTO cruise_ports (date_out, cruise_id, port_id) VALUES(?, ?, ?)";
+    private static final String CREATE_FINISH_PORT = "INSERT INTO cruise_ports (date_in, cruise_id, port_id) VALUES(?, ?, ?)";
     private static final String FIND_BY_ID_CRUISE = "SELECT * FROM cruise_ports WHERE id = ?";
     private static final String DELETE = "DELETE FROM cruise_ports WHERE id = ?";
 
@@ -30,6 +32,10 @@ public class CruisePortsDaoImpl implements CruisePortsDao {
 
     @Override
     public int create(CruisePorts cruisePorts) throws GeneralCheckedException {
+        if(cruisePorts.getDateIn() == null)
+            return SQLExecutor.executeInsertUpdateDelete(connection, CREATE_START_PORT, cruisePorts.getDateOut(), cruisePorts.getCruiseId(), cruisePorts.getPortId());
+        if(cruisePorts.getDateOut() == null)
+            return SQLExecutor.executeInsertUpdateDelete(connection, CREATE_FINISH_PORT, cruisePorts.getDateIn(), cruisePorts.getCruiseId(), cruisePorts.getPortId());
         return SQLExecutor.executeInsertUpdateDelete(connection, CREATE, cruisePorts.getDateIn(), cruisePorts.getDateOut(), cruisePorts.getCruiseId(), cruisePorts.getPortId());
     }
 
