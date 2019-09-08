@@ -47,22 +47,22 @@ public class EditAccount implements Action {
         String tel = request.getParameter(TEL);
 
         if(!password.equals(password2)){
-            request.getSession().setAttribute("errorMessage", "Пароли в 1 и 2 поле не совпадают");
+            request.getSession().setAttribute("editaccountMessage", "message.editaccount.errorpass1and2");
             return ConfigurationManager.getProperty("path.page.editaccount");
         }
         if (password.equals("") || firstName.equals("") || secondName.equals("") || email.equals("") || tel.equals("")) {
-            request.getSession().setAttribute("errorMessage", "Необходимо заполнить все поля");
+            request.getSession().setAttribute("editaccountMessage", "message.editaccount.errfillall");
             return ConfigurationManager.getProperty("path.page.editaccount");
         }
 
         User updatedUser = userService.fillFieldsUser(currentUser.getId(), currentUser.getLogin(), password, firstName, secondName, email, tel, currentUser.getRole());
         int i = userService.editAccount(currentUser, updatedUser);
         if (i < 1) {
-            request.getSession().setAttribute("errorMessage", "Данные не обновлены");
+            request.getSession().setAttribute("editaccountMessage", "message.editaccount.eerupdate");
             // TODO подумать, как выводить конкретную ошибку
             return ConfigurationManager.getProperty("path.page.editaccount");
         } else {
-            request.getSession().setAttribute("errorMessage", "Данные успешно обновлены");
+            request.getSession().setAttribute("editaccountMessage", "message.editaccount.ok");
             request.getSession().setAttribute(StringConstantsStorage.userKeyInSession, updatedUser);
         }
         return ConfigurationManager.getProperty("path.page.editaccount");

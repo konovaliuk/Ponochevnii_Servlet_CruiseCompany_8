@@ -9,7 +9,7 @@
     <style>
         <%@include file="/resources/css/style.css"%>
     </style>
-    <title>EditAccount</title>
+    <title><fmt:message key="message.editaccount.title"/></title>
 </head>
 <body>
 
@@ -28,30 +28,31 @@
 <h1 style="color: red">editaccount.jsp</h1>
 <div class="form-style-2">
     <div class="form-style-2-heading">
-        Login and phone number must be unique!
+        <fmt:message key="message.editaccount.uniq"/>
     </div>
     <br/>
 <form name="editaccountForm" method="post" action="/controller">
     <input type="hidden" name="command" value="editaccount"/>
-    <input type="hidden" name="editaccountForm" value="editaccountForm"/> Login:
+    <input type="hidden" name="editaccountForm" value="editaccountForm"/><fmt:message key="message.editaccount.login"/>
     <br/><input type="text" name="login" value="${currenuser.login}" disabled/>
-    <br/><br/>Password:
+    <br/><br/><fmt:message key="message.editaccount.password"/>
     <br/><input type="password" name="password" value=""/>
-    <br/><br/>Password (duplicate):
+    <br/><br/><fmt:message key="message.editaccount.passworddupl"/>
     <br/><input type="password" name="password2" value="${param.password2}"/>
-    <br/><br/>First name:
+    <br/><br/><fmt:message key="message.editaccount.firstname"/>
     <br/><input type="text" name="firstname" value="${currenuser.firstName}"/>
-    <br/><br/>Second name:
+    <br/><br/><fmt:message key="message.editaccount.lastname"/>
     <br/><input type="text" name="secondname" value="${currenuser.secondName}"/>
-    <br/><br/>Email:
+    <br/><br/><fmt:message key="message.editaccount.email"/>
     <br/><input type="email" name="email" value="${currenuser.email}"/>
-    <br/><br/>Telephone:
+    <br/><br/><fmt:message key="message.editaccount.tel"/>
     <br/><input type="tel" name="tel" value="${currenuser.tel}"/>
     <br/>
-    ${editAccountMessage}
-    ${editAccountErrorMessage}
-    <br/> <input type="submit" value="Edit Account"/>
-    <br/>  <p style="color: red">${errorMessage}</p>
+    <br/> <input type="submit" value="<fmt:message key="message.editaccount.btn"/>"/>
+    <br/>
+    <p style="color: red">
+        <c:if test="${not empty editaccountMessage}"><fmt:message key="${editaccountMessage}"/></c:if>
+    </p>
 </form>
 </div>
 
