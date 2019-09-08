@@ -9,7 +9,7 @@
     <style>
         <%@include file="/resources/css/style.css"%>
     </style>
-    <title>My account</title>
+    <title><fmt:message key="message.myaccount.title"/></title>
 </head>
 <body>
 <c:set var="hdr">
@@ -28,18 +28,14 @@
 
 <div class="form-style-2">
     <div class="form-style-2-heading">
-        Change account
+        <fmt:message key="message.myaccount.editaccountbtn"/>
     </div>
     <br/>
 
     <form name="editaccount" method="POST" action="/controller">
         <input type="hidden" name="command" value="editaccount"/>
-        <br/> <input type="submit" value="Edit account"/>
+        <br/> <input type="submit" value="<fmt:message key="message.myaccount.editaccountbtn"/>"/>
     </form>
-
-    <br/>
-    <p style="color: red">${errorMessage}</p>
-
 </div>
 
 
