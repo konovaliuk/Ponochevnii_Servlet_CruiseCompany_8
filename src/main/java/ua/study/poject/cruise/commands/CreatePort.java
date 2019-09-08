@@ -25,8 +25,8 @@ public class CreatePort implements Action {
 
         int result = portExcursionService.createPort(country, city);
         if (result <= 0) {
-            request.getSession().setAttribute("errorMessage", "Не удалось создать порт, проверьте правильность заполнения полей");
-        } else request.getSession().setAttribute("errorMessage", "Порт успешно создан");
+            request.getSession().setAttribute("createnewportMessage", "message.createport.errfaild");
+        } else request.getSession().setAttribute("createnewportMessage", "message.createport.ok");
 
         return ConfigurationManager.getProperty("path.page.createport");
     }

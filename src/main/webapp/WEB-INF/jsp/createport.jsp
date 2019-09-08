@@ -9,7 +9,7 @@
     <style>
         <%@include file="/resources/css/style.css"%>
     </style>
-    <title>Create port</title>
+    <title><fmt:message key="message.createport.title"/></title>
 </head>
 <body>
 
@@ -31,19 +31,22 @@
 
     <div class="form-style-2">
         <div class="form-style-2-heading">
-            Create new port
+            <title><fmt:message key="message.createport.createnewport"/></title>
         </div>
         <br/>
         <form name="createportForm" method="post" action="/controller">
             <input type="hidden" name="command" value="createport"/>
-            <input type="hidden" name="createportForm" value="createportForm"/> Страна:
+            <input type="hidden" name="createportForm" value="createportForm"/><fmt:message key="message.createport.country"/>
             <br/><input type="text" name="country" value=""/>
-            <br/><br/>Город:
+            <br/><br/><fmt:message key="message.createport.city"/>
             <br/><input type="text" name="city" value=""/>
             <br/>
 
-            <br/> <input type="submit" value="Create port"/>
-            <br/>  <p style="color: red">${errorMessage}</p>
+            <br/> <input type="submit" value="<fmt:message key="message.createport.createbtn"/>"/>
+            <br/>
+            <p style="color: red">
+                <c:if test="${not empty createnewportMessage}"><fmt:message key="${createnewportMessage}"/></c:if>
+            </p>
         </form>
     </div>
 
