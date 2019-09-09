@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ShipserviceDaoImpl implements ShipserviceDao {
 
@@ -20,6 +21,7 @@ public class ShipserviceDaoImpl implements ShipserviceDao {
 // id, ship_id, payable, service_id
     private static final String CREATE = "INSERT INTO ship_service (ship_id, payable, service_id) VALUES(?, ?, ?)";
     private static final String FIND_ALL_ID_BY_SHIPID_SERVICEID = "SELECT id FROM ship_service WHERE ship_id = ? AND service_id = ?";
+    //private static final String FIND_ALL_SERVICES_BY_SHIPID = "SELECT id FROM ship_service WHERE ship_id = ? AND service_id = ?";  // id, service_name
     private static final String IS_PRESENT_SERVICE_ON_THE_SHIP = "SELECT * FROM ship_service WHERE ship_id = ? AND service_id = ?";
 //    private static final String UPDATE = "UPDATE ship_service SET payable = ?, service_id = ? WHERE id = ?";
     private static final String DELETE_BY_SHIPID_SERVICEID = "DELETE FROM ship_service WHERE ship_id = ? AND service_id = ?";
@@ -58,6 +60,22 @@ public class ShipserviceDaoImpl implements ShipserviceDao {
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_ID_BY_SHIPID_SERVICEID)){
             preparedStatement.setLong(1, shipId);
             preparedStatement.setLong(2, serviceId);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next())
+                listId.add(rs.getLong("id"));
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new GeneralCheckedException("Unsuccessful work with the database ", e);
+        }
+        return listId;
+    }
+
+    @Override
+    public List<Long> findAllIdByShipId(Long shipId) throws GeneralCheckedException { // todo доделать
+        List<Long> listId = new ArrayList<>();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_ID_BY_SHIPID_SERVICEID)){
+            preparedStatement.setLong(1, shipId);
+//            preparedStatement.setLong(2, serviceId);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next())
                 listId.add(rs.getLong("id"));

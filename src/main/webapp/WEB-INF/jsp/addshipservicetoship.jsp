@@ -83,7 +83,7 @@
     </div>
 
 
-    <form method="post" name="deleteservicesfromshipForm" action="/command">
+    <form method="post" name="deleteservicesfromshipForm" action="/controller">
         <input type="hidden" name="command" value="deleteshipservicefromship">
         <input type="hidden" name="selectedship" value="${sship.id}">
 

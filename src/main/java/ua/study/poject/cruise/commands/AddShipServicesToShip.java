@@ -41,7 +41,7 @@ public class AddShipServicesToShip implements Action {
             selectedShipId = Long.parseLong(selectedShip);
             payable = Integer.parseInt(request.getParameter("payable"));
             for (Ship ship : listShip) {
-                if(ship.getId().equals(selectedShipId)) {
+                if (ship.getId().equals(selectedShipId)) {
                     request.getSession().setAttribute("sship", ship);
                     break;
                 }
@@ -50,18 +50,18 @@ public class AddShipServicesToShip implements Action {
         } catch (NumberFormatException e) {
             request.getSession().setAttribute("addShipServiceToShipMessage",
                     "message.addshipservicetoship.errorshipnotfound");
-        return ConfigurationManager.getProperty("path.page.addshipservicetoship");
-    }
+            return ConfigurationManager.getProperty("path.page.addshipservicetoship");
+        }
 
         request.getSession().setAttribute("allServicesInSystem", shipserviceService.getAllServisesInSystem()); // отправляем в jsp список всех сервисов в системе
         request.getSession().setAttribute("allServicesOnSelectedShip", shipService.getAllServicesByShipId(selectedShipId)); // отправляем в jsp список всех сервисов, уже добавленых к выбранному кораблю
 
         String selectedserviceIdStr = request.getParameter("selectedservice");
-        if(selectedserviceIdStr.equals(""))
+        if (selectedserviceIdStr.equals(""))
             return ConfigurationManager.getProperty("path.page.addshipservicetoship");
 
         Long selectedserviceLong;
-        try{
+        try {
             selectedserviceLong = Long.parseLong(selectedserviceIdStr);
         } catch (NumberFormatException e) {
             request.getSession().setAttribute("addShipServiceToShipMessage",
@@ -77,13 +77,13 @@ public class AddShipServicesToShip implements Action {
             return ConfigurationManager.getProperty("path.page.addshipservicetoship");
         }
 
-        if(shipService.isServicePresentOnThisShip(selectedShipId, service.getId())){
+        if (shipService.isServicePresentOnThisShip(selectedShipId, service.getId())) {
             request.getSession().setAttribute("addShipServiceToShipMessage",
                     "message.addshipservicetoship.errorserviceduplicate");
             return ConfigurationManager.getProperty("path.page.addshipservicetoship");
         }
 
-        int result = shipService.addNewServiceToShip(selectedShipId, payable,service.getId());
+        int result = shipService.addNewServiceToShip(selectedShipId, payable, service.getId());
 
         if (result <= 0) {
             request.getSession().setAttribute("addShipServiceToShipMessage",

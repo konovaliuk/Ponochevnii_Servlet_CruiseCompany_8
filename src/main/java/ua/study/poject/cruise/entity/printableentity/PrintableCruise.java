@@ -5,10 +5,12 @@ import java.util.Objects;
 
 public class PrintableCruise implements Serializable {
 
-    private static final long serialVersionUID = 9165387653914291754L;
+    private static final long serialVersionUID = 6485047061553010123L;
 
     private Long cruiseId;
+    private Long shipId;
     private String shipName;
+    private Long portId;
     private String country;
     private String city;
     private String dateIn;
@@ -22,12 +24,28 @@ public class PrintableCruise implements Serializable {
         this.cruiseId = cruiseId;
     }
 
+    public Long getShipId() {
+        return shipId;
+    }
+
+    public void setShipId(Long shipId) {
+        this.shipId = shipId;
+    }
+
     public String getShipName() {
         return shipName;
     }
 
     public void setShipName(String shipName) {
         this.shipName = shipName;
+    }
+
+    public Long getPortId() {
+        return portId;
+    }
+
+    public void setPortId(Long portId) {
+        this.portId = portId;
     }
 
     public String getCountry() {
@@ -67,8 +85,10 @@ public class PrintableCruise implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PrintableCruise that = (PrintableCruise) o;
-        return cruiseId.equals(that.cruiseId) &&
+        return Objects.equals(cruiseId, that.cruiseId) &&
+                Objects.equals(shipId, that.shipId) &&
                 Objects.equals(shipName, that.shipName) &&
+                Objects.equals(portId, that.portId) &&
                 Objects.equals(country, that.country) &&
                 Objects.equals(city, that.city) &&
                 Objects.equals(dateIn, that.dateIn) &&
@@ -77,13 +97,15 @@ public class PrintableCruise implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(cruiseId, shipName, country, city, dateIn, dateOut);
+        return Objects.hash(cruiseId, shipId, shipName, portId, country, city, dateIn, dateOut);
     }
 
     @Override
     public String toString() {
         return "CruiseId: " + cruiseId +
-                "shipName: " + shipName +
+                ", shipId: " + shipId +
+                ", shipName: " + shipName +
+                ", portId: " + portId +
                 ", country: " + country +
                 ", city: " + city +
                 ", dateIn: " + dateIn +

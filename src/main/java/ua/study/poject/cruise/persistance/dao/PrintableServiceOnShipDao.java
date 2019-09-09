@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface PrintableServiceOnShipDao {
 
-    List<PrintableServiceOnShip> findAllServicesByShipId(Long id) throws GeneralCheckedException;
+    List<PrintableServiceOnShip> findAllServicesByShipId(Long shipId) throws GeneralCheckedException;
+
+    PrintableServiceOnShip findServiceById(Long id) throws GeneralCheckedException;
 
     void close();
 

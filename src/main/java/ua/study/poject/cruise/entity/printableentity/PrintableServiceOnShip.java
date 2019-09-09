@@ -5,11 +5,20 @@ import java.util.Objects;
 
 public class PrintableServiceOnShip implements Serializable {
 
-    private static final long serialVersionUID = 2281679440313378423L;
+    private static final long serialVersionUID = -5159349681961939291L;
 
+    private Long id; // ship_service_id
     private Long serviceId;
     private String serviceName;
     private Integer payable;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getServiceId() {
         return serviceId;
@@ -52,7 +61,8 @@ public class PrintableServiceOnShip implements Serializable {
 
     @Override
     public String toString() {
-        return "serviceId: " + serviceId +
+        return "id: " + id +
+                "serviceId: " + serviceId +
                 "serviceName: " + serviceName +
                 ", payable: " + payable;
     }

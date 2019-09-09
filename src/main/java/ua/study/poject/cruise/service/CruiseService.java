@@ -3,11 +3,13 @@ package ua.study.poject.cruise.service;
 import org.apache.log4j.Logger;
 import ua.study.poject.cruise.entity.Cruise;
 import ua.study.poject.cruise.entity.CruisePorts;
+import ua.study.poject.cruise.entity.Ticketclass;
 import ua.study.poject.cruise.entity.printableentity.PrintableCruise;
 import ua.study.poject.cruise.exceptions.GeneralCheckedException;
 import ua.study.poject.cruise.persistance.dao.CruiseDao;
 import ua.study.poject.cruise.persistance.dao.CruisePortsDao;
 import ua.study.poject.cruise.persistance.dao.PrintableCruiseDao;
+import ua.study.poject.cruise.persistance.dao.TicketclassDao;
 import ua.study.poject.cruise.persistance.datasource.AbstractDaoFactory;
 import ua.study.poject.cruise.persistance.datasource.Atomizer;
 import ua.study.poject.cruise.persistance.datasource.impl.AtomizerFactory;
@@ -21,6 +23,21 @@ public class CruiseService {
     private static final Logger LOGGER = Logger.getLogger(CruiseService.class);
 
     private AbstractDaoFactory daoFactory = MySqlDaoFactory.getInstance();
+
+    public List<Ticketclass> getAllTicketClasses(){
+        TicketclassDao ticketclassDao = null;
+        List<Ticketclass> list = new ArrayList<>();
+        try {
+            ticketclassDao = daoFactory.getTicketclassDaoImpl();
+            list = ticketclassDao.findAll();
+        }catch (GeneralCheckedException e) {
+            LOGGER.error(e);
+        } finally {
+            if (ticketclassDao != null)
+                ticketclassDao.close();
+        }
+        return list;
+    }
 
     public int createCruise(Long selectedShip, double priceFirstClass, double priceSecondClass, double priceThirdClass, double priceFourthClass, List<CruisePorts> cruisePortsList) {
         try (Atomizer atomizer = AtomizerFactory.getAtomizer()) {
@@ -60,7 +77,7 @@ public class CruiseService {
         PrintableCruiseDao printableCruiseDao = null;
         try {
             printableCruiseDao = daoFactory.getPrintableCruiseDaoImpl();
-            list = printableCruiseDao.findAllForWebPage();
+            list = printableCruiseDao.findAllPrintableCruises();
 
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);
@@ -71,7 +88,19 @@ public class CruiseService {
         return list;
     }
 
-//    public Object viewAllBonusesInEachCruise(User manager) {
-//
-//    }
+    public List<PrintableCruise> getAllPrintableCruisesByShipId(Long shipId) {
+        List<PrintableCruise> list = new ArrayList<>();
+        PrintableCruiseDao printableCruiseDao = null;
+        try {
+            printableCruiseDao = daoFactory.getPrintableCruiseDaoImpl();
+            list = printableCruiseDao.findAllPrintableCruisesByShipId(shipId);
+        } catch (GeneralCheckedException e) {
+            LOGGER.error(e);
+        } finally {
+            if (printableCruiseDao != null)
+                printableCruiseDao.close();
+        }
+        return list;
+    }
+
 }

@@ -30,7 +30,8 @@ public class ActionStorage {
     private final static String VIEW_EXCURSION_IN_PORTS = "viewexcursioninports";
     private final static String CREATE_EXCURSION = "createexcursion";
     private final static String CHANGE_USER_ROLE = "changeuserrole";
-    private final static String MANAGE_BONUSES = "managebonuses";
+    private final static String ADD_BONUSES = "addbonuses";
+    private final static String DELETE_BONUSES = "deletebonuses";
     private final static String ADD_SHIP_SERVICES_TO_SYSTEM = "addshipservicestosystem";
     private final static String ADD_SHIP_SERVICES_TO_SHIP = "addshipservicetoship";
     private final static String DELETE_SHIP_SERVICES_FROM_SHIP = "deleteshipservicefromship";
@@ -90,7 +91,8 @@ public class ActionStorage {
         managerAction.put(PAY, new Pay());
         managerAction.put(VIEW_EXCURSION_IN_PORTS, new ViewExcursionsInPort());
         managerAction.put(LOGOUT, new Logout());
-        managerAction.put(MANAGE_BONUSES, new ManageBonuses());
+        managerAction.put(ADD_BONUSES, new AddBonuses());
+        managerAction.put(DELETE_BONUSES, new DeleteBonuses());
         managerAction.put(START_PAGE, new StartPage());
         managerAction.put(CHANGE_LANGUAGE, new ChangeLanguage());
         managerAction.put(ERROR_PAGE, new ErrorPage());

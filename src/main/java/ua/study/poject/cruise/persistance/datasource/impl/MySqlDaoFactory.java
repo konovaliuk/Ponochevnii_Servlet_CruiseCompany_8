@@ -4,9 +4,11 @@ package ua.study.poject.cruise.persistance.datasource.impl;
 import org.apache.log4j.Logger;
 import ua.study.poject.cruise.exceptions.GeneralCheckedException;
 import ua.study.poject.cruise.persistance.dao.PrintableServiceOnShipDao;
+import ua.study.poject.cruise.persistance.dao.PrintableTicketclassBonusDao;
 import ua.study.poject.cruise.persistance.dao.impl.*;
 import ua.study.poject.cruise.persistance.dao.impl.printable.PrintableCruiseDaoImpl;
 import ua.study.poject.cruise.persistance.dao.impl.printable.PrintableServiceOnShipDaoImpl;
+import ua.study.poject.cruise.persistance.dao.impl.printable.PrintableTicketclassBonusDaoImpl;
 import ua.study.poject.cruise.persistance.datasource.AbstractDaoFactory;
 import ua.study.poject.cruise.persistance.datasource.Atomizer;
 
@@ -242,4 +244,30 @@ public class MySqlDaoFactory extends AbstractDaoFactory {
             throw new GeneralCheckedException("Unsuccessful work with the database ", e);
         }
     }
+
+    @Override
+    public UserShipDaoImpl getUserShipDaoImpl() throws GeneralCheckedException {
+        try {
+            return new UserShipDaoImpl(ConnectionPool.getConnection());
+        } catch (GeneralCheckedException e) {
+            LOGGER.error(e);
+            throw new GeneralCheckedException("Unsuccessful work with the database ", e);
+        }
+    }
+
+    @Override
+    public UserShipDaoImpl getUserShipDaoImpl(Atomizer atomizer) {
+        return new UserShipDaoImpl((Connection) atomizer.get());
+    }
+
+    @Override
+    public PrintableTicketclassBonusDao getPrintableTicketclassBonusDao() throws GeneralCheckedException {
+        try {
+            return new PrintableTicketclassBonusDaoImpl(ConnectionPool.getConnection());
+        } catch (GeneralCheckedException e) {
+            LOGGER.error(e);
+            throw new GeneralCheckedException("Unsuccessful work with the database ", e);
+        }
+    }
+
 }

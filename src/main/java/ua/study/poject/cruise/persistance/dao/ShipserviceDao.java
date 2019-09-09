@@ -17,5 +17,7 @@ public interface ShipserviceDao {
 
     List<Long> findAllIdByShipIdServiceId(Long shipId, Long serviceId) throws GeneralCheckedException;
 
+    List<Long> findAllIdByShipId(Long shipId) throws GeneralCheckedException;
+
     void close();
 }

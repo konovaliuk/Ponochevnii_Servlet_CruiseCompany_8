@@ -33,7 +33,7 @@
     <br/>
 
     <form name="managebonusesManager" method="POST" action="/controller">
-        <input type="hidden" name="command" value="managebonuses"/>
+        <input type="hidden" name="command" value="addbonuses"/>
         <br/> <input type="submit" value="<fmt:message key="message.myaccount.managebonus"/>"/>
     </form>
 

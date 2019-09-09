@@ -2,6 +2,7 @@ package ua.study.poject.cruise.persistance.datasource;
 
 import ua.study.poject.cruise.exceptions.GeneralCheckedException;
 import ua.study.poject.cruise.persistance.dao.PrintableServiceOnShipDao;
+import ua.study.poject.cruise.persistance.dao.PrintableTicketclassBonusDao;
 import ua.study.poject.cruise.persistance.dao.impl.*;
 import ua.study.poject.cruise.persistance.dao.impl.printable.PrintableCruiseDaoImpl;
 
@@ -59,9 +60,17 @@ public abstract class AbstractDaoFactory {
 
     public abstract UserDaoImpl getUserDaoImpl(Atomizer atomizer);
 
+    public abstract UserShipDaoImpl getUserShipDaoImpl() throws GeneralCheckedException;
+
+    public abstract UserShipDaoImpl getUserShipDaoImpl(Atomizer atomizer);
+
     public abstract PrintableCruiseDaoImpl getPrintableCruiseDaoImpl() throws GeneralCheckedException;
 
     public abstract PrintableServiceOnShipDao getPrintableServiceOnShipDao() throws GeneralCheckedException;
+
+    public abstract PrintableTicketclassBonusDao getPrintableTicketclassBonusDao() throws GeneralCheckedException;
+
+
 
 
 }

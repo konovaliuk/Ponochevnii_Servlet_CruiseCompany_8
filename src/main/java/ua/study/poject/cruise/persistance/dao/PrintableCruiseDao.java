@@ -8,7 +8,9 @@ import java.util.List;
 
 public interface PrintableCruiseDao {
 
-    List<PrintableCruise> findAllForWebPage() throws GeneralCheckedException;
+    List<PrintableCruise> findAllPrintableCruises() throws GeneralCheckedException;
+
+    List<PrintableCruise> findAllPrintableCruisesByShipId(Long shipId) throws GeneralCheckedException;
 
     void close();
 
