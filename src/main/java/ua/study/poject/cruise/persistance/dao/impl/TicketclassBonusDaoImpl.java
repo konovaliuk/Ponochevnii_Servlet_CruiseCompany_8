@@ -34,22 +34,22 @@ public class TicketclassBonusDaoImpl implements TicketclassBonusDao {
     public int create(TicketclassBonus ticketclassBonus) throws GeneralCheckedException {
         return SQLExecutor.executeInsertUpdateDelete(connection, CREATE, ticketclassBonus.getTicketclassId(), ticketclassBonus.getShipServiceId(), ticketclassBonus.getCruiseId());
     }
-
-    @Override
-    public List<TicketclassBonus> findAllByIdCruiseIdTicketclass(Long idCruise, Long idTicketClass) throws GeneralCheckedException {
-        List<TicketclassBonus> ticketclassBonuses = new ArrayList<>();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID_CRUISE_ID_TICKETCLASS)){
-            preparedStatement.setLong(1, idCruise);
-            preparedStatement.setLong(2, idTicketClass);
-            ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next())
-                ticketclassBonuses.add(createTicketclassBonus(rs));
-        } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new GeneralCheckedException("Unsuccessful work with the database ", e);
-        }
-        return ticketclassBonuses;
-    }
+//
+//    @Override
+//    public List<TicketclassBonus> findAllByIdCruiseIdTicketclass(Long idCruise, Long idTicketClass) throws GeneralCheckedException {
+//        List<TicketclassBonus> ticketclassBonuses = new ArrayList<>();
+//        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID_CRUISE_ID_TICKETCLASS)){
+//            preparedStatement.setLong(1, idCruise);
+//            preparedStatement.setLong(2, idTicketClass);
+//            ResultSet rs = preparedStatement.executeQuery();
+//            while (rs.next())
+//                ticketclassBonuses.add(createTicketclassBonus(rs));
+//        } catch (SQLException e) {
+//            LOGGER.error(e);
+//            throw new GeneralCheckedException("Unsuccessful work with the database ", e);
+//        }
+//        return ticketclassBonuses;
+//    }
 
     @Override
     public int delete(TicketclassBonus ticketclassBonus) throws GeneralCheckedException {
@@ -70,9 +70,15 @@ public class TicketclassBonusDaoImpl implements TicketclassBonusDao {
         return ticketclassBonus;
     }
 
+//    @Override
+//    public int deleteAllByCruiseIdShipservicesId(Long cruiseId, Long shipserviceId) throws GeneralCheckedException {
+//            return SQLExecutor.executeInsertUpdateDelete(connection, DELETE_ALL_BY_CRUISEID_SHIPSERVICEID, cruiseId, shipserviceId);
+//    }
+
+
     @Override
-    public int deleteAllByCruiseIdShipservicesId(Long cruiseId, Long shipserviceId) throws GeneralCheckedException {
-            return SQLExecutor.executeInsertUpdateDelete(connection, DELETE_ALL_BY_CRUISEID_SHIPSERVICEID, cruiseId, shipserviceId);
+    public int deleteById(Long id) throws GeneralCheckedException {
+        return SQLExecutor.executeInsertUpdateDelete(connection, DELETE, id);
     }
 
     public void close(){

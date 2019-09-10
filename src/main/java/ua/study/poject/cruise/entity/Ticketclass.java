@@ -7,6 +7,7 @@ import java.util.Objects;
 public class Ticketclass implements Serializable {
 
     private static final long serialVersionUID = -2431025132940517731L;
+
     private Long id = -1L;
     private String ticketclassName; // ticketclass_name
 

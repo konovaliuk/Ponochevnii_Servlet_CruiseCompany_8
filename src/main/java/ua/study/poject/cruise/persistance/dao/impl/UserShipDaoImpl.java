@@ -23,7 +23,7 @@ public class UserShipDaoImpl implements UserShipDao {
     private static final String CREATE = "INSERT INTO user_ship (ship_id, user_id) VALUES(?, ?)";
     private static final String FIND_BY_USER_ID = "SELECT * FROM user_ship WHERE user_id = ?";
     private static final String FIND_BY_SHIP_ID = "SELECT * FROM user_ship WHERE ship_id = ?";
-    private static final String FIND_ALL_SHIPS_BY_USER_ID = "SELECT * FROM user_ship JOIN ship ON ship_id = ship.id WHERE user_id = ?";
+    private static final String FIND_ALL_SHIPS_BY_USER_ID = "SELECT ship_id AS id, ship_name, n_staff, n_first_class, n_second_class, n_third_class, n_fourth_class  FROM user_ship JOIN ship ON ship_id = ship.id WHERE user_id = ?";
     private static final String DELETE = "DELETE FROM user_ship WHERE id = ?";
 
     private Connection connection;

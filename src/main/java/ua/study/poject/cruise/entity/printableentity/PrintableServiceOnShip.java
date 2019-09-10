@@ -7,17 +7,17 @@ public class PrintableServiceOnShip implements Serializable {
 
     private static final long serialVersionUID = -5159349681961939291L;
 
-    private Long id; // ship_service_id
+    private Long shipServiceId; // ship_service_id
     private Long serviceId;
     private String serviceName;
     private Integer payable;
 
-    public Long getId() {
-        return id;
+    public Long getShipServiceId() {
+        return shipServiceId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setShipServiceId(Long shipServiceId) {
+        this.shipServiceId = shipServiceId;
     }
 
     public Long getServiceId() {
@@ -61,9 +61,9 @@ public class PrintableServiceOnShip implements Serializable {
 
     @Override
     public String toString() {
-        return "id: " + id +
-                "serviceId: " + serviceId +
-                "serviceName: " + serviceName +
+        return " id: " + shipServiceId +
+                ", serviceId: " + serviceId +
+                ", serviceName: " + serviceName +
                 ", payable: " + payable;
     }
 }

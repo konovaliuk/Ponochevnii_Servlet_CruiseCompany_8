@@ -1,10 +1,14 @@
 package ua.study.poject.cruise.persistance.datasource;
 
+import ua.study.poject.cruise.entity.printableentity.PrintableCruisePort;
 import ua.study.poject.cruise.exceptions.GeneralCheckedException;
+import ua.study.poject.cruise.persistance.dao.PrintableCruisePortDao;
 import ua.study.poject.cruise.persistance.dao.PrintableServiceOnShipDao;
 import ua.study.poject.cruise.persistance.dao.PrintableTicketclassBonusDao;
 import ua.study.poject.cruise.persistance.dao.impl.*;
 import ua.study.poject.cruise.persistance.dao.impl.printable.PrintableCruiseDaoImpl;
+
+import java.util.List;
 
 public abstract class AbstractDaoFactory {
 
@@ -70,7 +74,6 @@ public abstract class AbstractDaoFactory {
 
     public abstract PrintableTicketclassBonusDao getPrintableTicketclassBonusDao() throws GeneralCheckedException;
 
-
-
+    public abstract PrintableCruisePortDao getPrintableCruisePortDao() throws GeneralCheckedException;
 
 }

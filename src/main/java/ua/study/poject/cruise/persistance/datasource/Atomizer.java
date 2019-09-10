@@ -6,5 +6,5 @@ import java.sql.SQLException;
 
 public interface Atomizer<T> extends AutoCloseable {
     T get();
-    void recordChanges() throws SQLException, GeneralCheckedException;
+    void recordChanges() throws GeneralCheckedException;
 }

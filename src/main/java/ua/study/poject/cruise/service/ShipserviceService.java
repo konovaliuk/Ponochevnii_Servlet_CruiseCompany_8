@@ -89,8 +89,7 @@ public class ShipserviceService {
         ShipserviceDao shipserviceDao;
         TicketclassBonusDao ticketclassBonusDao;
 
-        try (Atomizer atomizer = new DBAtomizer()) {
-            CruiseDao cruiseDao = daoFactory.getCruiseDaoImpl(atomizer);
+        try (Atomizer atomizer = new DBAtomizer()) { // AutoCloseable
             shipserviceDao = daoFactory.getShipserviceDaoImpl(atomizer);
             ticketclassBonusDao = daoFactory.getTicketclassBonusDaoImpl(atomizer);
 

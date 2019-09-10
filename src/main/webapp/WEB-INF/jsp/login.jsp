@@ -37,7 +37,7 @@
         <input type="hidden" name="command" value="signin"/>
         <input type="hidden" name="signinForm" value="signinForm"/>
         <label for="name"><fmt:message key="message.login.login"/>
-            <input class="input-field" type="text" id="name" name="login">
+            <input class="input-field" type="text" id="name" name="login" autofocus>
         </label>
         <label for="password"><fmt:message key="message.login.password"/>
             <input class="input-field" type="password" id="password" name="password">

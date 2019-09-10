@@ -24,6 +24,12 @@ public class PrintableTicketclassBonusDaoImpl implements PrintableTicketclassBon
             "JOIN service ON service_id = service.id " +
             "JOIN ticketclass ON ticketclass_id = ticketclass.id WHERE cruise_id = ? AND ticketclass_id = ?;";
 
+    private static final String FIND_ALL_BY_CRUISE_ID_TICKETCLASS_NAME = "SELECT ticketclass_bonus.id AS ticketclass_bonus_id, cruise_id, ship_service_id, service_id, service_name, payable, ticketclass_id, ticketclass_name " +
+            "FROM ticketclass_bonus " +
+            "JOIN ship_service ON ship_service_id = ship_service.id " +
+            "JOIN service ON service_id = service.id " +
+            "JOIN ticketclass ON ticketclass_id = ticketclass.id WHERE cruise_id = ? AND ticketclass_name = ?;";
+
     private Connection connection;
 
     public PrintableTicketclassBonusDaoImpl(Connection connection) {
@@ -47,21 +53,38 @@ public class PrintableTicketclassBonusDaoImpl implements PrintableTicketclassBon
         return list;
     }
 
+    @Override
+    public List<PrintableTicketclassBonus> getAllBonusesByCruiseIdTicketclassName(Long cruiseId, String ticketclassName) throws GeneralCheckedException {
+        List<PrintableTicketclassBonus> list = new ArrayList<>();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_BY_CRUISE_ID_TICKETCLASS_NAME)) {
+            preparedStatement.setLong(1, cruiseId);
+            preparedStatement.setString(2, ticketclassName);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next())
+                list.add(createPrintableTicketclassBonus(rs));
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new GeneralCheckedException("Unsuccessful work with the database ", e);
+        }
+        return list;
+    }
+
+    // ticketclass_bonus_id, cruise_id, ship_service_id, service_id, service_name, payable, ticketclass_id, ticketclass_name
     private PrintableTicketclassBonus createPrintableTicketclassBonus(ResultSet rs) throws SQLException {
         PrintableTicketclassBonus ticketclassBonus = new PrintableTicketclassBonus();
         ticketclassBonus.setTicketClassBonusId(rs.getLong("ticketclass_bonus_id"));
         ticketclassBonus.setCruiseId(rs.getLong("cruise_id"));
 
         PrintableServiceOnShip printableServiceOnShip = new PrintableServiceOnShip();
-        printableServiceOnShip.setId(rs.getLong("ship_service_id"));
+        printableServiceOnShip.setShipServiceId(rs.getLong("ship_service_id"));
         printableServiceOnShip.setServiceId(rs.getLong("service_id"));
         printableServiceOnShip.setServiceName(rs.getString("service_name"));
         printableServiceOnShip.setPayable(rs.getInt("payable"));
         ticketclassBonus.setPrintableServiceOnShip(printableServiceOnShip);
 
         Ticketclass ticketclass = new Ticketclass();
-        ticketclass.setId(rs.getLong("ticket_class_id"));
-        ticketclass.setTicketclassName(rs.getString("ticket_class_name"));
+        ticketclass.setId(rs.getLong("ticketclass_id"));
+        ticketclass.setTicketclassName(rs.getString("ticketclass_name"));
         ticketclassBonus.setTicketclass(ticketclass);
 
         return ticketclassBonus;

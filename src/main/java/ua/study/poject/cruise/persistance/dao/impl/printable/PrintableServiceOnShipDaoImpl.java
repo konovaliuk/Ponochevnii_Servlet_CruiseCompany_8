@@ -57,7 +57,7 @@ public class PrintableServiceOnShipDaoImpl implements PrintableServiceOnShipDao 
 
     private PrintableServiceOnShip createPrintableCruise(ResultSet rs) throws SQLException {
         PrintableServiceOnShip printableServiceOnShip = new PrintableServiceOnShip();
-        printableServiceOnShip.setId(rs.getLong("id"));
+        printableServiceOnShip.setShipServiceId(rs.getLong("id"));
         printableServiceOnShip.setServiceId(rs.getLong("service_id"));
         printableServiceOnShip.setServiceName(rs.getString("service_name"));
         printableServiceOnShip.setPayable(rs.getInt("payable"));

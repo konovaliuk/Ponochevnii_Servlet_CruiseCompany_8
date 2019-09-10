@@ -53,7 +53,7 @@ public class DeleteShipServicesFromShip implements Action {
             return ConfigurationManager.getProperty("path.page.addshipservicetoship");
         }
         try {
-            for (String tempStr : request.getParameterValues("shipservice")) {
+            for (String tempStr : shipServicesArray) {
                 servicesIdList.add(Long.parseLong(tempStr));
             }
             result = shipserviceService.deleteServicesFromShip(selectedShipId, servicesIdList);

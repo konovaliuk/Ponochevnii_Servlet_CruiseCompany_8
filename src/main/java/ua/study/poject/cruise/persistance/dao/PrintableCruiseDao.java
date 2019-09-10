@@ -12,6 +12,7 @@ public interface PrintableCruiseDao {
 
     List<PrintableCruise> findAllPrintableCruisesByShipId(Long shipId) throws GeneralCheckedException;
 
+
     void close();
 
 }

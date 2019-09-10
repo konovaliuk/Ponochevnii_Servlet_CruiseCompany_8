@@ -1,15 +1,12 @@
 ﻿<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<fmt:setLocale value="${language}" />
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${language}"/>
 <fmt:setBundle basename="message"/>
 
 <html>
 <head>
-    <style>
-        <%@include file="/resources/css/style.css"%>
-    </style>
-    <title>Registration</title>
+    <title><fmt:message key="message.managebonuses.titel"/></title>
 </head>
 <body>
 
@@ -25,99 +22,241 @@
 </c:set>
 <jsp:include page="${hdr}"/>
 
-<h1 style="color: red">Cart.jsp</h1>
+<h1 style="color: red">managebonuses.jsp</h1>
 
 <div class="form-style-2">
 
-
-
-
-
-
-
-<p>&nbsp;</p>
-<p>Ship id: label</p>
-<p>Ship name: label</p>
-<p>&nbsp;</p>
-<table align="left" border="1" cellpadding="0" cellspacing="0" style="width: 700px;">
-	<thead>
-		<tr>
-			<th scope="col">&nbsp;Ship servece
-				<p>&nbsp;</p>
-			</th>
-			<th scope="col">Payable</th>
-			<th scope="col">&nbsp;</th>
-			<th scope="col">&nbsp;</th>
-			<th scope="col">&nbsp;</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>Service 1</td>
-			<td><input type="checkbox"></td>
-			<td>&nbsp;</td>
-			<td>&nbsp;</td>
-			<td>&nbsp;</td>
-		</tr>
-	</tbody>
-</table>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>create button</p>
-<form action="/command" method="post" name="createButton">&nbsp;</form>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-
-
-
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-<div class="form-style-2">
     <div class="form-style-2-heading">
-        Login and phone must be unique!
+        <fmt:message key="message.managebonuses.addbonuses"/>
     </div>
-    <br/>
-    <form name="managebonusesForm" method="post" action="/controller">
-        <input type="hidden" name="command" value="managebonuses"/>
-        <input type="hidden" name="managebonusesForm" value="managebonusesForm"/> Login:
-        <br/><input type="text" name="login" value="${currenuser.login}" disabled/>
-        <br/><br/>Password:
-        <br/><input type="password" name="password" value=""/>
-        <br/><br/>First name:
-        <br/><input type="text" name="firstname" value="${currenuser.firstName}"/>
-        <br/><br/>Second name:
-        <br/><input type="text" name="secondname" value="${currenuser.secondName}"/>
-        <br/><br/>Email:
-        <br/><input type="email" name="email" value="${currenuser.email}"/>
-        <br/><br/>Telephone:
-        <br/><input type="tel" name="tel" value="${currenuser.tel}"/>
+
+    <form name="addbonusesForm" method="post" action="/controller"><fmt:message key="message.managebonuses.selectcruise"/><br/>
+        <input type="hidden" name="command" value="addbonuses">
+        <input type="hidden" name="addbonusesForm" value="addbonusesForm">
+        <select name="selectedcruise" onchange="submit()">
+            <c:if test="${scruise == null}">
+                <option value=""><fmt:message key="message.managebonuses.selectcruisemess"/></option>
+            </c:if>
+            <c:if test="${scruise != null}">
+                <option value="${scruise.cruiseId}">Cruise id: ${scruise.cruiseId}. Ship name: ${scruise.shipName}</option>
+            </c:if>
+            <c:forEach var="cruisen" items="${cruiseList}">
+                <option value="${cruisen.cruiseId}">Cruise id: ${cruisen.cruiseId}. Ship name: ${cruisen.shipName}</option>
+            </c:forEach>
+        </select>
+        <br/><br/><br/><br/>
+
+
+        <fmt:message key="message.managebonuses.selectticketclass"/><br/>
+        <select name="selectedticketclass">
+            <c:if test="${sticketclass == null}">
+                <option value=""><fmt:message key="message.managebonuses.selectticketclass0"/></option>
+            </c:if>
+            <c:if test="${sticketclass != null}">
+                <option value="${sticketclass.id}"><fmt:message key="message.managebonuses.ticketclass"/> ${sticketclass.ticketclassName}</option>
+            </c:if>
+            <c:forEach var="ticketclassn" items="${ticketclassList}">
+                <option value="${ticketclassn.id}"><fmt:message key="message.managebonuses.ticketclass"/> ${ticketclassn.ticketclassName}</option>
+            </c:forEach>
+
+
+        </select>
+        <br/><br/>
+        <fmt:message key="message.managebonuses.selectservice"/><br/>
+        <select name="selectedshipserviceid">
+            <option value=""><fmt:message key="message.managebonuses.selectservice0"/></option>
+            <c:forEach var="shipservicen" items="${shipserviceList}">
+                <option value="${shipservicen.shipServiceId}">${shipservicen.serviceName}</option>
+            </c:forEach>
+        </select>
+
         <br/>
-        ${editAccountMessage}
-        ${editAccountErrorMessage}
-        <br/> <input type="submit" value="Edit Account"/>
-        <br/>  <p style="color: red">${errorMessage}</p>
+        <br/> <input type="submit" value="<fmt:message key="message.managebonuses.makeabonus"/>"/>
+        <br/>
+        <p style="color: red">
+            <c:if test="${not empty addBonusesMessage}"><fmt:message key="${addBonusesMessage}"/></c:if>
+        </p>
     </form>
+
 </div>
+
+<c:if test="${shipserviceList != null && shipserviceList.size() != 0}">
+    <br/><br/>
+    <div class="form-style-2-heading">
+        <fmt:message key="message.managebonuses.allavailableserv"/>
+    </div>
+    <table border="1" cellpadding="3" cellspacing="0">
+        <thead>
+        <tr>
+            <td><fmt:message key="message.addshipservicetoship.td1"/></td>
+            <td><fmt:message key="message.addshipservicetoship.td2"/></td>
+        </tr>
+        </thead>
+        <c:forEach var="shipservicen" items="${shipserviceList}">
+            <tr>
+                <td><c:out value="${shipservicen.serviceName}"/></td>
+                <td>
+                    <c:if test="${shipservicen.payable == 0}"> <fmt:message key="message.addshipservicetoship.free"/>
+                    </c:if>
+                    <c:if test="${shipservicen.payable != 0}"> <fmt:message key="message.addshipservicetoship.payable"/>
+                    </c:if>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
+</c:if>
+
+<c:if test="${allBonusesForTicketClass1 != null && allBonusesForTicketClass1.size() != 0}">
+    <br/><br/>
+    <div class="form-style-2">
+        <div class="form-style-2-heading">
+            <fmt:message key="message.managebonuses.bforfirstclass"/>
+        </div>
+        <form method="post" name="deletebonuses1Form" action="/controller">
+            <input type="hidden" name="command" value="deletebonuses">
+            <table border="1" cellpadding="3" cellspacing="0">
+                <thead>
+                <tr>
+                    <td><fmt:message key="message.addshipservicetoship.td1"/></td>
+                    <td><fmt:message key="message.addshipservicetoship.td2"/></td>
+                    <td><fmt:message key="message.addshipservicetoship.td3"/></td>
+                </tr>
+                </thead>
+                <c:forEach var="bonuseForTicketClass1" items="${allBonusesForTicketClass1}">
+                    <tr>
+                        <td><c:out value="${bonuseForTicketClass1.printableServiceOnShip.serviceName}"/></td>
+                        <td>
+                            <c:if test="${bonuseForTicketClass1.printableServiceOnShip.payable == 0}"> <fmt:message
+                                    key="message.addshipservicetoship.free"/> </c:if>
+                            <c:if test="${bonuseForTicketClass1.printableServiceOnShip.payable != 0}"> <fmt:message
+                                    key="message.addshipservicetoship.payable"/> </c:if>
+                        </td>
+                        <td><input type="checkbox" name="bonuses" value="${bonuseForTicketClass1.ticketClassBonusId}">
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+            <br/><input type="submit" value="Delete bonuses"/>
+        </form>
+        <hr/>
+    </div>
+</c:if>
+
+
+<c:if test="${allBonusesForTicketClass2 != null && allBonusesForTicketClass2.size() != 0}">
+    <br/><br/>
+    <div class="form-style-2">
+        <div class="form-style-2-heading">
+            <fmt:message key="message.managebonuses.bforsecclass"/>
+        </div>
+        <form method="post" name="deletebonuses2Form" action="/controller">
+            <input type="hidden" name="command" value="deletebonuses">
+                <%--        <input type="hidden" name="selectedbonusfordelete1" value="${scruise.cruiseId}">--%>
+
+            <table border="1" cellpadding="3" cellspacing="0">
+                <thead>
+                <tr>
+                    <td><fmt:message key="message.addshipservicetoship.td1"/></td>
+                    <td><fmt:message key="message.addshipservicetoship.td2"/></td>
+                    <td><fmt:message key="message.addshipservicetoship.td3"/></td>
+                </tr>
+                </thead>
+                <c:forEach var="bonuseForTicketClass2" items="${allBonusesForTicketClass2}">
+                    <tr>
+                        <td><c:out value="${bonuseForTicketClass2.printableServiceOnShip.serviceName}"/></td>
+                        <td>
+                            <c:if test="${bonuseForTicketClass2.printableServiceOnShip.payable == 0}"> <fmt:message
+                                    key="message.addshipservicetoship.free"/> </c:if>
+                            <c:if test="${bonuseForTicketClass2.printableServiceOnShip.payable != 0}"> <fmt:message
+                                    key="message.addshipservicetoship.payable"/> </c:if>
+                        </td>
+                        <td><input type="checkbox" name="bonuses" value="${bonuseForTicketClass2.ticketClassBonusId}">
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+            <br/><input type="submit" value="Delete bonuses"/>
+        </form>
+        <hr/>
+    </div>
+</c:if>
+
+
+<c:if test="${allBonusesForTicketClass3 != null && allBonusesForTicketClass3.size() != 0}">
+    <br/><br/>
+    <div class="form-style-2">
+        <div class="form-style-2-heading">
+            <fmt:message key="message.managebonuses.bforthirdclass"/>
+        </div>
+        <form method="post" name="deletebonuses3Form" action="/controller">
+            <input type="hidden" name="command" value="deletebonuses">
+                <%--        <input type="hidden" name="selectedbonusfordelete1" value="${scruise.cruiseId}">--%>
+
+            <table border="1" cellpadding="3" cellspacing="0">
+                <thead>
+                <tr>
+                    <td><fmt:message key="message.addshipservicetoship.td1"/></td>
+                    <td><fmt:message key="message.addshipservicetoship.td2"/></td>
+                    <td><fmt:message key="message.addshipservicetoship.td3"/></td>
+                </tr>
+                </thead>
+                <c:forEach var="bonuseForTicketClass3" items="${allBonusesForTicketClass3}">
+                    <tr>
+                        <td><c:out value="${bonuseForTicketClass3.printableServiceOnShip.serviceName}"/></td>
+                        <td>
+                            <c:if test="${bonuseForTicketClass3.printableServiceOnShip.payable == 0}"> <fmt:message
+                                    key="message.addshipservicetoship.free"/> </c:if>
+                            <c:if test="${bonuseForTicketClass3.printableServiceOnShip.payable != 0}"> <fmt:message
+                                    key="message.addshipservicetoship.payable"/> </c:if>
+                        </td>
+                        <td><input type="checkbox" name="bonuses" value="${bonuseForTicketClass3.ticketClassBonusId}">
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+            <br/><input type="submit" value="Delete bonuses"/>
+        </form>
+        <hr/>
+    </div>
+</c:if>
+
+
+<c:if test="${allBonusesForTicketClass4 != null && allBonusesForTicketClass4.size() != 0}">
+    <br/><br/>
+    <div class="form-style-2">
+        <div class="form-style-2-heading">
+            <fmt:message key="message.managebonuses.bforfourclass"/>
+        </div>
+        <form method="post" name="deletebonuses4Form" action="/controller">
+            <input type="hidden" name="command" value="deletebonuses">
+            <table border="1" cellpadding="3" cellspacing="0">
+                <thead>
+                <tr>
+                    <td><fmt:message key="message.addshipservicetoship.td1"/></td>
+                    <td><fmt:message key="message.addshipservicetoship.td2"/></td>
+                    <td><fmt:message key="message.addshipservicetoship.td3"/></td>
+                </tr>
+                </thead>
+                <c:forEach var="bonuseForTicketClass4" items="${allBonusesForTicketClass4}">
+                    <tr>
+                        <td><c:out value="${bonuseForTicketClass4.printableServiceOnShip.serviceName}"/></td>
+                        <td>
+                            <c:if test="${bonuseForTicketClass4.printableServiceOnShip.payable == 0}"> <fmt:message
+                                    key="message.addshipservicetoship.free"/> </c:if>
+                            <c:if test="${bonuseForTicketClass4.printableServiceOnShip.payable != 0}"> <fmt:message
+                                    key="message.addshipservicetoship.payable"/> </c:if>
+                        </td>
+                        <td><input type="checkbox" name="bonuses" value="${bonuseForTicketClass4.ticketClassBonusId}">
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+            <br/><input type="submit" value="<fmt:message key="message.managebonuses.deletebon"/>"/>
+        </form>
+        <hr/>
+    </div>
+</c:if>
 
 
 </body>
-</html>       
+</html>

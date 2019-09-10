@@ -21,7 +21,7 @@ public class PrintableCruiseDaoImpl implements PrintableCruiseDao {
     private static final String FIND_ALL_BY_SHIP_ID = "SELECT cruise.id, ship_id, ship_name, port_id, country, city, date_in, date_out FROM cruise " +
             "left join ship on ship_id = ship.id " +
             "left join cruise_ports on cruise_ports.cruise_id = cruise.id " +
-            "left join port on cruise_ports.port_id = port.id  where ship.id = ? order by cruise.id, date_in;";
+            "left join port on cruise_ports.port_id = port.id  where ship.id = ? group by cruise.id;"; // order by cruise.id, date_in
 
     private Connection connection;
 

@@ -9,5 +9,8 @@ public interface PrintableTicketclassBonusDao {
 
     List<PrintableTicketclassBonus> getAllBonusesByCruiseIdTicketclassId (Long cruiseId, Long ticketclassId) throws GeneralCheckedException;
 
+    List<PrintableTicketclassBonus> getAllBonusesByCruiseIdTicketclassName(Long cruiseId, String ticketclassName) throws GeneralCheckedException;
+
     void close();
+
 }

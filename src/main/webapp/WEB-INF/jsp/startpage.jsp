@@ -34,11 +34,11 @@
 
 <table>
     <c:forEach var="cruisefromlist" items="${allCruises}">
-        <c:if test="${cruise != cruisefromlist.cruiseId}">
+        <c:if test="${tempCruise != cruisefromlist.cruiseId}">
 </table><br/><br/>
 <table border="1" cellpadding="3" cellspacing="0">
     <thead><tr>
-        <td colspan="4">Cruise number: ${cruise = cruisefromlist.cruiseId}&nbsp;<br/>
+        <td colspan="4">Cruise number: ${tempCruise = cruisefromlist.cruiseId}&nbsp;<br/>
             Ship name: ${cruisefromlist.shipName}</td>
     </tr>
     <tr>

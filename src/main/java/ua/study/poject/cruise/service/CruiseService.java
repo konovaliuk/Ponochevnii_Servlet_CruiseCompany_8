@@ -5,11 +5,9 @@ import ua.study.poject.cruise.entity.Cruise;
 import ua.study.poject.cruise.entity.CruisePorts;
 import ua.study.poject.cruise.entity.Ticketclass;
 import ua.study.poject.cruise.entity.printableentity.PrintableCruise;
+import ua.study.poject.cruise.entity.printableentity.PrintableCruisePort;
 import ua.study.poject.cruise.exceptions.GeneralCheckedException;
-import ua.study.poject.cruise.persistance.dao.CruiseDao;
-import ua.study.poject.cruise.persistance.dao.CruisePortsDao;
-import ua.study.poject.cruise.persistance.dao.PrintableCruiseDao;
-import ua.study.poject.cruise.persistance.dao.TicketclassDao;
+import ua.study.poject.cruise.persistance.dao.*;
 import ua.study.poject.cruise.persistance.datasource.AbstractDaoFactory;
 import ua.study.poject.cruise.persistance.datasource.Atomizer;
 import ua.study.poject.cruise.persistance.datasource.impl.AtomizerFactory;
@@ -84,6 +82,21 @@ public class CruiseService {
         } finally {
             if (printableCruiseDao != null)
                 printableCruiseDao.close();
+        }
+        return list;
+    }
+
+    public List<PrintableCruisePort> findAllPrintableCruisePortByCruiseId(Long cruiseId) {
+        PrintableCruisePortDao printableCruisePortDao = null;
+        List<PrintableCruisePort> list = new ArrayList<>();
+        try {
+            printableCruisePortDao = daoFactory.getPrintableCruisePortDao();
+            list = printableCruisePortDao.findAllPrintableCruisePortByCruiseId(cruiseId);
+        } catch (GeneralCheckedException e) {
+            LOGGER.error(e);
+        } finally {
+            if (printableCruisePortDao != null)
+                printableCruisePortDao.close();
         }
         return list;
     }
