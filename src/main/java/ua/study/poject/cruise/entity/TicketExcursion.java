@@ -6,11 +6,11 @@ import java.util.Objects;
 
 public class TicketExcursion implements Serializable {
 
-    private static final long serialVersionUID = 2737058674972929794L;
+    private static final long serialVersionUID = 3524891573333897077L;
 
     private Long id = -1L;
     private Long excurisionId;
-    private Long ticketId;
+    private Long userId;
 
 
     public Long getId() {
@@ -31,12 +31,12 @@ public class TicketExcursion implements Serializable {
     }
 
 
-    public Long getTicketId() {
-        return ticketId;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setTicketId(Long ticketId) {
-        this.ticketId = ticketId;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     @Override
@@ -46,19 +46,19 @@ public class TicketExcursion implements Serializable {
         TicketExcursion that = (TicketExcursion) o;
         return id.equals(that.id) &&
                 excurisionId.equals(that.excurisionId) &&
-                ticketId.equals(that.ticketId);
+                userId.equals(that.userId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, excurisionId, ticketId);
+        return Objects.hash(id, excurisionId, userId);
     }
 
     @Override
     public String toString() {
         return "id: " + id +
                 ", excurisionId: " + excurisionId +
-                ", ticketId: " + ticketId;
+                ", userId: " + userId;
     }
 
 }

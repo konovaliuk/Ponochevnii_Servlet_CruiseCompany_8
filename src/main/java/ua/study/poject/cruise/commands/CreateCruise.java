@@ -41,12 +41,6 @@ public class CreateCruise implements Action {
 
             List<CruisePorts> cruisePortsList = new ArrayList<>();
 
-
-//            LocalDateTime date = LocalDateTime.parse(request.getParameter("datestart"));
-//            Timestamp timestamp = Timestamp.valueOf(date);
-//            LocalDateTime date2 = timestamp.toLocalDateTime();
-
-
             if (validate(request, "datestart", "datestart", "selectedportstart"))
                 cruisePortsList.add(createCruisePorts(null, LocalDateTime.parse(request.getParameter("datestart")), Long.parseLong(request.getParameter("selectedportstart"))));
 
@@ -77,12 +71,12 @@ public class CreateCruise implements Action {
             int cruiseId = new CruiseService().createCruise(shipId, priceFirstClass, priceSecondClass, priceThirdClass, priceFourthClass, cruisePortsList);
 
             if (cruiseId < 1)
-                request.getSession().setAttribute("errorMessage", "Не удалось создать круиз, проверьте правильность заполнения полей");
+                request.getSession().setAttribute("createcruiseMessage", "message.createcruise.errcreate");
 
         } catch (NumberFormatException e) {
-            request.getSession().setAttribute("errorMessage", "Не удалось создать круиз, проверьте правильность заполнения полей");
+            request.getSession().setAttribute("createcruiseMessage", "message.createcruise.errcreate");
         }
-        request.getSession().setAttribute("errorMessage", "Круиз успешно создан");
+        request.getSession().setAttribute("createcruiseMessage", "message.createcruise.ok");
 
         return ConfigurationManager.getProperty("path.page.createcruise");
     }

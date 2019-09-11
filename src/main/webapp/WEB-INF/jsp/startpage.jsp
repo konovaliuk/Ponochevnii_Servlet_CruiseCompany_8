@@ -4,6 +4,7 @@
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="message"/>
 
+<!DOCTYPE html>
 <html>
 <head>
     <style>
@@ -12,7 +13,6 @@
     <title>startPage.jsp</title>
 </head>
 <body>
-
 <c:set var="hdr">
     <c:choose>
         <c:when test="${not empty sessionScope.currenuser}">

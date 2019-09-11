@@ -20,6 +20,12 @@
             <option value="es" <c:if test="${language == 'es'}">selected</c:if> >Es</option>
         </select>
     </form>
+
+    <form class="header-button-left" method="POST" action="/controller">
+        <input type="hidden" name="command" value="startpage"/>
+        <input type="submit" value="<fmt:message key="message.headerregistred.startpage"/>"/>
+    </form>
+
     <div class="header-button-div">
         <form style="float: right" method="POST" action="/controller">
             <input type="hidden" name="command" value="signin"/>
@@ -34,6 +40,5 @@
         </form>
     </div>
 </div>
-
 </body>
 </html>

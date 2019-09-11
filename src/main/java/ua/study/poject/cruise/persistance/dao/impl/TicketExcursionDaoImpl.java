@@ -18,8 +18,8 @@ public class TicketExcursionDaoImpl implements TicketExcursionDao {
     private static final Logger LOGGER = Logger.getLogger(TicketExcursionDaoImpl.class);
 
 
-    private static final String CREATE = "INSERT INTO ticket_excursion (ticket_id, excurision_id) VALUES(?, ?)";
-    private static final String FIND_BY_TICKET_ID = "SELECT * FROM ticket_excursion WHERE ticket_id = ?";
+    private static final String CREATE = "INSERT INTO ticket_excursion (user_id, excurision_id) VALUES(?, ?)";
+    private static final String FIND_BY_USER_ID = "SELECT * FROM ticket_excursion WHERE user_id = ?";
 
     private Connection connection;
 
@@ -29,15 +29,15 @@ public class TicketExcursionDaoImpl implements TicketExcursionDao {
 
 
     @Override
-    public int create(Long ticketId, Long excursionId) throws GeneralCheckedException {
-        return SQLExecutor.executeInsertUpdateDelete(connection, CREATE, ticketId, excursionId);
+    public int create(Long userId, Long excursionId) throws GeneralCheckedException {
+        return SQLExecutor.executeInsertUpdateDelete(connection, CREATE, userId, excursionId);
     }
 
     @Override
-    public List<TicketExcursion> findByTicketId(Long id) throws GeneralCheckedException {
+    public List<TicketExcursion> findByUserId(Long userId) throws GeneralCheckedException {
         List<TicketExcursion> ticketExcursions = new ArrayList<>();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_TICKET_ID)){
-            preparedStatement.setLong(1, id);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_USER_ID)){
+            preparedStatement.setLong(1, userId);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next())
                 ticketExcursions.add(createTicketExcursion(rs));
@@ -51,7 +51,7 @@ public class TicketExcursionDaoImpl implements TicketExcursionDao {
     private TicketExcursion createTicketExcursion(ResultSet rs) throws SQLException {
         TicketExcursion ticketExcursion = new TicketExcursion();
         ticketExcursion.setId(rs.getLong("id"));
-        ticketExcursion.setTicketId(rs.getLong("ticket_id"));
+        ticketExcursion.setUserId(rs.getLong("user_id"));
         ticketExcursion.setExcurisionId(rs.getLong("excurision_id"));
         return ticketExcursion;
     }
