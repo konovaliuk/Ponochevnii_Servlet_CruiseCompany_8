@@ -6,10 +6,7 @@ import ua.study.poject.cruise.exceptions.GeneralCheckedException;
 import ua.study.poject.cruise.persistance.dao.CruisePortsDao;
 import ua.study.poject.cruise.persistance.datasource.impl.SQLExecutor;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,8 +59,12 @@ public class CruisePortsDaoImpl implements CruisePortsDao {
     private CruisePorts createCruisePorts(ResultSet rs) throws SQLException {
         CruisePorts cruisePorts = new CruisePorts();
         cruisePorts.setId(rs.getLong("id"));
-        cruisePorts.setDateIn(rs.getString("date_in"));
-        cruisePorts.setDateOut(rs.getString("date_out"));
+
+        Timestamp TSdateIn = rs.getTimestamp("date_in");
+        Timestamp TSdateOut = rs.getTimestamp("date_out");
+
+        cruisePorts.setDateIn(TSdateIn == null ? null : TSdateIn.toLocalDateTime());
+        cruisePorts.setDateOut(TSdateOut == null ? null : TSdateIn.toLocalDateTime());
         cruisePorts.setCruiseId(rs.getLong("cruise_id"));
         cruisePorts.setPortId(rs.getLong("port_id"));
         return cruisePorts;

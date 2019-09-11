@@ -66,8 +66,12 @@ public class PrintableCruiseDaoImpl implements PrintableCruiseDao {
         printableCruise.setPortId(rs.getLong("port_id"));
         printableCruise.setCountry(rs.getString("country"));
         printableCruise.setCity(rs.getString("city"));
-        printableCruise.setDateIn(rs.getString("date_in"));
-        printableCruise.setDateOut(rs.getString("date_out"));
+
+        Timestamp TSdateIn = rs.getTimestamp("date_in");
+        Timestamp TSdateOut = rs.getTimestamp("date_out");
+
+        printableCruise.setDateIn(TSdateIn == null ? null : TSdateIn.toLocalDateTime());
+        printableCruise.setDateOut(TSdateOut == null ? null : TSdateOut.toLocalDateTime());
         return printableCruise;
     }
 

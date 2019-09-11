@@ -1,12 +1,9 @@
 package ua.study.poject.cruise.commands;
 
-import ua.study.poject.cruise.entity.Ship;
 import ua.study.poject.cruise.entity.printableentity.PrintableCruise;
 import ua.study.poject.cruise.entity.printableentity.PrintableTicketclassBonus;
 import ua.study.poject.cruise.resource.ConfigurationManager;
 import ua.study.poject.cruise.service.ManagerAndBonuseService;
-import ua.study.poject.cruise.service.ShipService;
-import ua.study.poject.cruise.service.ShipserviceService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static ua.study.poject.cruise.entity.Ticketclass.*;
-import static ua.study.poject.cruise.entity.Ticketclass.TICKET_CLASS_FOURTH;
 
 public class DeleteBonuses implements Action {
     @Override
@@ -33,7 +29,7 @@ public class DeleteBonuses implements Action {
         List<Long> ticketclassBonusIdList = new ArrayList<>();
         int result;
         String[] idStrArray = request.getParameterValues("bonuses");
-        if(idStrArray == null){
+        if (idStrArray == null) {
             request.getSession().setAttribute("addBonusesMessage", "message.managebonuses.errrecievelist");
             return ConfigurationManager.getProperty("path.page.managebonuses");
         }
@@ -51,7 +47,7 @@ public class DeleteBonuses implements Action {
         } else
             request.getSession().setAttribute("addBonusesMessage", "message.managebonuses.deleted");
 
-        PrintableCruise selectedCruise = (PrintableCruise)request.getSession().getAttribute("scruise");
+        PrintableCruise selectedCruise = (PrintableCruise) request.getSession().getAttribute("scruise");
         Long selectedCruiseId = selectedCruise.getCruiseId();
 
         // Обновляем списки бонусов для каждого Ticketclass и отправить на JSP

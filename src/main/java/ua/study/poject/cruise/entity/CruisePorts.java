@@ -2,15 +2,18 @@ package ua.study.poject.cruise.entity;
 
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Objects;
 
 public class CruisePorts implements Serializable {
 
-    private static final long serialVersionUID = 4010080073011116891L;
+    private static final long serialVersionUID = 5830376018918459139L;
 
     private Long id = -1L;
-    private String dateIn;
-    private String dateOut;
+    private LocalDateTime dateIn;
+    private LocalDateTime dateOut;
     private Long cruiseId;
     private Long portId;
 
@@ -24,20 +27,20 @@ public class CruisePorts implements Serializable {
     }
 
 
-    public String getDateIn() {
+    public LocalDateTime getDateIn() {
         return dateIn;
     }
 
-    public void setDateIn(String dateIn) {
+    public void setDateIn(LocalDateTime dateIn) {
         this.dateIn = dateIn;
     }
 
 
-    public String getDateOut() {
+    public LocalDateTime getDateOut() {
         return dateOut;
     }
 
-    public void setDateOut(String dateOut) {
+    public void setDateOut(LocalDateTime dateOut) {
         this.dateOut = dateOut;
     }
 
@@ -78,9 +81,10 @@ public class CruisePorts implements Serializable {
 
     @Override
     public String toString() {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return "id: " + id +
-                ", dateIn: " + dateIn +
-                ", dateOut: " + dateOut +
+                ", dateIn: " + ((dateIn != null) ? dateIn.format(dateTimeFormatter) : "") +
+                ", dateOut: " + ((dateIn != null) ? dateIn.format(dateTimeFormatter) : "") +
                 ", cruiseId: " + cruiseId +
                 ", portId: " + portId;
     }

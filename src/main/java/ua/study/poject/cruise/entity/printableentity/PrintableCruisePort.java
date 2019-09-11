@@ -2,16 +2,18 @@ package ua.study.poject.cruise.entity.printableentity;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Objects;
 
 public class PrintableCruisePort implements Serializable {
 
-    private static final long serialVersionUID = -4841436168403509142L;
+    private static final long serialVersionUID = -6195210574546484432L;
 
     private Long cruisePortsId;
-    private Date dateIn;
-    private Date dateOut;
+    private LocalDateTime dateIn;
+    private LocalDateTime dateOut;
     private Long portId;
     private String country;
     private String city;
@@ -24,19 +26,19 @@ public class PrintableCruisePort implements Serializable {
         this.cruisePortsId = cruisePortsId;
     }
 
-    public Date getDateIn() {
+    public LocalDateTime getDateIn() {
         return dateIn;
     }
 
-    public void setDateIn(Date dateIn) {
+    public void setDateIn(LocalDateTime dateIn) {
         this.dateIn = dateIn;
     }
 
-    public Date getDateOut() {
+    public LocalDateTime getDateOut() {
         return dateOut;
     }
 
-    public void setDateOut(Date dateOut) {
+    public void setDateOut(LocalDateTime dateOut) {
         this.dateOut = dateOut;
     }
 
@@ -84,11 +86,10 @@ public class PrintableCruisePort implements Serializable {
 
     @Override
     public String toString() {
-
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return "CruisePortsId: " + cruisePortsId +
-                ", dateIn: " + ((dateIn != null) ? simpleDateFormat.format(dateIn) : "") +
-                ", dateOut: " + ((dateOut != null) ? simpleDateFormat.format(dateOut) : "") +
+                ", dateIn: " + ((dateIn != null) ? dateIn.format(dateTimeFormatter) : "") +
+                ", dateOut: " + ((dateOut != null) ? dateOut.format(dateTimeFormatter) : "") +
                 ", PortId: " + portId +
                 ", country: " + country +
                 ", city: " + city;

@@ -1,6 +1,9 @@
 package ua.study.poject.cruise.entity.printableentity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Objects;
 
 public class PrintableCruise implements Serializable {
@@ -13,8 +16,8 @@ public class PrintableCruise implements Serializable {
     private Long portId;
     private String country;
     private String city;
-    private String dateIn;
-    private String dateOut;
+    private LocalDateTime dateIn;
+    private LocalDateTime dateOut;
 
     public Long getCruiseId() {
         return cruiseId;
@@ -64,19 +67,19 @@ public class PrintableCruise implements Serializable {
         this.city = city;
     }
 
-    public String getDateIn() {
+    public LocalDateTime getDateIn() {
         return dateIn;
     }
 
-    public void setDateIn(String dateIn) {
+    public void setDateIn(LocalDateTime dateIn) {
         this.dateIn = dateIn;
     }
 
-    public String getDateOut() {
+    public LocalDateTime getDateOut() {
         return dateOut;
     }
 
-    public void setDateOut(String dateOut) {
+    public void setDateOut(LocalDateTime dateOut) {
         this.dateOut = dateOut;
     }
 
@@ -102,13 +105,14 @@ public class PrintableCruise implements Serializable {
 
     @Override
     public String toString() {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return "CruiseId: " + cruiseId +
                 ", shipId: " + shipId +
                 ", shipName: " + shipName +
                 ", portId: " + portId +
                 ", country: " + country +
                 ", city: " + city +
-                ", dateIn: " + dateIn +
-                ", dateOut: " + dateOut;
+                ", dateIn: " + ((dateIn != null) ? dateIn.format(dateTimeFormatter) : "") +
+                ", dateOut: " + ((dateOut != null) ? dateOut.format(dateTimeFormatter) : "");
     }
 }
