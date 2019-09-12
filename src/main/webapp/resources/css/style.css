@@ -100,6 +100,10 @@
     margin: 6px;
 }
 
+.inline{
+    display: inline-block;
+}
+
 .header-button-left {
     float: left;
     margin: 6px;
@@ -115,4 +119,6 @@
 .header-button-div {
     margin: 6px 6px 0px 6px;
 }
+
+
 

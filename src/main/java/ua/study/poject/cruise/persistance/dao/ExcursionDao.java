@@ -15,5 +15,8 @@ public interface ExcursionDao {
 
     int update(Excurision excurision) throws GeneralCheckedException;
 
+    List<Excurision> findByPortId(Long portId) throws GeneralCheckedException;
+
     void close();
+
 }

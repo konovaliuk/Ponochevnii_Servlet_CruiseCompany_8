@@ -67,11 +67,56 @@ public class PortExcursionService {
             portDao = daoFactory.getPortDaoImpl();
             list = portDao.findAll();
         } catch (GeneralCheckedException e) {
-            LOGGER.error("Неудачная работа с portDaoImpl");
+            LOGGER.error("Неудачная работа с portDao");
         } finally {
             if (portDao != null)
                 portDao.close();
         }
         return list;
+    }
+
+    public List<Excurision> ViewExcursionsInPortByPortId(Long portId) {
+        ExcursionDao excursionDao = null;
+        List<Excurision> list = new ArrayList<>();
+        try {
+            excursionDao = daoFactory.getExcursionDaoImpl();
+            list = excursionDao.findByPortId(portId);
+        } catch (GeneralCheckedException e) {
+            LOGGER.error("Неудачная работа с excursionDao");
+        } finally {
+            if (excursionDao != null)
+                excursionDao.close();
+        }
+        return list;
+    }
+
+    public Excurision ViewExcursionsInPortById(Long excursionId) {
+        ExcursionDao excursionDao = null;
+        Excurision excurision = new Excurision();
+        try {
+            excursionDao = daoFactory.getExcursionDaoImpl();
+            excurision = excursionDao.findById(excursionId);
+        } catch (GeneralCheckedException e) {
+            LOGGER.error("Неудачная работа с excursionDao");
+        } finally {
+            if (excursionDao != null)
+                excursionDao.close();
+        }
+        return excurision;
+    }
+
+    public Port getPortById(Long portId) {
+        Port port = new Port();
+        PortDao portDao = null;
+        try {
+            portDao = daoFactory.getPortDaoImpl();
+            port = portDao.findById(portId);
+        } catch (GeneralCheckedException e) {
+            LOGGER.error(e);
+        } finally {
+            if (portDao != null)
+                portDao.close();
+        }
+        return port;
     }
 }

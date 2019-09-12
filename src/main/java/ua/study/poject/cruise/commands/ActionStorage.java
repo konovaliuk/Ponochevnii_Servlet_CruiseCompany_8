@@ -18,6 +18,11 @@ public class ActionStorage {
     private final static String LOGOUT = "logout";
     private final static String EDIT_ACCOUNT = "editaccount";
     private final static String VIEW_CART = "viewcart";
+    private final static String VIEW_CRUISE = "viewcruise";
+    private final static String VIEW_EXCURSION = "viewexcursion";
+    private final static String VIEW_MY_CRUISES = "viewmycruises";
+    private final static String VIEW_PORT = "viewport";
+
     private final static String START_PAGE = "startpage";
     private final static String CHANGE_LANGUAGE = "changelanguage";
     private final static String ERROR_PAGE = "errorpage";
@@ -27,7 +32,6 @@ public class ActionStorage {
     private final static String CREATE_CRUISE = "createcruise";
     private final static String CREATE_PORT = "createport";
     private final static String CREATE_SHIP = "createship";
-    private final static String VIEW_EXCURSION_IN_PORTS = "viewexcursioninports";
     private final static String CREATE_EXCURSION = "createexcursion";
     private final static String CHANGE_USER_ROLE = "changeuserrole";
     private final static String ADD_BONUSES = "addbonuses";
@@ -37,6 +41,7 @@ public class ActionStorage {
     private final static String DELETE_SHIP_SERVICES_FROM_SHIP = "deleteshipservicefromship";
     private final static String MY_ACCOUNT = "myaccount";
 
+
     private static HashMap<String, Action> generalAction = new HashMap<>();
     private static HashMap<String, Action> adminAction = new HashMap<>();
     private static HashMap<String, Action> managerAction = new HashMap<>();
@@ -45,30 +50,32 @@ public class ActionStorage {
     static {
         generalAction.put(SIGN_IN, new SingIn());
         generalAction.put(SIGN_UP, new SingUp());
-        generalAction.put(VIEW_EXCURSION_IN_PORTS, new ViewExcursionsInPort());
         generalAction.put(START_PAGE, new StartPage());
         generalAction.put(CHANGE_LANGUAGE, new ChangeLanguage());
         generalAction.put(ERROR_PAGE, new ErrorPage());
-
+        generalAction.put(VIEW_CRUISE, new ViewCruise());
+        generalAction.put(VIEW_EXCURSION, new ViewExcursion());
+        generalAction.put(VIEW_PORT, new ViewPort());
 
         customerAction.put(EDIT_ACCOUNT, new EditAccount());
         customerAction.put(ERROR_PAGE, new ErrorPage());
         customerAction.put(START_PAGE, new StartPage());
         customerAction.put(CHANGE_LANGUAGE, new ChangeLanguage());
         customerAction.put(MY_ACCOUNT, new MyAccountCustomer());
-        customerAction.put(VIEW_CART, new ViewCart());
         customerAction.put(ADD_TO_CART, new AddToCart());
         customerAction.put(DELETE_FROM_CART, new DeleteFromCart());
         customerAction.put(PAY, new Pay());
-        customerAction.put(VIEW_EXCURSION_IN_PORTS, new ViewExcursionsInPort());
         customerAction.put(LOGOUT, new Logout());
+        customerAction.put(VIEW_CART, new ViewCart());
+        customerAction.put(VIEW_CRUISE, new ViewCruise());
+        customerAction.put(VIEW_EXCURSION, new ViewExcursion());
+        customerAction.put(VIEW_MY_CRUISES, new ViewMyCruises());
+        customerAction.put(VIEW_PORT, new ViewPort());
 
         adminAction.put(EDIT_ACCOUNT, new EditAccount());
-        adminAction.put(VIEW_CART, new ViewCart());
         adminAction.put(ADD_TO_CART, new AddToCart());
         adminAction.put(DELETE_FROM_CART, new DeleteFromCart());
         adminAction.put(PAY, new Pay());
-        adminAction.put(VIEW_EXCURSION_IN_PORTS, new ViewExcursionsInPort());
         adminAction.put(LOGOUT, new Logout());
         adminAction.put(CREATE_CRUISE, new CreateCruise());
         adminAction.put(CREATE_PORT, new CreatePort());
@@ -82,14 +89,16 @@ public class ActionStorage {
         adminAction.put(ADD_SHIP_SERVICES_TO_SHIP, new AddShipServicesToShip());
         adminAction.put(DELETE_SHIP_SERVICES_FROM_SHIP, new DeleteShipServicesFromShip());
         adminAction.put(MY_ACCOUNT, new MyAccountAdmin());
-
+        adminAction.put(VIEW_CART, new ViewCart());
+        adminAction.put(VIEW_CRUISE, new ViewCruise());
+        adminAction.put(VIEW_EXCURSION, new ViewExcursion());
+        adminAction.put(VIEW_MY_CRUISES, new ViewMyCruises());
+        adminAction.put(VIEW_PORT, new ViewPort());
 
         managerAction.put(EDIT_ACCOUNT, new EditAccount());
-        managerAction.put(VIEW_CART, new ViewCart());
         managerAction.put(ADD_TO_CART, new AddToCart());
         managerAction.put(DELETE_FROM_CART, new DeleteFromCart());
         managerAction.put(PAY, new Pay());
-        managerAction.put(VIEW_EXCURSION_IN_PORTS, new ViewExcursionsInPort());
         managerAction.put(LOGOUT, new Logout());
         managerAction.put(ADD_BONUSES, new AddBonuses());
         managerAction.put(DELETE_BONUSES, new DeleteBonuses());
@@ -97,7 +106,11 @@ public class ActionStorage {
         managerAction.put(CHANGE_LANGUAGE, new ChangeLanguage());
         managerAction.put(ERROR_PAGE, new ErrorPage());
         managerAction.put(MY_ACCOUNT, new MyAccountManager());
-
+        managerAction.put(VIEW_CART, new ViewCart());
+        managerAction.put(VIEW_CRUISE, new ViewCruise());
+        managerAction.put(VIEW_EXCURSION, new ViewExcursion());
+        managerAction.put(VIEW_MY_CRUISES, new ViewMyCruises());
+        managerAction.put(VIEW_PORT, new ViewPort());
     }
 
     private static ActionStorage instance = null;

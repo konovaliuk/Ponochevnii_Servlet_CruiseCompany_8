@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<fmt:setLocale value="${language}" />
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${language}"/>
 <fmt:setBundle basename="message"/>
 
 <!DOCTYPE html>
@@ -28,35 +28,51 @@
 <br/>
 <h1 style="color: red">startPage.jsp</h1>
 
-<hr/>
-<c:set var="tempCruise" value="-1"></c:set>
+<div class="form-style-2">
+    <hr/>
+    <c:set var="tempCruise" value="-1"></c:set>
 
 
-<table>
-    <c:forEach var="cruisefromlist" items="${allCruises}">
+    <table>
+        <c:forEach var="cruisefromlist" items="${allCruises}">
         <c:if test="${tempCruise != cruisefromlist.cruiseId}">
-</table><br/><br/>
-<table border="1" cellpadding="3" cellspacing="0">
-    <thead><tr>
-        <td colspan="4">Cruise number: ${tempCruise = cruisefromlist.cruiseId}&nbsp;<br/>
-            Ship name: ${cruisefromlist.shipName}</td>
-    </tr>
-    <tr>
-        <td>Country</td>
-        <td>City</td>
-        <td>Date in</td>
-        <td>Date out</td>
-    </tr></thead>
+    </table>
+    <br/><br/>
+    <table border="1" cellpadding="3" cellspacing="0">
+        <thead>
+        <tr>
+            <td colspan="5">Cruise number: ${tempCruise = cruisefromlist.cruiseId}&nbsp;<br/> Ship
+                name: ${cruisefromlist.shipName}</td>
+
+        </tr>
+        <tr>
+            <td>Country</td>
+            <td>City</td>
+            <td>Date in</td>
+            <td>Date out</td>
+            <td>Details</td>
+        </tr>
+        </thead>
         </c:if>
 
-        <tr><td><c:out value="${cruisefromlist.country}"/></td>
+        <tr>
+            <td><c:out value="${cruisefromlist.country}"/></td>
             <td><c:out value="${cruisefromlist.city}"/></td>
             <td><c:out value="${cruisefromlist.dateIn}"/></td>
             <td><c:out value="${cruisefromlist.dateOut}"/></td>
-        </tr>
-    </c:forEach>
+            <td>
+                <form method="post" action="/controller">
+                    <input type="hidden" name="command" value="viewport">
+                    <input type="hidden" name="selectedPortId" value="${cruisefromlist.portId}">
+                    <br/><input type="submit" value="More details">
+                </form>
+            </td>
 
-</table>
+        </tr>
+        </c:forEach>
+
+    </table>
+</div>
 <hr/>
 </body>
 </html>

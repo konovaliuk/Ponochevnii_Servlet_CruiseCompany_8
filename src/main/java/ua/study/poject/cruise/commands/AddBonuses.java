@@ -25,7 +25,7 @@ public class AddBonuses implements Action {
         if (request.getSession(false) == null) {  // нет сессии - логинимся
             return ConfigurationManager.getProperty("path.page.signin");
         }
-        request.getSession().removeAttribute("addBonusesMessage");
+//        request.getSession().removeAttribute("addBonusesMessage");
 
         // 1. Зная user.id получить список всех Ship на которых он может управлять бонусами.
         // 2. Получить список всех (Printable) круизов, в которых учавствуют эти корабли. Отправить список в JSP
@@ -133,6 +133,7 @@ public class AddBonuses implements Action {
 
         // Попытаемся найти в соответсвующем списке такой бонус, если он есть - новый добавлять не будем
         List<PrintableTicketclassBonus> listForFinding = new ArrayList<>();
+
         switch (ticketclassObj.getTicketclassName()) {
             case TICKET_CLASS_FIRST:
                 listForFinding = printableTicketclassBonusListFirstClass;

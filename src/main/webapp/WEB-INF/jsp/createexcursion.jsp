@@ -55,7 +55,7 @@
         <input type="hidden" name="createexcursionForm" value="createexcursionForm"/> <fmt:message key="message.createexcursion.excursionname"/>
         <br/><input type="text" name="excursionName" value=""/>
         <br/><br/><fmt:message key="message.createexcursion.excursiondesc"/>
-        <br/><textarea name="description" maxlength="2000" style="margin: 0px; height: 80px; width: 700px;"></textarea>
+        <br/><textarea name="description" maxlength="8000" style="margin: 0px; height: 80px; width: 700px;"></textarea>
         <br/><br/><fmt:message key="message.createexcursion.price"/>
         <br/><input type="number" name="price" value=""/>
         <br/><br/>
