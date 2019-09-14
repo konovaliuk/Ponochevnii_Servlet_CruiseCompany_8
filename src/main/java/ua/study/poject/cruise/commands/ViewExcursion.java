@@ -9,11 +9,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
+import static ua.study.poject.cruise.util.StringStorage.VIEW_EXCURSION_ID;
 public class ViewExcursion implements Action {
+
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
-        String excursionIdStr = request.getParameter("viewExcursionId");
+        final String ALL_EXCURSIONS = "allExcursions";
+        final String EXCURSION = "excursion";
+
+        String excursionIdStr = request.getParameter(VIEW_EXCURSION_ID);
         if (excursionIdStr == null)
             return ConfigurationManager.getProperty("path.page.viewexcursion");
 
@@ -26,7 +32,7 @@ public class ViewExcursion implements Action {
 
         List<Excurision> allExcursions;
         try {
-            allExcursions = (ArrayList<Excurision>) request.getSession().getAttribute("allExcursions");
+            allExcursions = (ArrayList<Excurision>) request.getSession().getAttribute(ALL_EXCURSIONS);
         } catch (ClassCastException e){
             return ConfigurationManager.getProperty("path.page.viewexcursion");
         }
@@ -34,12 +40,12 @@ public class ViewExcursion implements Action {
         if(allExcursions != null){
             for (Excurision excurision : allExcursions) {    // Это чтобы опять не ходить в базу - возьмем конкретную экскурсию из листа
                 if (excurision.getId().equals(excursionId)) {
-                    request.getSession().setAttribute("excursion", excurision);
+                    request.getSession().setAttribute(EXCURSION, excurision);
                     break;
                 }
             }
         } else
-            request.getSession().setAttribute("excursion", new PortExcursionService().ViewExcursionsInPortById(excursionId));
+            request.getSession().setAttribute(EXCURSION, new PortExcursionService().ViewExcursionsInPortById(excursionId));
 
         return ConfigurationManager.getProperty("path.page.viewexcursion");
     }

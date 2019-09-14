@@ -8,18 +8,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class EditAccount implements Action {
+import static ua.study.poject.cruise.util.StringStorage.*;
 
-    private static final String LOGIN = "login";
-    private static final String PASSWORD = "password";
-    private static final String PASSWORD2 = "password2";
-    private static final String FIRST_NAME = "firstname";
-    private static final String SECOND_NAME = "secondname";
-    private static final String EMAIL = "email";
-    private static final String TEL = "tel";
+public class EditAccount implements Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+
+        final String MESSAGE = "editaccountMessage";
 
         UserService userService = new UserService();
 
@@ -29,11 +25,11 @@ public class EditAccount implements Action {
 
         HttpSession session = request.getSession();
 
-        if (request.getParameter("editaccountForm") == null) {
+        if (request.getParameter(EDIT_ACCOUNT_FORM) == null) {
             return ConfigurationManager.getProperty("path.page.editaccount");
         }
 
-        User currentUser = (User) session.getAttribute(StringConstantsStorage.userKeyInSession);
+        User currentUser = (User) session.getAttribute(USER_IN_SESSION);
         if (currentUser == null) {
             request.getSession().invalidate();
             return ConfigurationManager.getProperty("path.page.signin");
@@ -46,24 +42,24 @@ public class EditAccount implements Action {
         String email = request.getParameter(EMAIL);
         String tel = request.getParameter(TEL);
 
-        if(!password.equals(password2)){
-            request.getSession().setAttribute("editaccountMessage", "message.editaccount.errorpass1and2");
+        if (!password.equals(password2)) {
+            request.getSession().setAttribute(MESSAGE, "message.editaccount.errorpass1and2");
             return ConfigurationManager.getProperty("path.page.editaccount");
         }
         if (password.equals("") || firstName.equals("") || secondName.equals("") || email.equals("") || tel.equals("")) {
-            request.getSession().setAttribute("editaccountMessage", "message.editaccount.errfillall");
+            request.getSession().setAttribute(MESSAGE, "message.editaccount.errfillall");
             return ConfigurationManager.getProperty("path.page.editaccount");
         }
 
         User updatedUser = userService.fillFieldsUser(currentUser.getId(), currentUser.getLogin(), password, firstName, secondName, email, tel, currentUser.getRole());
         int i = userService.editAccount(currentUser, updatedUser);
         if (i < 1) {
-            request.getSession().setAttribute("editaccountMessage", "message.editaccount.eerupdate");
+            request.getSession().setAttribute(MESSAGE, "message.editaccount.eerupdate");
             // TODO подумать, как выводить конкретную ошибку
             return ConfigurationManager.getProperty("path.page.editaccount");
         } else {
-            request.getSession().setAttribute("editaccountMessage", "message.editaccount.ok");
-            request.getSession().setAttribute(StringConstantsStorage.userKeyInSession, updatedUser);
+            request.getSession().setAttribute(MESSAGE, "message.editaccount.ok");
+            request.getSession().setAttribute(USER_IN_SESSION, updatedUser);
         }
         return ConfigurationManager.getProperty("path.page.editaccount");
 

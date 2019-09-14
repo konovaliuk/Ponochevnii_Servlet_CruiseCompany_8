@@ -14,6 +14,8 @@ public class DeleteShipServicesFromShip implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
+        final String MESSAGE = "errorMessage";
+
         if (request.getSession(false) == null) {  // нет сессии - логинимся
             return ConfigurationManager.getProperty("path.page.signin");
         }
@@ -26,7 +28,7 @@ public class DeleteShipServicesFromShip implements Action {
 
         String selectedShip = request.getParameter("selectedship");
         if (selectedShip == null || selectedShip.equals("")) {
-            request.getSession().setAttribute("errorMessage", "Сначала необходимо выбрать корабль");
+            request.getSession().setAttribute(MESSAGE, "Сначала необходимо выбрать корабль");
             return ConfigurationManager.getProperty("path.page.addshipservicetoship");
         }
 
@@ -41,7 +43,7 @@ public class DeleteShipServicesFromShip implements Action {
             }
             request.getSession().setAttribute("selectshipservicesForm", "selectshipservicesForm");
         } catch (NumberFormatException e) {
-            request.getSession().setAttribute("errorMessage", "Не удалось найти такой корабль в системе");
+            request.getSession().setAttribute(MESSAGE, "Не удалось найти такой корабль в системе");
             return ConfigurationManager.getProperty("path.page.addshipservicetoship");
         }
 
@@ -49,7 +51,7 @@ public class DeleteShipServicesFromShip implements Action {
         int result;
         String[] shipServicesArray = request.getParameterValues("shipservice");
         if(shipServicesArray == null){
-            request.getSession().setAttribute("errorMessage", "Не удалось найти такой сервис");
+            request.getSession().setAttribute(MESSAGE, "Не удалось найти такой сервис");
             return ConfigurationManager.getProperty("path.page.addshipservicetoship");
         }
         try {
@@ -58,13 +60,13 @@ public class DeleteShipServicesFromShip implements Action {
             }
             result = shipserviceService.deleteServicesFromShip(selectedShipId, servicesIdList);
         } catch (NumberFormatException e) {
-            request.getSession().setAttribute("errorMessage", "Не удалось найти такой сервис");
+            request.getSession().setAttribute(MESSAGE, "Не удалось найти такой сервис");
             return ConfigurationManager.getProperty("path.page.addshipservicetoship");
         }
         if (result == 0) {
-            request.getSession().setAttribute("errorMessage", "Не удалось удалить сервисы");
+            request.getSession().setAttribute(MESSAGE, "Не удалось удалить сервисы");
         } else
-            request.getSession().setAttribute("errorMessage", "Сервисы удалены");
+            request.getSession().setAttribute(MESSAGE, "Сервисы удалены");
 
         request.getSession().setAttribute("allServicesOnSelectedShip", shipService.getAllServicesByShipId(selectedShipId)); // отправляем в jsp список всех сервисов, уже добавленых к выбранному кораблю
         request.getSession().setAttribute("allServicesInSystem", shipserviceService.getAllServisesInSystem()); // отправляем в jsp список всех сервисов в системе

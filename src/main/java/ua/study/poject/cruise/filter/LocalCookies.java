@@ -32,13 +32,13 @@ public class LocalCookies implements Filter {
         }
 
         String paramLanguage = servletRequest.getParameter("language");
-        if(paramLanguage != null && paramLanguage!= "")
+        if(paramLanguage != null && !paramLanguage.equals(""))
             language = paramLanguage;
 
-        if (language == null || language == "")
+        if (language == null || language.equals(""))
             language = servletRequest.getLocale().getLanguage();
 
-        if (language != null && language != "")
+        if (language != null && !language.equals(""))
             servletRequest.setAttribute("language", language);
 
         Locale.setDefault(new Locale(language));

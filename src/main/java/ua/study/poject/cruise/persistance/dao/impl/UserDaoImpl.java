@@ -64,7 +64,6 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User findByLoginAndPassword(String login, String password) throws GeneralCheckedException {
-        LOGGER.error("user logined");// TODO не забыть удалить
         User user = new User();
         if(login == null || password == null)
             return user;

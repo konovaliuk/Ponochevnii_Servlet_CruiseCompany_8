@@ -2,39 +2,36 @@ package ua.study.poject.cruise.commands;
 
 import ua.study.poject.cruise.entity.User;
 import ua.study.poject.cruise.resource.ConfigurationManager;
-import ua.study.poject.cruise.resource.MessageManager;
 import ua.study.poject.cruise.service.CruiseService;
 import ua.study.poject.cruise.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static ua.study.poject.cruise.util.StringStorage.*;
+
 public class SingIn implements Action {
-    private static final String PARAM_NAME_LOGIN = "login";
-    private static final String PARAM_NAME_PASSWORD = "password";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        String page;
 
-        if (request.getParameter("signinForm") == null) {
+        final String MESSAGE = "signinMessage";
+
+        if (request.getParameter(SIGN_IN_FORM) == null) {
             return ConfigurationManager.getProperty("path.page.signin");
         }
 
-        String login = request.getParameter(PARAM_NAME_LOGIN);
-        String password = request.getParameter(PARAM_NAME_PASSWORD);
+        String login = request.getParameter(LOGIN);
+        String password = request.getParameter(PASSWORD);
 
-        UserService userService = new UserService();
-        User user = userService.findUserByLoginPassword(login, password);
+        User user = new UserService().findUserByLoginPassword(login, password);
 
         if (user.getId() != -1) {
-            request.getSession().setAttribute(StringConstantsStorage.userKeyInSession, user);
-            request.getSession().setAttribute("allCruises", new CruiseService().viewAllCruises());
-            page = ConfigurationManager.getProperty("path.page.startpage");
-        } else {
-            request.getSession().setAttribute("signinMessage", "message.loginerror");
-            page = ConfigurationManager.getProperty("path.page.signin");
+            request.getSession().setAttribute(USER_IN_SESSION, user);
+            request.getSession().setAttribute(ALL_CRUISES, new CruiseService().viewAllCruises());
+            return ConfigurationManager.getProperty("path.page.startpage");
         }
-        return page;
+        request.getSession().setAttribute(MESSAGE, "message.loginerror");
+        return ConfigurationManager.getProperty("path.page.signin");
     }
 }

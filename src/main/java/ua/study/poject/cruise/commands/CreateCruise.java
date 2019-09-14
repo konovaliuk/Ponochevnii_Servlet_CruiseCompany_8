@@ -14,9 +14,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static ua.study.poject.cruise.util.StringStorage.*;
+
 public class CreateCruise implements Action {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
+
+        final String MESSAGE = "createcruiseMessage";
+        final String ALL_PORTS = "allPorts";
+        final String ALL_SHIPS = "allShips";
 
         if (request.getSession(false) == null) {  // нет сессии - логинимся
             return ConfigurationManager.getProperty("path.page.signin");
@@ -25,58 +31,58 @@ public class CreateCruise implements Action {
         ShipService shipService = new ShipService();
         PortExcursionService portExcursionService = new PortExcursionService();
 
-        request.getSession().setAttribute("allPorts", portExcursionService.getAllPorts());
-        request.getSession().setAttribute("allShips", shipService.getAllShips());
+        request.getSession().setAttribute(ALL_PORTS, portExcursionService.getAllPorts());
+        request.getSession().setAttribute(ALL_SHIPS, shipService.getAllShips());
 
-        if (request.getParameter("createcruiseForm") == null) {  // пришла команда не с формы - отправляем на форму
+        if (request.getParameter(CREATE_CRUISE_FORM) == null) {  // пришла команда не с формы - отправляем на форму
             return ConfigurationManager.getProperty("path.page.createcruise");
         }
 
         try {
-            Long shipId = Long.parseLong(request.getParameter("selectedship"));
-            double priceFirstClass = Double.parseDouble(request.getParameter("priceFirstClass"));
-            double priceSecondClass = Double.parseDouble(request.getParameter("priceSecondClass"));
-            double priceThirdClass = Double.parseDouble(request.getParameter("priceThirdClass"));
-            double priceFourthClass = Double.parseDouble(request.getParameter("priceFourthClass"));
+            Long shipId = Long.parseLong(request.getParameter(SELECTED_SHIP));
+            double priceFirstClass = Double.parseDouble(request.getParameter(PRICE_FIRST_CLASS));
+            double priceSecondClass = Double.parseDouble(request.getParameter(PRICE_SECOND_CLASS));
+            double priceThirdClass = Double.parseDouble(request.getParameter(PRICE_THIRD_CLASS));
+            double priceFourthClass = Double.parseDouble(request.getParameter(PRICE_FOURTH_CLASS));
 
             List<CruisePorts> cruisePortsList = new ArrayList<>();
 
-            if (validate(request, "datestart", "datestart", "selectedportstart"))
-                cruisePortsList.add(createCruisePorts(null, LocalDateTime.parse(request.getParameter("datestart")), Long.parseLong(request.getParameter("selectedportstart"))));
+            if (validate(request, DATE_START, DATE_START, SELECTED_PORT_START))
+                cruisePortsList.add(createCruisePorts(null, LocalDateTime.parse(request.getParameter(DATE_START)), Long.parseLong(request.getParameter(SELECTED_PORT_START))));
 
-            if (validate(request, "date1in", "date1out", "selectedport1"))
-                cruisePortsList.add(createCruisePorts(LocalDateTime.parse(request.getParameter("date1in")), LocalDateTime.parse(request.getParameter("date1out")), Long.parseLong(request.getParameter("selectedport1"))));
+            if (validate(request, DATE_1_IN, DATE_1_OUT, SELECTED_PORT_1))
+                cruisePortsList.add(createCruisePorts(LocalDateTime.parse(request.getParameter(DATE_1_IN)), LocalDateTime.parse(request.getParameter(DATE_1_OUT)), Long.parseLong(request.getParameter(SELECTED_PORT_1))));
 
-            if (validate(request, "date2in", "date2out", "selectedport2"))
-                cruisePortsList.add(createCruisePorts(LocalDateTime.parse(request.getParameter("date2in")), LocalDateTime.parse(request.getParameter("date2out")), Long.parseLong(request.getParameter("selectedport2"))));
+            if (validate(request, DATE_2_IN, DATE_2_OUT, SELECTED_PORT_2))
+                cruisePortsList.add(createCruisePorts(LocalDateTime.parse(request.getParameter(DATE_2_IN)), LocalDateTime.parse(request.getParameter(DATE_2_OUT)), Long.parseLong(request.getParameter(SELECTED_PORT_2))));
 
-            if (validate(request, "date3in", "date3out", "selectedport3"))
-                cruisePortsList.add(createCruisePorts(LocalDateTime.parse(request.getParameter("date3in")), LocalDateTime.parse(request.getParameter("date3out")), Long.parseLong(request.getParameter("selectedport3"))));
+            if (validate(request, DATE_3_IN, DATE_3_OUT, SELECTED_PORT_3))
+                cruisePortsList.add(createCruisePorts(LocalDateTime.parse(request.getParameter(DATE_3_IN)), LocalDateTime.parse(request.getParameter(DATE_3_OUT)), Long.parseLong(request.getParameter(SELECTED_PORT_3))));
 
-            if (validate(request, "date4in", "date4out", "selectedport4"))
-                cruisePortsList.add(createCruisePorts(LocalDateTime.parse(request.getParameter("date4in")), LocalDateTime.parse(request.getParameter("date4out")), Long.parseLong(request.getParameter("selectedport4"))));
+            if (validate(request, DATE_4_IN, DATE_4_OUT, SELECTED_PORT_4))
+                cruisePortsList.add(createCruisePorts(LocalDateTime.parse(request.getParameter(DATE_4_IN)), LocalDateTime.parse(request.getParameter(DATE_4_OUT)), Long.parseLong(request.getParameter(SELECTED_PORT_4))));
 
-            if (validate(request, "date5in", "date5out", "selectedport5"))
-                cruisePortsList.add(createCruisePorts(LocalDateTime.parse(request.getParameter("date5in")), LocalDateTime.parse(request.getParameter("date5out")), Long.parseLong(request.getParameter("selectedport5"))));
+            if (validate(request, DATE_5_IN, DATE_5_OUT, SELECTED_PORT_5))
+                cruisePortsList.add(createCruisePorts(LocalDateTime.parse(request.getParameter(DATE_5_IN)), LocalDateTime.parse(request.getParameter(DATE_5_OUT)), Long.parseLong(request.getParameter(SELECTED_PORT_5))));
 
-            if (validate(request, "date6in", "date6out", "selectedport6"))
-                cruisePortsList.add(createCruisePorts(LocalDateTime.parse(request.getParameter("date6in")), LocalDateTime.parse(request.getParameter("date6out")), Long.parseLong(request.getParameter("selectedport6"))));
+            if (validate(request, DATE_6_IN, DATE_6_OUT, SELECTED_PORT_6))
+                cruisePortsList.add(createCruisePorts(LocalDateTime.parse(request.getParameter(DATE_6_IN)), LocalDateTime.parse(request.getParameter(DATE_6_OUT)), Long.parseLong(request.getParameter(SELECTED_PORT_6))));
 
-            if (validate(request, "date7in", "date7out", "selectedport7"))
-                cruisePortsList.add(createCruisePorts(LocalDateTime.parse(request.getParameter("date7in")), LocalDateTime.parse(request.getParameter("date7out")), Long.parseLong(request.getParameter("selectedport7"))));
+            if (validate(request, DATE_7_IN, DATE_7_OUT, SELECTED_PORT_7))
+                cruisePortsList.add(createCruisePorts(LocalDateTime.parse(request.getParameter(DATE_7_IN)), LocalDateTime.parse(request.getParameter(DATE_7_OUT)), Long.parseLong(request.getParameter(SELECTED_PORT_7))));
 
-            if (validate(request, "datestop", "datestop", "selectedportstop"))
-                cruisePortsList.add(createCruisePorts(LocalDateTime.parse(request.getParameter("datestop")), null, Long.parseLong(request.getParameter("selectedportstop"))));
+            if (validate(request, DATE_STOP, DATE_STOP, SELECTED_PORT_STOP))
+                cruisePortsList.add(createCruisePorts(LocalDateTime.parse(request.getParameter(DATE_STOP)), null, Long.parseLong(request.getParameter(SELECTED_PORT_STOP))));
 
             int cruiseId = new CruiseService().createCruise(shipId, priceFirstClass, priceSecondClass, priceThirdClass, priceFourthClass, cruisePortsList);
 
             if (cruiseId < 1)
-                request.getSession().setAttribute("createcruiseMessage", "message.createcruise.errcreate");
+                request.getSession().setAttribute(MESSAGE, "message.createcruise.errcreate");
 
         } catch (NumberFormatException e) {
-            request.getSession().setAttribute("createcruiseMessage", "message.createcruise.errcreate");
+            request.getSession().setAttribute(MESSAGE, "message.createcruise.errcreate");
         }
-        request.getSession().setAttribute("createcruiseMessage", "message.createcruise.ok");
+        request.getSession().setAttribute(MESSAGE, "message.createcruise.ok");
 
         return ConfigurationManager.getProperty("path.page.createcruise");
     }

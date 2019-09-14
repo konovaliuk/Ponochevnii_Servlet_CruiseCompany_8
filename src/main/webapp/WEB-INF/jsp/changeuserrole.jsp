@@ -1,8 +1,10 @@
 ﻿<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<fmt:setLocale value="${language}" />
-<fmt:setBundle basename="message"/>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="ua.study.poject.cruise.commands.ActionStorage" %>
+<%@ page import="ua.study.poject.cruise.util.StringStorage" %>
+<fmt:setLocale value="${language}"/>
+<fmt:setBundle basename="${StringStorage.BANDLE_MESSAGE}"/>
 
 <html>
 <head>
@@ -15,7 +17,7 @@
 
 <c:set var="hdr">
     <c:choose>
-        <c:when test="${not empty sessionScope.currenuser}">
+        <c:when test="${not empty sessionScope.currentuser}">
             /WEB-INF/jsp/headers/HeaderRegistred.jsp
         </c:when>
         <c:otherwise>
@@ -25,28 +27,30 @@
 </c:set>
 <jsp:include page="${hdr}"/>
 
-<h1 style="color: red">changeuserrole.jsp</h1>
+<br/><br/><br/>
+
 <div class="form-style-2">
     <div class="form-style-2-heading">
         <fmt:message key="message.changeuserrole.title"/>
     </div>
     <br/>
-    <form name="changeuserroleForm" method="post" action="/controller">
-        <input type="hidden" name="command" value="changeuserrole"/>
-        <input type="hidden" name="changeuserroleForm" value="changeuserroleForm"/>
+    <form method="post" action="${StringStorage.CONTROLLER}">
+        <input type="hidden" name="${ActionStorage.COMMAND}" value="${ActionStorage.CHANGE_USER_ROLE}"/>
+        <input type="hidden" name="${StringStorage.CHANGE_USER_ROLE_FORM}"
+               value="${StringStorage.CHANGE_USER_ROLE_FORM}"/>
         <br/><br/><fmt:message key="message.changeuserrole.userlogin"/>
-        <br/><input type="text" name="login" value="" autofocus/>
+        <br/><input type="text" name="${StringStorage.LOGIN}" value="" autofocus/>
         <br/><br/><fmt:message key="message.changeuserrole.userlpassword"/>
-        <br/><input type="password" name="password" value=""/>
+        <br/><input type="password" name="${StringStorage.PASSWORD}" value=""/>
         <br/><br/>
 
         <fmt:message key="message.changeuserrole.newuserrole"/>
-        <br/><select name="selectedrole">
-            <option value=""><fmt:message key="message.changeuserrole.selectnewrole"/></option>
-            <c:forEach var="rolen" items="${allRoles}">
-                <option value="${rolen.role}">${rolen.role}</option>
-            </c:forEach>
-        </select>
+        <br/><select name="${StringStorage.SELECTED_ROLE}">
+        <option value=""><fmt:message key="message.changeuserrole.selectnewrole"/></option>
+        <c:forEach var="rolen" items="${allRoles}">
+            <option value="${rolen.role}">${rolen.role}</option>
+        </c:forEach>
+    </select>
 
         <br/>
         <br/> <input type="submit" value="<fmt:message key="message.changeuserrole.changerolebtn"/>"/>

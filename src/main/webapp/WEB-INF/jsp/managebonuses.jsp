@@ -1,8 +1,10 @@
 ﻿<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="ua.study.poject.cruise.commands.ActionStorage" %>
+<%@ page import="ua.study.poject.cruise.util.StringStorage" %>
 <fmt:setLocale value="${language}"/>
-<fmt:setBundle basename="message"/>
+<fmt:setBundle basename="${StringStorage.BANDLE_MESSAGE}"/>
 
 <html>
 <head>
@@ -12,7 +14,7 @@
 
 <c:set var="hdr">
     <c:choose>
-        <c:when test="${not empty sessionScope.currenuser}">
+        <c:when test="${not empty sessionScope.currentuser}">
             /WEB-INF/jsp/headers/HeaderRegistred.jsp
         </c:when>
         <c:otherwise>
@@ -22,48 +24,51 @@
 </c:set>
 <jsp:include page="${hdr}"/>
 
-<h1 style="color: red">managebonuses.jsp</h1>
+<br/><br/><br/>
 
 <div class="form-style-2">
-
     <div class="form-style-2-heading">
         <fmt:message key="message.managebonuses.addbonuses"/>
     </div>
-
-    <form name="addbonusesForm" method="post" action="/controller"><fmt:message key="message.managebonuses.selectcruise"/><br/>
-        <input type="hidden" name="command" value="addbonuses">
-        <input type="hidden" name="addbonusesForm" value="addbonusesForm">
-        <select name="selectedcruise" onchange="submit()">
+    <form method="post" action="${StringStorage.CONTROLLER}"><fmt:message
+            key="message.managebonuses.selectcruise"/><br/>
+        <input type="hidden" name="${ActionStorage.COMMAND}" value="${ActionStorage.ADD_BONUSES}">
+        <input type="hidden" name="${StringStorage.ADD_BONUSES_FORM}" value="${StringStorage.ADD_BONUSES_FORM}">
+        <select name="${StringStorage.SELECTED_CRUISE}" onchange="submit()">
             <c:if test="${scruise == null}">
                 <option value=""><fmt:message key="message.managebonuses.selectcruisemess"/></option>
             </c:if>
             <c:if test="${scruise != null}">
-                <option value="${scruise.cruiseId}">Cruise id: ${scruise.cruiseId}. Ship name: ${scruise.shipName}</option>
+                <option value="${scruise.cruiseId}">Cruise id: ${scruise.cruiseId}. Ship
+                    name: ${scruise.shipName}</option>
             </c:if>
             <c:forEach var="cruisen" items="${cruiseList}">
-                <option value="${cruisen.cruiseId}">Cruise id: ${cruisen.cruiseId}. Ship name: ${cruisen.shipName}</option>
+                <option value="${cruisen.cruiseId}">Cruise id: ${cruisen.cruiseId}. Ship
+                    name: ${cruisen.shipName}</option>
             </c:forEach>
         </select>
         <br/><br/><br/><br/>
 
 
         <fmt:message key="message.managebonuses.selectticketclass"/><br/>
-        <select name="selectedticketclass">
+        <select name="${StringStorage.SELECTED_TICKETCLASS}">
             <c:if test="${sticketclass == null}">
                 <option value=""><fmt:message key="message.managebonuses.selectticketclass0"/></option>
             </c:if>
             <c:if test="${sticketclass != null}">
-                <option value="${sticketclass.id}"><fmt:message key="message.managebonuses.ticketclass"/> ${sticketclass.ticketclassName}</option>
+                <option value="${sticketclass.id}"><fmt:message
+                        key="message.managebonuses.ticketclass"/> ${sticketclass.ticketclassName}</option>
             </c:if>
             <c:forEach var="ticketclassn" items="${ticketclassList}">
-                <option value="${ticketclassn.id}"><fmt:message key="message.managebonuses.ticketclass"/> ${ticketclassn.ticketclassName}</option>
+                <option value="${ticketclassn.id}"><fmt:message
+                        key="message.managebonuses.ticketclass"/> ${ticketclassn.ticketclassName}</option>
             </c:forEach>
 
 
         </select>
         <br/><br/>
         <fmt:message key="message.managebonuses.selectservice"/><br/>
-        <select name="selectedshipserviceid">
+        <select name="${StringStorage.SELECTED_SHIPSERVICE_ID}">
             <option value=""><fmt:message key="message.managebonuses.selectservice0"/></option>
             <c:forEach var="shipservicen" items="${shipserviceList}">
                 <option value="${shipservicen.shipServiceId}">${shipservicen.serviceName}</option>
@@ -112,8 +117,8 @@
         <div class="form-style-2-heading">
             <fmt:message key="message.managebonuses.bforfirstclass"/>
         </div>
-        <form method="post" name="deletebonuses1Form" action="/controller">
-            <input type="hidden" name="command" value="deletebonuses">
+        <form method="post" name="deletebonuses1Form" action="${StringStorage.CONTROLLER}">
+            <input type="hidden" name="${ActionStorage.COMMAND}" value="${ActionStorage.DELETE_BONUSES}">
             <table border="1" cellpadding="3" cellspacing="0">
                 <thead>
                 <tr>
@@ -131,7 +136,8 @@
                             <c:if test="${bonuseForTicketClass1.printableServiceOnShip.payable != 0}"> <fmt:message
                                     key="message.addshipservicetoship.payable"/> </c:if>
                         </td>
-                        <td><input type="checkbox" name="bonuses" value="${bonuseForTicketClass1.ticketClassBonusId}">
+                        <td><input type="checkbox" name="${StringStorage.BONUSES}"
+                                   value="${bonuseForTicketClass1.ticketClassBonusId}">
                         </td>
                     </tr>
                 </c:forEach>
@@ -149,10 +155,8 @@
         <div class="form-style-2-heading">
             <fmt:message key="message.managebonuses.bforsecclass"/>
         </div>
-        <form method="post" name="deletebonuses2Form" action="/controller">
-            <input type="hidden" name="command" value="deletebonuses">
-                <%--        <input type="hidden" name="selectedbonusfordelete1" value="${scruise.cruiseId}">--%>
-
+        <form method="post" name="deletebonuses2Form" action="${StringStorage.CONTROLLER}">
+            <input type="hidden" name="${ActionStorage.COMMAND}" value="${ActionStorage.DELETE_BONUSES}">
             <table border="1" cellpadding="3" cellspacing="0">
                 <thead>
                 <tr>
@@ -170,7 +174,8 @@
                             <c:if test="${bonuseForTicketClass2.printableServiceOnShip.payable != 0}"> <fmt:message
                                     key="message.addshipservicetoship.payable"/> </c:if>
                         </td>
-                        <td><input type="checkbox" name="bonuses" value="${bonuseForTicketClass2.ticketClassBonusId}">
+                        <td><input type="checkbox" name="${StringStorage.BONUSES}"
+                                   value="${bonuseForTicketClass2.ticketClassBonusId}">
                         </td>
                     </tr>
                 </c:forEach>
@@ -188,10 +193,8 @@
         <div class="form-style-2-heading">
             <fmt:message key="message.managebonuses.bforthirdclass"/>
         </div>
-        <form method="post" name="deletebonuses3Form" action="/controller">
-            <input type="hidden" name="command" value="deletebonuses">
-                <%--        <input type="hidden" name="selectedbonusfordelete1" value="${scruise.cruiseId}">--%>
-
+        <form method="post" name="deletebonuses3Form" action="${StringStorage.CONTROLLER}">
+            <input type="hidden" name="${ActionStorage.COMMAND}" value="${ActionStorage.DELETE_BONUSES}">
             <table border="1" cellpadding="3" cellspacing="0">
                 <thead>
                 <tr>
@@ -209,7 +212,8 @@
                             <c:if test="${bonuseForTicketClass3.printableServiceOnShip.payable != 0}"> <fmt:message
                                     key="message.addshipservicetoship.payable"/> </c:if>
                         </td>
-                        <td><input type="checkbox" name="bonuses" value="${bonuseForTicketClass3.ticketClassBonusId}">
+                        <td><input type="checkbox" name="${StringStorage.BONUSES}"
+                                   value="${bonuseForTicketClass3.ticketClassBonusId}">
                         </td>
                     </tr>
                 </c:forEach>
@@ -227,8 +231,8 @@
         <div class="form-style-2-heading">
             <fmt:message key="message.managebonuses.bforfourclass"/>
         </div>
-        <form method="post" name="deletebonuses4Form" action="/controller">
-            <input type="hidden" name="command" value="deletebonuses">
+        <form method="post" name="deletebonuses4Form" action="${StringStorage.CONTROLLER}">
+            <input type="hidden" name="${ActionStorage.COMMAND}" value="${ActionStorage.DELETE_BONUSES}">
             <table border="1" cellpadding="3" cellspacing="0">
                 <thead>
                 <tr>
@@ -246,7 +250,8 @@
                             <c:if test="${bonuseForTicketClass4.printableServiceOnShip.payable != 0}"> <fmt:message
                                     key="message.addshipservicetoship.payable"/> </c:if>
                         </td>
-                        <td><input type="checkbox" name="bonuses" value="${bonuseForTicketClass4.ticketClassBonusId}">
+                        <td><input type="checkbox" name="${StringStorage.BONUSES}"
+                                   value="${bonuseForTicketClass4.ticketClassBonusId}">
                         </td>
                     </tr>
                 </c:forEach>

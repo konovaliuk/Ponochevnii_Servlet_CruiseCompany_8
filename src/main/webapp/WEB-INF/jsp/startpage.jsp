@@ -1,8 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="ua.study.poject.cruise.commands.ActionStorage" %>
+<%@ page import="ua.study.poject.cruise.util.StringStorage" %>
 <fmt:setLocale value="${language}"/>
-<fmt:setBundle basename="message"/>
+<fmt:setBundle basename="${StringStorage.BANDLE_MESSAGE}"/>
 
 <!DOCTYPE html>
 <html>
@@ -15,7 +17,7 @@
 <body>
 <c:set var="hdr">
     <c:choose>
-        <c:when test="${not empty sessionScope.currenuser}">
+        <c:when test="${not empty sessionScope.currentuser}">
             /WEB-INF/jsp/headers/HeaderRegistred.jsp
         </c:when>
         <c:otherwise>
@@ -25,13 +27,14 @@
 </c:set>
 <jsp:include page="${hdr}"/>
 
-<br/>
-<h1 style="color: red">startPage.jsp</h1>
+<br/><br/><br/>
 
 <div class="form-style-2">
-    <hr/>
-    <c:set var="tempCruise" value="-1"></c:set>
+    <div class="form-style-2-heading">
 
+    </div>
+
+    <c:set var="tempCruise" value="-1"></c:set>
 
     <table>
         <c:forEach var="cruisefromlist" items="${allCruises}">
@@ -41,8 +44,8 @@
     <table border="1" cellpadding="3" cellspacing="0">
         <thead>
         <tr>
-            <td colspan="5">Cruise number: ${tempCruise = cruisefromlist.cruiseId}&nbsp;<br/> Ship
-                name: ${cruisefromlist.shipName}</td>
+            <td colspan="5">Cruise number: ${tempCruise = cruisefromlist.cruiseId}&nbsp;
+                <br/> Ship name: ${cruisefromlist.shipName}</td>
 
         </tr>
         <tr>
@@ -61,9 +64,9 @@
             <td><c:out value="${cruisefromlist.dateIn}"/></td>
             <td><c:out value="${cruisefromlist.dateOut}"/></td>
             <td>
-                <form method="post" action="/controller">
-                    <input type="hidden" name="command" value="viewport">
-                    <input type="hidden" name="selectedPortId" value="${cruisefromlist.portId}">
+                <form method="post" action="${StringStorage.CONTROLLER}">
+                    <input type="hidden" name="${ActionStorage.COMMAND}" value="${ActionStorage.VIEW_PORT}">
+                    <input type="hidden" name="${StringStorage.SELECTED_PORT_ID}" value="${cruisefromlist.portId}">
                     <br/><input type="submit" value="More details">
                 </form>
             </td>
