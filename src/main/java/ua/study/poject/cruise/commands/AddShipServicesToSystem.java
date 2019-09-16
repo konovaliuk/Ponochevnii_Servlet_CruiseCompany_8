@@ -15,15 +15,17 @@ public class AddShipServicesToSystem implements Action {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
         final String MESSAGE = "addshipservicestosystemMessage";
+        final String ALL_SERVICES = "allServices";
+        final String ALL_SHIP_SERVICES_IN_SYSTEM = "allShipServicesInSystem";
 
         if (request.getSession(false) == null) {  // нет сессии - логинимся
             return ConfigurationManager.getProperty("path.page.signin");
         }
 
         ShipserviceService shipServiceService = new ShipserviceService();
-        request.getSession().setAttribute("allServices", shipServiceService.getAllServisesInSystem());
+        request.getSession().setAttribute(ALL_SERVICES, shipServiceService.getAllServisesInSystem());
 
-        request.getSession().setAttribute("allShipServicesInSystem", shipServiceService.getAllServisesInSystem());
+        request.getSession().setAttribute(ALL_SHIP_SERVICES_IN_SYSTEM, shipServiceService.getAllServisesInSystem());
 
         if (request.getParameter(ADD_SHIP_SERVICES_TO_SYSTEM_FORM) == null) {  // пришла команда не с формы - отправляем на форму
             return ConfigurationManager.getProperty("path.page.addshipservicestosystem");
@@ -44,7 +46,7 @@ public class AddShipServicesToSystem implements Action {
         if (result <= 0) {
             request.getSession().setAttribute(MESSAGE, "message.addshipservicestosystem.faildtocreate");
         } else {
-            request.getSession().setAttribute("allServices", shipServiceService.getAllServisesInSystem());
+            request.getSession().setAttribute(ALL_SERVICES, shipServiceService.getAllServisesInSystem());
             request.getSession().setAttribute(MESSAGE, "message.addshipservicestosystem.creationok");
         }
 

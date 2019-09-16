@@ -17,6 +17,11 @@ public class AddShipServicesToShip implements Action {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
         final String MESSAGE = "addShipServiceToShipMessage";
+        final String ALL_SHIPS = "allShips";
+        final String SSHIPS = "sship";
+        final String ALL_SERVICES_ON_SELECTED_SHIP = "allServicesOnSelectedShip";
+        final String ALL_SERVICES = "allServices";
+        final String ALL_SERVICES_IN_SYSTEM = "allServicesInSystem";
 
         if (request.getSession(false) == null) {  // нет сессии - логинимся
             return ConfigurationManager.getProperty("path.page.signin");
@@ -26,7 +31,7 @@ public class AddShipServicesToShip implements Action {
         ShipserviceService shipserviceService = new ShipserviceService();
 
         List<Ship> listShip = shipService.getAllShips();
-        request.getSession().setAttribute("allShips", listShip); // отправляем в jsp список всех кораблей
+        request.getSession().setAttribute(ALL_SHIPS, listShip); // отправляем в jsp список всех кораблей
 
         if (request.getParameter(SELECT_SHIP_SERVICES_FORM) == null) {  // пришла команда не с формы - отправляем на форму
             return ConfigurationManager.getProperty("path.page.addshipservicetoship");
@@ -43,10 +48,10 @@ public class AddShipServicesToShip implements Action {
         Integer payable;
         try {
             selectedShipId = Long.parseLong(selectedShip);
-            payable = Integer.parseInt(request.getParameter("payable"));
+            payable = Integer.parseInt(request.getParameter(PAYABLE));
             for (Ship ship : listShip) {
                 if (ship.getId().equals(selectedShipId)) {
-                    request.getSession().setAttribute("sship", ship);
+                    request.getSession().setAttribute(SSHIPS, ship);
                     break;
                 }
             }
@@ -57,8 +62,8 @@ public class AddShipServicesToShip implements Action {
             return ConfigurationManager.getProperty("path.page.addshipservicetoship");
         }
 
-        request.getSession().setAttribute("allServicesInSystem", shipserviceService.getAllServisesInSystem()); // отправляем в jsp список всех сервисов в системе
-        request.getSession().setAttribute("allServicesOnSelectedShip", shipService.getAllServicesByShipId(selectedShipId)); // отправляем в jsp список всех сервисов, уже добавленых к выбранному кораблю
+        request.getSession().setAttribute(ALL_SERVICES_IN_SYSTEM, shipserviceService.getAllServisesInSystem()); // отправляем в jsp список всех сервисов в системе
+        request.getSession().setAttribute(ALL_SERVICES_ON_SELECTED_SHIP, shipService.getAllServicesByShipId(selectedShipId)); // отправляем в jsp список всех сервисов, уже добавленых к выбранному кораблю
 
         String selectedserviceIdStr = request.getParameter(SELECTED_SERVICE);
         if (selectedserviceIdStr.equals(""))
@@ -93,10 +98,10 @@ public class AddShipServicesToShip implements Action {
             request.getSession().setAttribute(MESSAGE,
                     "message.addshipservicetoship.errorservicefaild");
         } else {
-            request.getSession().setAttribute("allServices", shipserviceService.getAllServisesInSystem());
+            request.getSession().setAttribute(ALL_SERVICES, shipserviceService.getAllServisesInSystem());
             request.getSession().setAttribute(MESSAGE,
                     "message.addshipservicetoship.serviceadded");
-            request.getSession().setAttribute("allServicesOnSelectedShip", shipService.getAllServicesByShipId(selectedShipId));
+            request.getSession().setAttribute(ALL_SERVICES_ON_SELECTED_SHIP, shipService.getAllServicesByShipId(selectedShipId));
         }
 
         return ConfigurationManager.getProperty("path.page.addshipservicetoship");

@@ -14,11 +14,13 @@ public class StringStorage {
     public static final String ADD_SHIP_SERVICES_TO_SYSTEM_FORM = "addshipservicestosystemForm";
     public static final String NEW_SERVICE_IN_SYSTEM = "newServiseInSystem";
 
-    // Add ship services to ship
+    // Add/delete ship services to ship
     public static final String ADD_SHIP_SERVICE_TO_SHIP = "addshipservicetoship";
     public static final String SELECT_SHIP_SERVICES_FORM = "selectshipservicesForm";
-    public static final String SELECTED_SHIP = "selectedship"; // +Create cruise
+    public static final String SELECTED_SHIP = "selectedship"; // +Create cruise, +Delete ship services from ship
     public static final String SELECTED_SERVICE = "selectedservice";
+    public static final String PAYABLE = "payable";
+    public static final String SHIP_SERVICE = "shipservice";
 
     // Change user role
     public static final String CHANGE_USER_ROLE_FORM = "changeuserroleForm";

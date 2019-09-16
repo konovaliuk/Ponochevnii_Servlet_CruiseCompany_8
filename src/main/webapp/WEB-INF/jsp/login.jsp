@@ -19,7 +19,7 @@
 <c:remove var="hdr" scope="request"/>
 <c:set var="hdr">
 <c:choose>
-    <c:when test="${not empty sessionScope.currenuser}">
+    <c:when test="${not empty sessionScope.currentuser}">
         /WEB-INF/jsp/headers/HeaderRegistred.jsp
     </c:when>
     <c:otherwise>

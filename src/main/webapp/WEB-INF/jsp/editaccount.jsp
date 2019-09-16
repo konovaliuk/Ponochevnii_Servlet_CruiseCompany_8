@@ -38,19 +38,19 @@
         <input type="hidden" name="${ActionStorage.COMMAND}" value="${ActionStorage.EDIT_ACCOUNT}"/>
         <input type="hidden" name="${StringStorage.EDIT_ACCOUNT_FORM}" value="${StringStorage.EDIT_ACCOUNT_FORM}"/>
         <fmt:message key="message.editaccount.login"/>
-        <br/><input type="text" name="${StringStorage.LOGIN}" value="${currenuser.login}" disabled/>
+        <br/><input type="text" name="${StringStorage.LOGIN}" value="${currentuser.login}" disabled/>
         <br/><br/><fmt:message key="message.editaccount.password"/>
         <br/><input type="password" name="${StringStorage.PASSWORD}" value=""/>
         <br/><br/><fmt:message key="message.editaccount.passworddupl"/>
         <br/><input type="password" name="${StringStorage.PASSWORD2}" value="${param.password2}"/>
         <br/><br/><fmt:message key="message.editaccount.firstname"/>
-        <br/><input type="text" name="${StringStorage.FIRST_NAME}" value="${currenuser.firstName}"/>
+        <br/><input type="text" name="${StringStorage.FIRST_NAME}" value="${currentuser.firstName}"/>
         <br/><br/><fmt:message key="message.editaccount.lastname"/>
-        <br/><input type="text" name="${StringStorage.SECOND_NAME}" value="${currenuser.secondName}"/>
+        <br/><input type="text" name="${StringStorage.SECOND_NAME}" value="${currentuser.secondName}"/>
         <br/><br/><fmt:message key="message.editaccount.email"/>
-        <br/><input type="email" name="${StringStorage.EMAIL}" value="${currenuser.email}"/>
+        <br/><input type="email" name="${StringStorage.EMAIL}" value="${currentuser.email}"/>
         <br/><br/><fmt:message key="message.editaccount.tel"/>
-        <br/><input type="tel" name="${StringStorage.TEL}" value="${currenuser.tel}"/>
+        <br/><input type="tel" name="${StringStorage.TEL}" value="${currentuser.tel}"/>
         <br/>
         <br/> <input type="submit" value="<fmt:message key="message.editaccount.btn"/>"/>
         <br/>

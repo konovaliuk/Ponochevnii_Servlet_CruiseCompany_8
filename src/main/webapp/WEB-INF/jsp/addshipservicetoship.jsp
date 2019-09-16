@@ -60,9 +60,9 @@
             </c:forEach>
         </select>
         <br/><br/>
-        <label><input type="radio" name="payable" value="0" checked> <fmt:message
+        <label><input type="radio" name="${StringStorage.PAYABLE}" value="0" checked> <fmt:message
                 key="message.addshipservicetoship.free"/></label>
-        <label><input type="radio" name="payable" value="1"> <fmt:message
+        <label><input type="radio" name="${StringStorage.PAYABLE}" value="1"> <fmt:message
                 key="message.addshipservicetoship.payable"/></label>
         <br/>
         <br/> <input type="submit" value="<fmt:message key="message.addshipservicetoship.title"/>"/>
@@ -109,7 +109,7 @@
                         <c:if test="${servicefromlist.payable != 0}"> <fmt:message
                                 key="message.addshipservicetoship.payable"/> </c:if>
                     </td>
-                    <td><input type="checkbox" name="shipservice" value="${servicefromlist.serviceId}"></td>
+                    <td><input type="checkbox" name="${StringStorage.SHIP_SERVICE}" value="${servicefromlist.serviceId}"></td>
                 </tr>
             </c:forEach>
         </table>
