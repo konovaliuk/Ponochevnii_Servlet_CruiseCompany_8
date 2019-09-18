@@ -45,11 +45,11 @@
         <br/><input type="submit" value="<fmt:message key="message.viewexcursion.addtocart"/>">
     </form>
     <br/>
+    </c:if>
 
     <p style="color: red">
         <c:if test="${not empty viewexcursionMessage}"><fmt:message key="${viewexcursionMessage}"/></c:if>
     </p>
 
-    </c:if>
 </body>
 </html>

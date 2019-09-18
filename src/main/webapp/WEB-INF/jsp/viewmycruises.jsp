@@ -1,4 +1,4 @@
-﻿<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="ua.study.poject.cruise.commands.ActionStorage"%>
@@ -11,7 +11,7 @@
     <style>
         <%@include file="/resources/css/style.css"%>
     </style>
-    <title>Pay</title>
+    <title>MyCruises</title>
 </head>
 <body>
 
@@ -29,11 +29,17 @@
 
 <br/><br/><br/>
 
-<br/>
-<br/>
-<br/>
-<br/>
-<h1 style="color: red">На этой странице должна происохдить оплата покупки</h1>
+Здесь будут отображаться все купленные мной круизы и экскурсии
+
+
+
+
+
+
+
+
+
+
 
 </body>
-</html>       
+</html>

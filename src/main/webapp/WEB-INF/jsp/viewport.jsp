@@ -39,11 +39,6 @@
     <h3><c:out value="${excursion.excursionName}"/></h3>
         <fmt:message key="message.viewport.price"/> <c:out value="${excursion.price}"/> $
     <br/>
-    <form class="inline" method="post" action="${StringStorage.CONTROLLER}">
-        <input type="hidden" name="${ActionStorage.COMMAND}" value="${ActionStorage.ADD_TO_CART}">
-        <input type="hidden" name="${StringStorage.EXCURSION_ID_TO_CART}" value="${excursion.id}">
-        <br/><input type="submit" value="<fmt:message key="message.viewport.addbtn"/>">
-    </form>
 
     <form class="inline" method="post" action="${StringStorage.CONTROLLER}">
         <input type="hidden" name="${ActionStorage.COMMAND}" value="${ActionStorage.VIEW_EXCURSION}">

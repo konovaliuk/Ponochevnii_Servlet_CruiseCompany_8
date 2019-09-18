@@ -23,6 +23,7 @@ public class ActionStorage {
     public final static String VIEW_EXCURSION = "viewexcursion";
     public final static String VIEW_MY_CRUISES = "viewmycruises";
     public final static String VIEW_PORT = "viewport";
+    public final static String DELETE_ALL = "deleteall";
 
     public final static String START_PAGE = "startpage";
     public final static String CHANGE_LANGUAGE = "changelanguage";
@@ -55,6 +56,7 @@ public class ActionStorage {
         generalAction.put(VIEW_CRUISE, new ViewCruise());
         generalAction.put(VIEW_EXCURSION, new ViewExcursion());
         generalAction.put(VIEW_PORT, new ViewPort());
+        generalAction.put(ADD_TO_CART, new SingIn());
 
         customerAction.put(EDIT_ACCOUNT, new EditAccount());
         customerAction.put(START_PAGE, new StartPage());
@@ -69,6 +71,7 @@ public class ActionStorage {
         customerAction.put(VIEW_EXCURSION, new ViewExcursion());
         customerAction.put(VIEW_MY_CRUISES, new ViewMyCruises());
         customerAction.put(VIEW_PORT, new ViewPort());
+        customerAction.put(DELETE_ALL, new DeleteAllFromCart());
 
         managerAction.put(EDIT_ACCOUNT, new EditAccount());
         managerAction.put(ADD_TO_CART, new AddToCart());
@@ -85,6 +88,7 @@ public class ActionStorage {
         managerAction.put(VIEW_EXCURSION, new ViewExcursion());
         managerAction.put(VIEW_MY_CRUISES, new ViewMyCruises());
         managerAction.put(VIEW_PORT, new ViewPort());
+        managerAction.put(DELETE_ALL, new DeleteAllFromCart());
 
         adminAction.put(EDIT_ACCOUNT, new EditAccount());
         adminAction.put(ADD_TO_CART, new AddToCart());
@@ -107,6 +111,7 @@ public class ActionStorage {
         adminAction.put(VIEW_EXCURSION, new ViewExcursion());
         adminAction.put(VIEW_MY_CRUISES, new ViewMyCruises());
         adminAction.put(VIEW_PORT, new ViewPort());
+        adminAction.put(DELETE_ALL, new DeleteAllFromCart());
     }
 
     private static ActionStorage instance = null;

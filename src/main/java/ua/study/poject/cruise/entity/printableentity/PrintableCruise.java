@@ -1,23 +1,21 @@
 package ua.study.poject.cruise.entity.printableentity;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class PrintableCruise implements Serializable {
 
-    private static final long serialVersionUID = 6485047061553010123L;
+    private static final long serialVersionUID = 5332992361975215114L;
 
     private Long cruiseId;
     private Long shipId;
     private String shipName;
-    private Long portId;
-    private String country;
-    private String city;
-    private LocalDateTime dateIn;
-    private LocalDateTime dateOut;
+    private double priceFirstClass;
+    private double priceSecondClass;
+    private double priceThirdClass;
+    private double priceFourthClass;
+    private List<PrintableCruisePort> printableCruisePorts;
 
     public Long getCruiseId() {
         return cruiseId;
@@ -43,44 +41,44 @@ public class PrintableCruise implements Serializable {
         this.shipName = shipName;
     }
 
-    public Long getPortId() {
-        return portId;
+    public double getPriceFirstClass() {
+        return priceFirstClass;
     }
 
-    public void setPortId(Long portId) {
-        this.portId = portId;
+    public void setPriceFirstClass(double priceFirstClass) {
+        this.priceFirstClass = priceFirstClass;
     }
 
-    public String getCountry() {
-        return country;
+    public double getPriceSecondClass() {
+        return priceSecondClass;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setPriceSecondClass(double priceSecondClass) {
+        this.priceSecondClass = priceSecondClass;
     }
 
-    public String getCity() {
-        return city;
+    public double getPriceThirdClass() {
+        return priceThirdClass;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setPriceThirdClass(double priceThirdClass) {
+        this.priceThirdClass = priceThirdClass;
     }
 
-    public LocalDateTime getDateIn() {
-        return dateIn;
+    public double getPriceFourthClass() {
+        return priceFourthClass;
     }
 
-    public void setDateIn(LocalDateTime dateIn) {
-        this.dateIn = dateIn;
+    public void setPriceFourthClass(double priceFourthClass) {
+        this.priceFourthClass = priceFourthClass;
     }
 
-    public LocalDateTime getDateOut() {
-        return dateOut;
+    public List<PrintableCruisePort> getPrintableCruisePorts() {
+        return printableCruisePorts;
     }
 
-    public void setDateOut(LocalDateTime dateOut) {
-        this.dateOut = dateOut;
+    public void setPrintableCruisePorts(List<PrintableCruisePort> printableCruisePorts) {
+        this.printableCruisePorts = printableCruisePorts;
     }
 
     @Override
@@ -88,31 +86,29 @@ public class PrintableCruise implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PrintableCruise that = (PrintableCruise) o;
-        return Objects.equals(cruiseId, that.cruiseId) &&
+        return Double.compare(that.priceFirstClass, priceFirstClass) == 0 &&
+                Double.compare(that.priceSecondClass, priceSecondClass) == 0 &&
+                Double.compare(that.priceThirdClass, priceThirdClass) == 0 &&
+                Double.compare(that.priceFourthClass, priceFourthClass) == 0 &&
+                Objects.equals(cruiseId, that.cruiseId) &&
                 Objects.equals(shipId, that.shipId) &&
                 Objects.equals(shipName, that.shipName) &&
-                Objects.equals(portId, that.portId) &&
-                Objects.equals(country, that.country) &&
-                Objects.equals(city, that.city) &&
-                Objects.equals(dateIn, that.dateIn) &&
-                Objects.equals(dateOut, that.dateOut);
+                Objects.equals(printableCruisePorts, that.printableCruisePorts);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cruiseId, shipId, shipName, portId, country, city, dateIn, dateOut);
+        return Objects.hash(cruiseId, shipId, shipName, priceFirstClass, priceSecondClass, priceThirdClass, priceFourthClass, printableCruisePorts);
     }
 
-    @Override
     public String toString() {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return "CruiseId: " + cruiseId +
                 ", shipId: " + shipId +
                 ", shipName: " + shipName +
-                ", portId: " + portId +
-                ", country: " + country +
-                ", city: " + city +
-                ", dateIn: " + ((dateIn != null) ? dateIn.format(dateTimeFormatter) : "") +
-                ", dateOut: " + ((dateOut != null) ? dateOut.format(dateTimeFormatter) : "");
+                ", priceFirstClass: " + priceFirstClass +
+                ", priceSecondClass: " + priceSecondClass +
+                ", priceThirdClass: " + priceThirdClass +
+                ", priceFourthClass: " + priceFourthClass +
+                ", printableCruisePorts: " + printableCruisePorts;
     }
 }

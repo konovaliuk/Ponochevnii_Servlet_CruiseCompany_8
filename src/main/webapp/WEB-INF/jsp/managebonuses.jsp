@@ -87,28 +87,32 @@
 
 <c:if test="${shipserviceList != null && shipserviceList.size() != 0}">
     <br/><br/>
-    <div class="form-style-2-heading">
-        <fmt:message key="message.managebonuses.allavailableserv"/>
-    </div>
-    <table border="1" cellpadding="3" cellspacing="0">
-        <thead>
-        <tr>
-            <td><fmt:message key="message.addshipservicetoship.td1"/></td>
-            <td><fmt:message key="message.addshipservicetoship.td2"/></td>
-        </tr>
-        </thead>
-        <c:forEach var="shipservicen" items="${shipserviceList}">
+    <div class="form-style-2">
+        <div class="form-style-2-heading">
+            <fmt:message key="message.managebonuses.allavailableserv"/>
+        </div>
+        <table border="1" cellpadding="3" cellspacing="0">
+            <thead>
             <tr>
-                <td><c:out value="${shipservicen.serviceName}"/></td>
-                <td>
-                    <c:if test="${shipservicen.payable == 0}"> <fmt:message key="message.addshipservicetoship.free"/>
-                    </c:if>
-                    <c:if test="${shipservicen.payable != 0}"> <fmt:message key="message.addshipservicetoship.payable"/>
-                    </c:if>
-                </td>
+                <td><fmt:message key="message.addshipservicetoship.td1"/></td>
+                <td><fmt:message key="message.addshipservicetoship.td2"/></td>
             </tr>
-        </c:forEach>
-    </table>
+            </thead>
+            <c:forEach var="shipservicen" items="${shipserviceList}">
+                <tr>
+                    <td><c:out value="${shipservicen.serviceName}"/></td>
+                    <td>
+                        <c:if test="${shipservicen.payable == 0}"> <fmt:message
+                                key="message.addshipservicetoship.free"/>
+                        </c:if>
+                        <c:if test="${shipservicen.payable != 0}"> <fmt:message
+                                key="message.addshipservicetoship.payable"/>
+                        </c:if>
+                    </td>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
 </c:if>
 
 <c:if test="${allBonusesForTicketClass1 != null && allBonusesForTicketClass1.size() != 0}">
@@ -142,7 +146,7 @@
                     </tr>
                 </c:forEach>
             </table>
-            <br/><input type="submit" value="Delete bonuses"/>
+            <br/><input type="submit" value="<fmt:message key="message.managebonuses.deletebon"/>"/>
         </form>
         <hr/>
     </div>
@@ -180,7 +184,7 @@
                     </tr>
                 </c:forEach>
             </table>
-            <br/><input type="submit" value="Delete bonuses"/>
+            <br/><input type="submit" value="<fmt:message key="message.managebonuses.deletebon"/>"/>
         </form>
         <hr/>
     </div>
@@ -218,7 +222,7 @@
                     </tr>
                 </c:forEach>
             </table>
-            <br/><input type="submit" value="Delete bonuses"/>
+            <br/><input type="submit" value="<fmt:message key="message.managebonuses.deletebon"/>"/>
         </form>
         <hr/>
     </div>

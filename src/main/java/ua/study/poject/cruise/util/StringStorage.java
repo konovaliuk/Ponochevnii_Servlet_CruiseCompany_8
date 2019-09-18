@@ -1,5 +1,7 @@
 package ua.study.poject.cruise.util;
 
+import static ua.study.poject.cruise.entity.Ticketclass.*;
+
 public class StringStorage {
 
     // All
@@ -103,7 +105,8 @@ public class StringStorage {
     public static final String SIGN_IN_FORM = "signinForm";
 
     // Logout
-    public static final String ALL_CRUISES = "allCruises"; // NOT LINKED FROM JSP! +SignIn, +SignUp, +StartPage,  +
+    public static final String ALL_CRUISES = "allCruises"; // NOT LINKED FROM JSP! +SignIn, +SignUp, +StartPage,  +ViewCruise
+    public static final String ALL_TICKETCLASSES = "allTicketClasses"; // NOT LINKED FROM JSP! +StartPage
 
     // Manage bonuses
     public static final String ADD_BONUSES_FORM = "addbonusesForm";
@@ -117,12 +120,31 @@ public class StringStorage {
 
     // Start page
     public static final String SELECTED_PORT_ID = "selectedPortId";
+    public static final String SELECTED_CRUISE_ID = "selectedCruiseId";
 
     // View excursion and view port
     public static final String EXCURSION_ID_TO_CART = "excursionIdToCart";
     public static final String VIEW_EXCURSION_ID = "viewExcursionId";
 
 
+    // View cruise
+    public static final String CRUISE_ID_TO_CART = "cruiseIdToCart";
+
+    // AddToCart
+    public static final String TICKETCLASS = "ticketclassForm";
+
+    public static final String FIRST = TICKET_CLASS_FIRST;
+    public static final String SECOND = TICKET_CLASS_SECOND;
+    public static final String THIRD = TICKET_CLASS_THIRD;
+    public static final String FOURTH = TICKET_CLASS_FOURTH;
+
+    public static final String CRUISES_IN_CART = "cruisesInCart";
+    public static final String TICKETCLASSES_IN_CART = "ticketclassesInCart";
+    public static final String EXCURSIONS_IN_CART = "excurisionsInCart";
+
+    // View cart
+    public static final String DELETE_CRUISE_FROM_CART_FORM = "deletecruisefromcartForm";
+    public static final String DELETE_EXCURSION_FROM_CART_FORM = "deleteexcursionfromcartForm";
 
 
 

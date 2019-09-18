@@ -12,7 +12,7 @@
     <style>
         <%@include file="/resources/css/style.css"%>
     </style>
-    <title>startPage.jsp</title>
+    <title><fmt:message key="message.startpage.title"/></title>
 </head>
 <body>
 <c:set var="hdr">
@@ -31,51 +31,59 @@
 
 <div class="form-style-2">
     <div class="form-style-2-heading">
-
+        <fmt:message key="message.startpage.availcruises"/>
     </div>
 
-    <c:set var="tempCruise" value="-1"></c:set>
-
-    <table>
         <c:forEach var="cruisefromlist" items="${allCruises}">
-        <c:if test="${tempCruise != cruisefromlist.cruiseId}">
-    </table>
-    <br/><br/>
-    <table border="1" cellpadding="3" cellspacing="0">
-        <thead>
-        <tr>
-            <td colspan="5">Cruise number: ${tempCruise = cruisefromlist.cruiseId}&nbsp;
-                <br/> Ship name: ${cruisefromlist.shipName}</td>
 
-        </tr>
-        <tr>
-            <td>Country</td>
-            <td>City</td>
-            <td>Date in</td>
-            <td>Date out</td>
-            <td>Details</td>
-        </tr>
-        </thead>
-        </c:if>
+            <table border="1" cellpadding="3" cellspacing="0">
+                <thead>
+                <tr>
+                    <td colspan="5">
+                        <fmt:message key="message.viewcart.cruisenum"/><b> ${cruisefromlist.cruiseId}&nbsp;</b>
+                        <br/> <fmt:message key="message.viewcart.shipname"/><b> ${cruisefromlist.shipName}</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td><fmt:message key="message.viewcruise.country"/></td>
+                    <td><fmt:message key="message.viewcruise.city"/></td>
+                    <td><fmt:message key="message.viewcruise.arrival"/></td>
+                    <td><fmt:message key="message.viewcruise.departure"/></td>
+                    <td><fmt:message key="message.viewcruise.details"/></td>
+                </tr>
+                </thead>
 
-        <tr>
-            <td><c:out value="${cruisefromlist.country}"/></td>
-            <td><c:out value="${cruisefromlist.city}"/></td>
-            <td><c:out value="${cruisefromlist.dateIn}"/></td>
-            <td><c:out value="${cruisefromlist.dateOut}"/></td>
-            <td>
-                <form method="post" action="${StringStorage.CONTROLLER}">
-                    <input type="hidden" name="${ActionStorage.COMMAND}" value="${ActionStorage.VIEW_PORT}">
-                    <input type="hidden" name="${StringStorage.SELECTED_PORT_ID}" value="${cruisefromlist.portId}">
-                    <br/><input type="submit" value="More details">
-                </form>
-            </td>
+                <c:forEach var="port" items="${cruisefromlist.printableCruisePorts}">
+                    <tr>
+                        <td><c:out value="${port.country}"/></td>
+                        <td><c:out value="${port.city}"/></td>
+                        <td><c:out value="${port.dateIn}"/></td>
+                        <td><c:out value="${port.dateOut}"/></td>
+                        <td>
+                            <form method="post" action="${StringStorage.CONTROLLER}">
+                                <input type="hidden" name="${ActionStorage.COMMAND}" value="${ActionStorage.VIEW_PORT}">
+                                <input type="hidden" name="${StringStorage.SELECTED_PORT_ID}" value="${port.portId}">
+                                <br/><input type="submit" value="<fmt:message key="message.viewcart.moredetails"/>">
+                            </form>
+                        </td>
+                    </tr>
+                </c:forEach>
 
-        </tr>
+            </table>
+
+            <form method="post" action="${StringStorage.CONTROLLER}">
+                <input type="hidden" name="${ActionStorage.COMMAND}" value="${ActionStorage.VIEW_CRUISE}">
+                <input type="hidden" name="${StringStorage.SELECTED_CRUISE_ID}" value="${cruisefromlist.cruiseId}">
+                <br/><input type="submit" value="<fmt:message key="message.viewcart.moredetails"/>">
+            </form>
+            <br/><br/><br/><br/>
         </c:forEach>
 
-    </table>
+
 </div>
-<hr/>
+
+<p style="color: red">
+    <c:if test="${not empty startpageMessage}"><fmt:message key="${startpageMessage}"/></c:if>
+</p>
 </body>
 </html>

@@ -110,10 +110,14 @@
 }
 
 .header-form {
-    display: inline-block;
-    float: right;
-    background-color: powderblue;
+    position: fixed;
+    left: 0;
+    top: 0;
     width: 100%;
+
+    display: inline-block;
+    /*float: right;*/
+    background-color: powderblue;
 }
 
 .header-button-div {

@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface TicketclassDao {
 
-    List<Ticketclass> findAll() throws GeneralCheckedException;
+    List<Ticketclass> findAll();
 
-    Ticketclass findById(Long id) throws GeneralCheckedException;
+    Ticketclass findById(Long id);
 
-    Ticketclass findByTicketclassName(String className) throws GeneralCheckedException;
+    Ticketclass findByTicketclassName(String className);
 
     void close();
 }

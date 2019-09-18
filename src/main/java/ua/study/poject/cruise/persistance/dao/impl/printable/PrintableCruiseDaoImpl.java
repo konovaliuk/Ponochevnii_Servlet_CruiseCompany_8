@@ -2,6 +2,7 @@ package ua.study.poject.cruise.persistance.dao.impl.printable;
 
 import org.apache.log4j.Logger;
 import ua.study.poject.cruise.entity.printableentity.PrintableCruise;
+import ua.study.poject.cruise.entity.printableentity.PrintableCruisePort;
 import ua.study.poject.cruise.exceptions.GeneralCheckedException;
 import ua.study.poject.cruise.persistance.dao.PrintableCruiseDao;
 
@@ -13,15 +14,11 @@ public class PrintableCruiseDaoImpl implements PrintableCruiseDao {
 
     private static final Logger LOGGER = Logger.getLogger(PrintableCruiseDao.class);
 
-    private static final String FIND_ALL = "SELECT cruise.id, ship_id, ship_name, port_id, country, city, date_in, date_out FROM cruise " +
-            "left join ship on ship_id = ship.id " +
-            "left join cruise_ports on cruise_ports.cruise_id = cruise.id " +
-            "left join port on cruise_ports.port_id = port.id order by cruise.id, date_in;";
+    private static final String FIND_ALL = "SELECT cruise.id, ship_id, ship_name, price_first_class, price_second_class, price_third_class, price_fourth_class " +
+            "FROM cruise join ship on ship_id = ship.id group by cruise.id;";
 
-    private static final String FIND_ALL_BY_SHIP_ID = "SELECT cruise.id, ship_id, ship_name, port_id, country, city, date_in, date_out FROM cruise " +
-            "left join ship on ship_id = ship.id " +
-            "left join cruise_ports on cruise_ports.cruise_id = cruise.id " +
-            "left join port on cruise_ports.port_id = port.id  where ship.id = ? group by cruise.id;"; // order by cruise.id, date_in
+    private static final String FIND_ALL_BY_SHIP_ID = "SELECT cruise.id, ship_id, ship_name, price_first_class, price_second_class, price_third_class, price_fourth_class " +
+            "FROM cruise join ship on ship_id = ship.id where ship.id = ? group by cruise.id;";
 
     private Connection connection;
 
@@ -30,7 +27,7 @@ public class PrintableCruiseDaoImpl implements PrintableCruiseDao {
     }
 
     @Override
-    public List<PrintableCruise> findAllPrintableCruises() throws GeneralCheckedException {
+    public List<PrintableCruise> findAllPrintableCruisesWithoutPorts() throws GeneralCheckedException {
         List<PrintableCruise> printableCruise = new ArrayList<>();
         try (Statement statement = connection.createStatement()){
             ResultSet rs = statement.executeQuery(FIND_ALL);
@@ -44,7 +41,7 @@ public class PrintableCruiseDaoImpl implements PrintableCruiseDao {
     }
 
     @Override
-    public List<PrintableCruise> findAllPrintableCruisesByShipId(Long shipId) throws GeneralCheckedException {
+    public List<PrintableCruise> findAllPrintableCruisesWithoutPortsByShipId(Long shipId) throws GeneralCheckedException {
         List<PrintableCruise> printableCruise = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_BY_SHIP_ID)){
             preparedStatement.setLong(1, shipId);
@@ -63,15 +60,11 @@ public class PrintableCruiseDaoImpl implements PrintableCruiseDao {
         printableCruise.setCruiseId(rs.getLong("id"));
         printableCruise.setShipId(rs.getLong("ship_id"));
         printableCruise.setShipName(rs.getString("ship_name"));
-        printableCruise.setPortId(rs.getLong("port_id"));
-        printableCruise.setCountry(rs.getString("country"));
-        printableCruise.setCity(rs.getString("city"));
+        printableCruise.setPriceFirstClass(rs.getDouble("price_first_class"));
+        printableCruise.setPriceSecondClass(rs.getDouble("price_second_class"));
+        printableCruise.setPriceThirdClass(rs.getDouble("price_third_class"));
+        printableCruise.setPriceFourthClass(rs.getDouble("price_fourth_class"));
 
-        Timestamp TSdateIn = rs.getTimestamp("date_in");
-        Timestamp TSdateOut = rs.getTimestamp("date_out");
-
-        printableCruise.setDateIn(TSdateIn == null ? null : TSdateIn.toLocalDateTime());
-        printableCruise.setDateOut(TSdateOut == null ? null : TSdateOut.toLocalDateTime());
         return printableCruise;
     }
 

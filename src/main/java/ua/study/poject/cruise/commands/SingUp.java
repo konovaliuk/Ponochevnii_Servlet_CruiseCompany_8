@@ -4,7 +4,6 @@ import ua.study.poject.cruise.entity.User;
 import ua.study.poject.cruise.resource.ConfigurationManager;
 import ua.study.poject.cruise.service.CruiseService;
 import ua.study.poject.cruise.service.UserService;
-import ua.study.poject.cruise.util.StringStorage;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,24 +30,24 @@ public class SingUp implements Action {
             return ConfigurationManager.getProperty("path.page.signup");
         }
 
-        if(request.getParameter(LOGIN).equals("") || request.getParameter(PASSWORD).equals("")){
+        if (request.getParameter(LOGIN).equals("") || request.getParameter(PASSWORD).equals("")) {
             request.getSession().setAttribute(MESSAGE, "message.register.erroremptyfild");
             return ConfigurationManager.getProperty("path.page.signup");
         }
 
         UserService userService = new UserService();
-        if(!request.getParameter(PASSWORD).equals(request.getParameter(PASSWORD2))){
+        if (!request.getParameter(PASSWORD).equals(request.getParameter(PASSWORD2))) {
             request.getSession().setAttribute(MESSAGE, "message.register.errorpass1and2");
             return ConfigurationManager.getProperty("path.page.signup");
         }
 
         int userId = userService.addNewUser(request.getParameter(LOGIN), request.getParameter(PASSWORD), request.getParameter(FIRST_NAME),
                 request.getParameter(SECOND_NAME), request.getParameter(EMAIL), request.getParameter(TEL));
-        if(userId > 0) {
+        if (userId > 0) {
             HttpSession session = request.getSession();
             User newUser = userService.findUserByLoginPassword(request.getParameter(LOGIN), request.getParameter(PASSWORD));
-//TODO сделать уведомления почему не удалось создать юзера
-            if(newUser.getId() < 0){
+
+            if (newUser.getId() < 0) {
                 request.getSession().setAttribute(MESSAGE, "message.register.errorthereisuser");
                 return ConfigurationManager.getProperty("path.page.signup");
             }

@@ -44,8 +44,10 @@ public class RoleDaoImpl implements RoleDao {
         if (roleName == null)
             return role;
         for (Role r : roles.values()) {
-            if (r.getRole().equalsIgnoreCase(roleName))
+            if (r.getRole().equalsIgnoreCase(roleName)) {
                 role = r;
+                break;
+            }
         }
         return role;
     }

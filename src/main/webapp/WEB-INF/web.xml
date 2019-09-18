@@ -4,21 +4,18 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
    http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
 
-
-    <!--    TODO filter for no-session requests -->
-
-      <filter>
+    <filter>
         <filter-name>FormEncodingFilter</filter-name>
         <filter-class>ua.study.poject.cruise.filter.FormEncodingFilter</filter-class>
-          <init-param>
-              <param-name>encoding</param-name>
-              <param-value>UTF-8</param-value>
-          </init-param>
-      </filter>
-      <filter-mapping>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
         <filter-name>FormEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
-      </filter-mapping>
+    </filter-mapping>
 
     <filter>
         <filter-name>LocalCookies</filter-name>
@@ -33,9 +30,9 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-<!--    <welcome-file-list>-->
-<!--        <welcome-file>/index.jsp</welcome-file>-->
-<!--    </welcome-file-list>-->
+    <!--    <welcome-file-list>-->
+    <!--        <welcome-file>/index.jsp</welcome-file>-->
+    <!--    </welcome-file-list>-->
 
     <jsp-config>
         <jsp-property-group>
@@ -64,51 +61,25 @@
     </servlet-mapping>
 
 
-
     <servlet>
         <servlet-name>register</servlet-name>
         <jsp-file>/WEB-INF/jsp/registration.jsp</jsp-file>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>register</servlet-name>
         <url-pattern>/registration</url-pattern>
     </servlet-mapping>
 
 
-
     <servlet>
         <servlet-name>signin</servlet-name>
         <jsp-file>/WEB-INF/jsp/login.jsp</jsp-file>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>signin</servlet-name>
         <url-pattern>/signin</url-pattern>
     </servlet-mapping>
 
-
-    <servlet>
-        <servlet-name>error</servlet-name>
-        <jsp-file>/WEB-INF/jsp/error/error.jsp</jsp-file>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>error</servlet-name>
-        <url-pattern>/error</url-pattern>
-    </servlet-mapping>
-
-
-
-    <error-page>
-        <error-code>404</error-code>
-        <location>/WEB-INF/jsp/error/error.jsp</location>
-    </error-page>
-
-    <error-page>
-        <exception-type>java.lang.RuntimeException</exception-type>
-        <location>/WEB-INF/jsp/error/error.jsp</location>
-    </error-page>
 
     <resource-ref>
         <description>DB Connection</description>
@@ -117,10 +88,30 @@
         <res-auth>Container</res-auth>
     </resource-ref>
 
-    <!--    <error-page>-->
-    <!--        <error-code>500</error-code>-->
-    <!--        <location>/WEB-INF/view/error500.jsp</location>-->
-    <!--    </error-page>-->
+    <servlet>
+        <servlet-name>error404</servlet-name>
+        <jsp-file>/WEB-INF/jsp/error/error404.htm</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>error404</servlet-name>
+        <url-pattern>/error404</url-pattern>
+    </servlet-mapping>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error404</location>
+    </error-page>
 
+    <servlet>
+        <servlet-name>error500</servlet-name>
+        <jsp-file>/WEB-INF/jsp/error/error500.htm</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>error500</servlet-name>
+        <url-pattern>/error500</url-pattern>
+    </servlet-mapping>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error500</location>
+    </error-page>
 
 </web-app>

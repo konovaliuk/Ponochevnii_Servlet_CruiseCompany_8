@@ -7,7 +7,9 @@ import ua.study.poject.cruise.persistance.dao.TicketclassDao;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TicketclassDaoImpl implements TicketclassDao {
 
@@ -19,53 +21,58 @@ public class TicketclassDaoImpl implements TicketclassDao {
 
     private Connection connection;
 
+    private static Map<Long, Ticketclass> ticketclasses = null;
+
     public TicketclassDaoImpl(Connection connection) {
         this.connection = connection;
+        if (ticketclasses == null)
+            fillTicketclassesMap();
     }
 
     @Override
-    public List<Ticketclass> findAll() throws GeneralCheckedException {
-        List<Ticketclass> ticketclasses = new ArrayList<>();
-        try (Statement statement = connection.createStatement()) {
-            ResultSet rs = statement.executeQuery(FIND_ALL);
-            while (rs.next())
-                ticketclasses.add(createTicketclass(rs));
-        } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new GeneralCheckedException("Unsuccessful work with the database ", e);
-        }
-        return ticketclasses;
+    public List<Ticketclass> findAll() {
+        return new ArrayList<>(ticketclasses.values());
     }
 
     @Override
-    public Ticketclass findById(Long id) throws GeneralCheckedException {
+    public Ticketclass findById(Long id) {
         Ticketclass ticketclass = new Ticketclass();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
-            preparedStatement.setLong(1, id);
-            ResultSet rs = preparedStatement.executeQuery();
-            if (rs.next())
-                return createTicketclass(rs);
-        } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new GeneralCheckedException("Unsuccessful work with the database ", e);
-        }
+        if(ticketclasses.get(id) != null)
+            ticketclass = ticketclasses.get(id);
         return ticketclass;
     }
 
     @Override
-    public Ticketclass findByTicketclassName(String className) throws GeneralCheckedException {
+    public Ticketclass findByTicketclassName(String ticketclassName) {
         Ticketclass ticketclass = new Ticketclass();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_TICKET_CLASS_NAME)) {
-            preparedStatement.setString(1, className);
-            ResultSet rs = preparedStatement.executeQuery();
-            if (rs.next())
-                return createTicketclass(rs);
-        } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new GeneralCheckedException("Unsuccessful work with the database ", e);
+        if(ticketclassName == null)
+            return ticketclass;
+        for (Ticketclass t : ticketclasses.values()) {
+            if (t.getTicketclassName().equalsIgnoreCase(ticketclassName)) {
+                ticketclass = t;
+                break;
+            }
         }
         return ticketclass;
     }
+
+    private synchronized void fillTicketclassesMap() {
+        if (ticketclasses == null) {
+            ticketclasses = new HashMap<>();
+            try (Statement statement = connection.createStatement()) {
+                ResultSet rs = statement.executeQuery(FIND_ALL);
+                Ticketclass tempTicketclass;
+                while (rs.next()) {
+                    tempTicketclass = createTicketclass(rs);
+                    ticketclasses.put(tempTicketclass.getId(), tempTicketclass);
+                }
+            } catch (SQLException e) {
+                LOGGER.error(e);
+            }
+        }
+    }
+
+
 
     private Ticketclass createTicketclass(ResultSet rs) throws SQLException {
         Ticketclass ticketclass = new Ticketclass();
@@ -73,6 +80,9 @@ public class TicketclassDaoImpl implements TicketclassDao {
         ticketclass.setTicketclassName(rs.getString("ticketclass_name"));
         return ticketclass;
     }
+
+
+
 
     public void close() {
         if (connection != null) {

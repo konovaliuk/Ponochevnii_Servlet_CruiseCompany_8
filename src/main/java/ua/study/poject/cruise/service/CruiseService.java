@@ -19,7 +19,6 @@ import java.util.List;
 public class CruiseService {
 
     private static final Logger LOGGER = Logger.getLogger(CruiseService.class);
-
     private AbstractDaoFactory daoFactory = MySqlDaoFactory.getInstance();
 
     public List<Ticketclass> getAllTicketClasses(){
@@ -73,45 +72,58 @@ public class CruiseService {
     public List<PrintableCruise> viewAllCruises() {
         List<PrintableCruise> list = new ArrayList<>();
         PrintableCruiseDao printableCruiseDao = null;
+        PrintableCruisePortDao printableCruisePortDao = null;
         try {
             printableCruiseDao = daoFactory.getPrintableCruiseDaoImpl();
-            list = printableCruiseDao.findAllPrintableCruises();
-
+            printableCruisePortDao = daoFactory.getPrintableCruisePortDao();
+            list = printableCruiseDao.findAllPrintableCruisesWithoutPorts();
+            for (PrintableCruise printableCruise : list) {
+                printableCruise.setPrintableCruisePorts(printableCruisePortDao.findAllPrintableCruisePortByCruiseId(printableCruise.getCruiseId()));
+            }
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);
         } finally {
             if (printableCruiseDao != null)
                 printableCruiseDao.close();
-        }
-        return list;
-    }
-
-    public List<PrintableCruisePort> findAllPrintableCruisePortByCruiseId(Long cruiseId) {
-        PrintableCruisePortDao printableCruisePortDao = null;
-        List<PrintableCruisePort> list = new ArrayList<>();
-        try {
-            printableCruisePortDao = daoFactory.getPrintableCruisePortDao();
-            list = printableCruisePortDao.findAllPrintableCruisePortByCruiseId(cruiseId);
-        } catch (GeneralCheckedException e) {
-            LOGGER.error(e);
-        } finally {
             if (printableCruisePortDao != null)
                 printableCruisePortDao.close();
         }
         return list;
     }
+//
+//    public List<PrintableCruisePort> findAllPrintableCruisePortByCruiseId(Long cruiseId) {
+//        PrintableCruisePortDao printableCruisePortDao = null;
+//        List<PrintableCruisePort> list = new ArrayList<>();
+//        try {
+//            printableCruisePortDao = daoFactory.getPrintableCruisePortDao();
+//            list = printableCruisePortDao.findAllPrintableCruisePortByCruiseId(cruiseId);
+//        } catch (GeneralCheckedException e) {
+//            LOGGER.error(e);
+//        } finally {
+//            if (printableCruisePortDao != null)
+//                printableCruisePortDao.close();
+//        }
+//        return list;
+//    }
 
     public List<PrintableCruise> getAllPrintableCruisesByShipId(Long shipId) {
         List<PrintableCruise> list = new ArrayList<>();
         PrintableCruiseDao printableCruiseDao = null;
+        PrintableCruisePortDao printableCruisePortDao = null;
         try {
             printableCruiseDao = daoFactory.getPrintableCruiseDaoImpl();
-            list = printableCruiseDao.findAllPrintableCruisesByShipId(shipId);
+            printableCruisePortDao = daoFactory.getPrintableCruisePortDao();
+            list = printableCruiseDao.findAllPrintableCruisesWithoutPortsByShipId(shipId);
+            for (PrintableCruise printableCruise : list) {
+                printableCruise.setPrintableCruisePorts(printableCruisePortDao.findAllPrintableCruisePortByCruiseId(printableCruise.getCruiseId()));
+            }
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);
         } finally {
             if (printableCruiseDao != null)
                 printableCruiseDao.close();
+            if (printableCruisePortDao != null)
+                printableCruisePortDao.close();
         }
         return list;
     }
