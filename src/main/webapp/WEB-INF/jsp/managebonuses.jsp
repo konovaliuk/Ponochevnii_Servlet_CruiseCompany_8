@@ -39,12 +39,16 @@
                 <option value=""><fmt:message key="message.managebonuses.selectcruisemess"/></option>
             </c:if>
             <c:if test="${scruise != null}">
-                <option value="${scruise.cruiseId}">Cruise id: ${scruise.cruiseId}. Ship
-                    name: ${scruise.shipName}</option>
+                <option value="${scruise.cruiseId}">
+                    <fmt:message key="message.managebonuses.cruiseid"/> ${scruise.cruiseId}.
+                    <fmt:message key="message.managebonuses.shipname"/> ${scruise.shipName}
+                </option>
             </c:if>
             <c:forEach var="cruisen" items="${cruiseList}">
-                <option value="${cruisen.cruiseId}">Cruise id: ${cruisen.cruiseId}. Ship
-                    name: ${cruisen.shipName}</option>
+                <option value="${cruisen.cruiseId}">
+                    <fmt:message key="message.managebonuses.cruiseid"/> ${cruisen.cruiseId}.
+                    <fmt:message key="message.managebonuses.shipname"/> ${cruisen.shipName}
+                </option>
             </c:forEach>
         </select>
         <br/><br/><br/><br/>

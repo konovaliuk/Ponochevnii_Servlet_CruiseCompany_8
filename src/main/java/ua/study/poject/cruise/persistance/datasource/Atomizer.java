@@ -4,7 +4,7 @@ import ua.study.poject.cruise.exceptions.GeneralCheckedException;
 
 import java.sql.SQLException;
 
-public interface Atomizer<T> extends AutoCloseable {
-    T get();
+public interface Atomizer extends AutoCloseable {
+    <T> T get();
     void recordChanges() throws GeneralCheckedException;
 }

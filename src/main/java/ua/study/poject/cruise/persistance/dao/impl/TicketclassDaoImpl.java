@@ -34,28 +34,6 @@ public class TicketclassDaoImpl implements TicketclassDao {
         return new ArrayList<>(ticketclasses.values());
     }
 
-    @Override
-    public Ticketclass findById(Long id) {
-        Ticketclass ticketclass = new Ticketclass();
-        if(ticketclasses.get(id) != null)
-            ticketclass = ticketclasses.get(id);
-        return ticketclass;
-    }
-
-    @Override
-    public Ticketclass findByTicketclassName(String ticketclassName) {
-        Ticketclass ticketclass = new Ticketclass();
-        if(ticketclassName == null)
-            return ticketclass;
-        for (Ticketclass t : ticketclasses.values()) {
-            if (t.getTicketclassName().equalsIgnoreCase(ticketclassName)) {
-                ticketclass = t;
-                break;
-            }
-        }
-        return ticketclass;
-    }
-
     private synchronized void fillTicketclassesMap() {
         if (ticketclasses == null) {
             ticketclasses = new HashMap<>();

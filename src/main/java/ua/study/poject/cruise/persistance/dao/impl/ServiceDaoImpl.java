@@ -76,11 +76,6 @@ public class ServiceDaoImpl implements ServiceDao {
         return service;
     }
 
-    @Override
-    public int update(Service service) throws GeneralCheckedException {
-        return SQLExecutor.executeInsertUpdateDelete(connection, UPDATE, service.getServiceName(), service.getId());
-    }
-
     private Service createService(ResultSet rs) throws SQLException {
         Service service = new Service();
         service.setId(rs.getLong("id"));

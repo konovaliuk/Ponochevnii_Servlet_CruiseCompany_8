@@ -9,7 +9,7 @@ import ua.study.poject.cruise.persistance.dao.ShipserviceDao;
 import ua.study.poject.cruise.persistance.dao.TicketclassBonusDao;
 import ua.study.poject.cruise.persistance.datasource.AbstractDaoFactory;
 import ua.study.poject.cruise.persistance.datasource.Atomizer;
-import ua.study.poject.cruise.persistance.datasource.impl.DBAtomizer;
+import ua.study.poject.cruise.persistance.datasource.impl.AtomizerFactory;
 import ua.study.poject.cruise.persistance.datasource.impl.MySqlDaoFactory;
 
 import java.util.ArrayList;
@@ -89,7 +89,7 @@ public class ShipserviceService {
         ShipserviceDao shipserviceDao;
         TicketclassBonusDao ticketclassBonusDao;
 
-        try (Atomizer atomizer = new DBAtomizer()) { // AutoCloseable
+        try (Atomizer atomizer = AtomizerFactory.getAtomizer()) { // AutoCloseable
             shipserviceDao = daoFactory.getShipserviceDaoImpl(atomizer);
             ticketclassBonusDao = daoFactory.getTicketclassBonusDaoImpl(atomizer);
 

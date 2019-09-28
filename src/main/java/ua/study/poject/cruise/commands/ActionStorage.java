@@ -132,27 +132,20 @@ public class ActionStorage {
         switch (role) {
             case Role.ROLE_CUSTOMER:
                 action = customerAction.get(command);
-                if (action != null)
-                    return action;
-                else return customerAction.get(START_PAGE);
+                return  action == null ? customerAction.get(START_PAGE) : action;
 
             case Role.ROLE_MANAGER:
                 action = managerAction.get(command);
-                if (action != null)
-                    return action;
-                else return managerAction.get(START_PAGE);
+                return  action == null ? managerAction.get(START_PAGE) : action;
 
             case Role.ROLE_ADMIN:
                 action = adminAction.get(command);
-                if (action != null)
-                    return action;
-                else return adminAction.get(START_PAGE);
+                return  action == null ? adminAction.get(START_PAGE) : action;
 
             case UNSIGNED:
                 action = generalAction.get(command);
-                if (action != null)
-                    return action;
-                else return generalAction.get(START_PAGE);
+                return  action == null ? generalAction.get(START_PAGE) : action;
+
             default:
                 return generalAction.get(START_PAGE);
         }

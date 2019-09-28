@@ -15,9 +15,5 @@ public interface ServiceDao {
 
     Service findByName(String serviceName) throws GeneralCheckedException;
 
-    int update(Service service) throws GeneralCheckedException;
-
-//    int delete(Long shipId, Long serviceId) throws GeneralCheckedException;
-
     void close();
 }

@@ -9,9 +9,5 @@ public interface TicketclassDao {
 
     List<Ticketclass> findAll();
 
-    Ticketclass findById(Long id);
-
-    Ticketclass findByTicketclassName(String className);
-
     void close();
 }

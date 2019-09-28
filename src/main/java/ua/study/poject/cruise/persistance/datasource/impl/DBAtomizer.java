@@ -13,17 +13,12 @@ public class DBAtomizer implements Atomizer {
     private static final Logger LOGGER = Logger.getLogger(DBAtomizer.class);
 
     private Connection connection;
-    private int tempTransactionIsolationLevel;
-    private boolean tempAutoCommitState;
+    private boolean alreadyCommitted = false;
 
+    DBAtomizer() throws GeneralCheckedException {
 
-    public DBAtomizer() throws GeneralCheckedException {
         try {
             connection = ConnectionPool.getConnection();
-
-            tempTransactionIsolationLevel = connection.getTransactionIsolation();
-            tempAutoCommitState = connection.getAutoCommit();
-
             connection.setTransactionIsolation(TRANSACTION_SERIALIZABLE);
             connection.setAutoCommit(false);
         } catch (SQLException e) {
@@ -40,6 +35,7 @@ public class DBAtomizer implements Atomizer {
     public void recordChanges() throws GeneralCheckedException {
         try {
             connection.commit();
+            alreadyCommitted = true;
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new GeneralCheckedException("Unsuccessful work with the database ", e);
@@ -49,9 +45,10 @@ public class DBAtomizer implements Atomizer {
     @Override
     public void close() throws GeneralCheckedException {
         try {
-            connection.rollback();
-            connection.setAutoCommit(tempAutoCommitState);
-            connection.setTransactionIsolation(tempTransactionIsolationLevel);
+            if(!alreadyCommitted)
+                connection.rollback();
+
+            connection.setAutoCommit(true);
             connection.close();
         } catch (SQLException e){
             LOGGER.error(e);

@@ -9,8 +9,6 @@ public interface ShipserviceDao {
 
     int create(Shipservice shipService) throws GeneralCheckedException;
 
-//    Shipservice findById(int id) throws GeneralCheckedException;
-
     boolean isServicePresentOnThisShip(Long selectedShipId, Long selectedServiceId) throws GeneralCheckedException;
 
     int deleteByShipIdServiceId(Long shipId, Long serviceId) throws GeneralCheckedException;
