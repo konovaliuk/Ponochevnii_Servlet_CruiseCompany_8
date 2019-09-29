@@ -1,7 +1,7 @@
 package ua.study.poject.cruise.service;
 
 import org.apache.log4j.Logger;
-import ua.study.poject.cruise.entity.Excurision;
+import ua.study.poject.cruise.entity.Excursion;
 import ua.study.poject.cruise.entity.Ticket;
 import ua.study.poject.cruise.entity.Ticketclass;
 import ua.study.poject.cruise.entity.printableentity.PrintableCruise;
@@ -20,7 +20,7 @@ public class CartPayService {
     private static final Logger LOGGER = Logger.getLogger(CartPayService.class);
     private AbstractDaoFactory daoFactory = MySqlDaoFactory.getInstance();
 
-    public int pay(Long userId, List<PrintableCruise> cruisesInCart, List<Ticketclass> ticketclassesInCart, List<Excurision> excurisionsInCart) {
+    public int pay(Long userId, List<PrintableCruise> cruisesInCart, List<Ticketclass> ticketclassesInCart, List<Excursion> excurisionsInCart) {
 
         if (cruisesInCart.size() != ticketclassesInCart.size()) return -1;
         int sum = 0;
@@ -41,7 +41,7 @@ public class CartPayService {
 
             if (excurisionsInCart.size() != 0) {
                 TicketExcursionDao ticketExcursionDao = daoFactory.getTicketExcursionDaoImpl(atomizer);
-                for (Excurision excurision : excurisionsInCart) {
+                for (Excursion excurision : excurisionsInCart) {
                     sum += ticketExcursionDao.create(userId, excurision.getId());
                 }
             }

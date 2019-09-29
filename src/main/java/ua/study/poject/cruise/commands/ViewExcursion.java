@@ -1,6 +1,6 @@
 package ua.study.poject.cruise.commands;
 
-import ua.study.poject.cruise.entity.Excurision;
+import ua.study.poject.cruise.entity.Excursion;
 import ua.study.poject.cruise.resource.ConfigurationManager;
 import ua.study.poject.cruise.service.PortExcursionService;
 
@@ -30,15 +30,15 @@ public class ViewExcursion implements Action {
             return ConfigurationManager.getProperty("path.page.viewexcursion");
         }
 
-        List<Excurision> allExcursions;
+        List<Excursion> allExcursions;
         try {
-            allExcursions = (ArrayList<Excurision>) request.getSession().getAttribute(ALL_EXCURSIONS);
+            allExcursions = (ArrayList<Excursion>) request.getSession().getAttribute(ALL_EXCURSIONS);
         } catch (ClassCastException e){
             return ConfigurationManager.getProperty("path.page.viewexcursion");
         }
 
         if(allExcursions != null){
-            for (Excurision excurision : allExcursions) {    // Это чтобы опять не ходить в базу - возьмем конкретную экскурсию из листа
+            for (Excursion excurision : allExcursions) {    // Это чтобы опять не ходить в базу - возьмем конкретную экскурсию из листа
                 if (excurision.getId().equals(excursionId)) {
                     request.getSession().setAttribute(EXCURSION, excurision);
                     break;

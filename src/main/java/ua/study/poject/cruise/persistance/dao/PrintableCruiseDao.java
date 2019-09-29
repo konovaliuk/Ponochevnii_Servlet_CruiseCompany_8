@@ -13,6 +13,8 @@ public interface PrintableCruiseDao {
     List<PrintableCruise> findAllPrintableCruisesWithoutPortsByShipId(Long shipId) throws GeneralCheckedException;
 
 
+    PrintableCruise findPrintableCruiseWithoutPortsByCruiseId(Long cruiseId) throws GeneralCheckedException;
+
     void close();
 
 }

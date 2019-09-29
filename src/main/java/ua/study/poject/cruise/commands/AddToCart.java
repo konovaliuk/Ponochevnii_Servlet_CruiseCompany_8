@@ -1,6 +1,6 @@
 package ua.study.poject.cruise.commands;
 
-import ua.study.poject.cruise.entity.Excurision;
+import ua.study.poject.cruise.entity.Excursion;
 import ua.study.poject.cruise.entity.Ticketclass;
 import ua.study.poject.cruise.entity.printableentity.PrintableCruise;
 import ua.study.poject.cruise.resource.ConfigurationManager;
@@ -30,11 +30,11 @@ public class AddToCart implements Action {
 
         List<PrintableCruise> allCruises;
         List<Ticketclass> allTicketclasses;
-        List<Excurision> allExcursions;
+        List<Excursion> allExcursions;
         try {
             allCruises = (List<PrintableCruise>) request.getSession().getAttribute(ALL_CRUISES);
             allTicketclasses = (List<Ticketclass>) request.getSession().getAttribute(ALL_TICKETCLASSES);
-            allExcursions = (List<Excurision>) request.getSession().getAttribute(ALL_EXCURSIONS);
+            allExcursions = (List<Excursion>) request.getSession().getAttribute(ALL_EXCURSIONS);
         } catch (ClassCastException e) {
             request.getSession().setAttribute(START_PAGE_MESSAGE, "message.addtocart.errgetcruisesandtickets");
             return ConfigurationManager.getProperty("path.page.startpage");
@@ -45,12 +45,12 @@ public class AddToCart implements Action {
             request.getSession().setAttribute(TICKET_CLASSES_IN_CART, new ArrayList<Ticketclass>());
         }
         if(request.getSession().getAttribute(EXCURSIONS_IN_CART) == null){
-            request.getSession().setAttribute(EXCURSIONS_IN_CART, new ArrayList<Excurision>());
+            request.getSession().setAttribute(EXCURSIONS_IN_CART, new ArrayList<Excursion>());
         }
 
         List<PrintableCruise> cruisesInCart = (List<PrintableCruise>)request.getSession().getAttribute(CRUISES_IN_CART);
         List<Ticketclass> ticketclassesInCart = (List<Ticketclass>)request.getSession().getAttribute(TICKET_CLASSES_IN_CART);
-        List<Excurision> excurisionsInCart = (List<Excurision>)request.getSession().getAttribute(EXCURSIONS_IN_CART);
+        List<Excursion> excurisionsInCart = (List<Excursion>)request.getSession().getAttribute(EXCURSIONS_IN_CART);
 
 
         if(request.getParameter(CRUISE_ID_TO_CART) != null){ // добавили круиз в корзину
@@ -77,7 +77,7 @@ public class AddToCart implements Action {
                 return ConfigurationManager.getProperty("path.page.viewexcursion");
             }
             Long excursionIdToCart = Long.parseLong(request.getParameter(EXCURSION_ID_TO_CART));
-            for(Excurision currentExcurision : allExcursions){
+            for(Excursion currentExcurision : allExcursions){
                 if(currentExcurision.getId().equals(excursionIdToCart)){
                     excurisionsInCart.add(currentExcurision);
                     request.setAttribute(VIEW_EXCURSION_MESSAGE, "message.addtocart.excuradded");

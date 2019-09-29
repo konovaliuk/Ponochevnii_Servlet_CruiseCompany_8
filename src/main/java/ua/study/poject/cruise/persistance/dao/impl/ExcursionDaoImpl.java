@@ -1,7 +1,7 @@
 package ua.study.poject.cruise.persistance.dao.impl;
 
 import org.apache.log4j.Logger;
-import ua.study.poject.cruise.entity.Excurision;
+import ua.study.poject.cruise.entity.Excursion;
 import ua.study.poject.cruise.exceptions.GeneralCheckedException;
 import ua.study.poject.cruise.persistance.dao.ExcursionDao;
 import ua.study.poject.cruise.persistance.datasource.impl.SQLExecutor;
@@ -28,13 +28,13 @@ public class ExcursionDaoImpl implements ExcursionDao {
     }
 
     @Override
-    public int create(Excurision excurision) throws GeneralCheckedException {
+    public int create(Excursion excurision) throws GeneralCheckedException {
         return SQLExecutor.executeInsertUpdateDelete(connection, CREATE, excurision.getExcursionName(), excurision.getPrice(), excurision.getDescription(), excurision.getPortId());
     }
 
     @Override
-    public List<Excurision> findAll() throws GeneralCheckedException {
-        List<Excurision> excurisions = new ArrayList<>();
+    public List<Excursion> findAll() throws GeneralCheckedException {
+        List<Excursion> excurisions = new ArrayList<>();
         try (Statement statement = connection.createStatement()) {
             ResultSet rs = statement.executeQuery(FIND_ALL);
             while (rs.next())
@@ -47,8 +47,8 @@ public class ExcursionDaoImpl implements ExcursionDao {
     }
 
     @Override
-    public Excurision findById(Long id) throws GeneralCheckedException {
-        Excurision excurision = new Excurision();
+    public Excursion findById(Long id) throws GeneralCheckedException {
+        Excursion excurision = new Excursion();
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
             preparedStatement.setLong(1, id);
             ResultSet rs = preparedStatement.executeQuery();
@@ -62,13 +62,13 @@ public class ExcursionDaoImpl implements ExcursionDao {
     }
 
     @Override
-    public int update(Excurision excurision) throws GeneralCheckedException {
+    public int update(Excursion excurision) throws GeneralCheckedException {
         return SQLExecutor.executeInsertUpdateDelete(connection, UPDATE, excurision.getExcursionName(), excurision.getPrice(), excurision.getDescription(), excurision.getPortId(), excurision.getId());
     }
 
     @Override
-    public List<Excurision> findByPortId(Long portId) throws GeneralCheckedException {
-        List<Excurision> list = new ArrayList<>();
+    public List<Excursion> findByPortId(Long portId) throws GeneralCheckedException {
+        List<Excursion> list = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_BY_PORT_ID)) {
             preparedStatement.setLong(1, portId);
             ResultSet rs = preparedStatement.executeQuery();
@@ -81,8 +81,8 @@ public class ExcursionDaoImpl implements ExcursionDao {
         return list;
     }
 
-    private Excurision createExcurision(ResultSet rs) throws SQLException {
-        Excurision excurision = new Excurision();
+    private Excursion createExcurision(ResultSet rs) throws SQLException {
+        Excursion excurision = new Excursion();
         excurision.setId(rs.getLong("id"));
         excurision.setExcursionName(rs.getString("excursion_name"));
         excurision.setPrice(rs.getDouble("price"));

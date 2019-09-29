@@ -17,6 +17,7 @@ public class TicketDaoImpl implements TicketDao {
     private static final String CREATE = "INSERT INTO ticket (user_id, cruise_id, ticketclass_id) VALUES(?, ?, ?)";
     private static final String FIND_ALL = "SELECT * FROM ticket";
     private static final String FIND_BY_ID = "SELECT * FROM ticket WHERE id = ?";
+    private static final String FIND_BY_USER_ID = "SELECT * FROM ticket WHERE user_id = ?";
     private static final String UPDATE = "UPDATE ticket SET user_id = ?, cruise_id = ?, ticketclass_id = ? WHERE id = ?";
 
 
@@ -58,6 +59,23 @@ public class TicketDaoImpl implements TicketDao {
             throw new GeneralCheckedException("Unsuccessful work with the database ", e);
         }
         return ticket;
+    }
+
+
+    @Override
+    public List<Ticket> findTicketByUserId(Long id) throws GeneralCheckedException {
+        List<Ticket> list = new ArrayList<>();
+        Ticket ticket = new Ticket();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_USER_ID)){
+            preparedStatement.setLong(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next())
+                list.add(createTicket(rs));
+       } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new GeneralCheckedException("Unsuccessful work with the database ", e);
+        }
+        return list;
     }
 
     @Override

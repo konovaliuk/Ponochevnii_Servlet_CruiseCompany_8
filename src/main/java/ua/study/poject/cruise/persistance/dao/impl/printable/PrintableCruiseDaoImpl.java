@@ -2,7 +2,6 @@ package ua.study.poject.cruise.persistance.dao.impl.printable;
 
 import org.apache.log4j.Logger;
 import ua.study.poject.cruise.entity.printableentity.PrintableCruise;
-import ua.study.poject.cruise.entity.printableentity.PrintableCruisePort;
 import ua.study.poject.cruise.exceptions.GeneralCheckedException;
 import ua.study.poject.cruise.persistance.dao.PrintableCruiseDao;
 
@@ -19,6 +18,9 @@ public class PrintableCruiseDaoImpl implements PrintableCruiseDao {
 
     private static final String FIND_ALL_BY_SHIP_ID = "SELECT cruise.id, ship_id, ship_name, price_first_class, price_second_class, price_third_class, price_fourth_class " +
             "FROM cruise join ship on ship_id = ship.id where ship.id = ? group by cruise.id;";
+
+    private static final String FIND_BY_CRUISE_ID = "SELECT cruise.id, ship_id, ship_name, price_first_class, price_second_class, price_third_class, price_fourth_class " +
+            "FROM cruise join ship on ship_id = ship.id where cruise.id = ?;";
 
     private Connection connection;
 
@@ -48,6 +50,21 @@ public class PrintableCruiseDaoImpl implements PrintableCruiseDao {
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next())
                 printableCruise.add(createPrintableCruise(rs));
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new GeneralCheckedException("Unsuccessful work with the database ", e);
+        }
+        return printableCruise;
+    }
+
+    @Override
+    public PrintableCruise findPrintableCruiseWithoutPortsByCruiseId(Long cruiseId) throws GeneralCheckedException {
+        PrintableCruise printableCruise = null;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_CRUISE_ID)){
+            preparedStatement.setLong(1, cruiseId);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next())
+                printableCruise = createPrintableCruise(rs);
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new GeneralCheckedException("Unsuccessful work with the database ", e);

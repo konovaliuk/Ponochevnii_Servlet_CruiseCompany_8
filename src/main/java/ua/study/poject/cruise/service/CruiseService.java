@@ -1,11 +1,8 @@
 package ua.study.poject.cruise.service;
 
 import org.apache.log4j.Logger;
-import ua.study.poject.cruise.entity.Cruise;
-import ua.study.poject.cruise.entity.CruisePorts;
-import ua.study.poject.cruise.entity.Ticketclass;
+import ua.study.poject.cruise.entity.*;
 import ua.study.poject.cruise.entity.printableentity.PrintableCruise;
-import ua.study.poject.cruise.entity.printableentity.PrintableCruisePort;
 import ua.study.poject.cruise.exceptions.GeneralCheckedException;
 import ua.study.poject.cruise.persistance.dao.*;
 import ua.study.poject.cruise.persistance.datasource.AbstractDaoFactory;
@@ -127,5 +124,6 @@ public class CruiseService {
         }
         return list;
     }
+
 
 }

@@ -1,6 +1,6 @@
 package ua.study.poject.cruise.commands;
 
-import ua.study.poject.cruise.entity.Excurision;
+import ua.study.poject.cruise.entity.Excursion;
 import ua.study.poject.cruise.entity.Ticketclass;
 import ua.study.poject.cruise.entity.printableentity.PrintableCruise;
 import ua.study.poject.cruise.resource.ConfigurationManager;
@@ -8,10 +8,6 @@ import ua.study.poject.cruise.resource.ConfigurationManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import java.util.List;
-
-import static ua.study.poject.cruise.util.StringStorage.ALL_CRUISES;
-import static ua.study.poject.cruise.util.StringStorage.ALL_TICKETCLASSES;
 
 public class ViewCart implements Action {
     @Override
@@ -31,7 +27,7 @@ public class ViewCart implements Action {
             request.getSession().setAttribute(TICKET_CLASSES_IN_CART, new ArrayList<Ticketclass>());
         }
         if(request.getSession().getAttribute(EXCURSIONS_IN_CART) == null){
-            request.getSession().setAttribute(EXCURSIONS_IN_CART, new ArrayList<Excurision>());
+            request.getSession().setAttribute(EXCURSIONS_IN_CART, new ArrayList<Excursion>());
         }
 
 

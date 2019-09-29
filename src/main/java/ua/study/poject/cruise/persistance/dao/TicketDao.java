@@ -13,6 +13,8 @@ public interface TicketDao {
 
     Ticket findById(Long id) throws GeneralCheckedException;
 
+    List<Ticket> findTicketByUserId(Long id) throws GeneralCheckedException;
+
     int update(Ticket ticket) throws GeneralCheckedException;
 
     void close();

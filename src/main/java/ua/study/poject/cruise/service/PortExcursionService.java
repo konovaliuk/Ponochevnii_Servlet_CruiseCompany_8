@@ -2,7 +2,7 @@ package ua.study.poject.cruise.service;
 
 
 import org.apache.log4j.Logger;
-import ua.study.poject.cruise.entity.Excurision;
+import ua.study.poject.cruise.entity.Excursion;
 import ua.study.poject.cruise.entity.Port;
 import ua.study.poject.cruise.exceptions.GeneralCheckedException;
 import ua.study.poject.cruise.persistance.dao.ExcursionDao;
@@ -40,7 +40,7 @@ public class PortExcursionService {
 
 
     public int createExcursion(String excursionName, double price, String description, Long port) {
-        Excurision excurision = new Excurision();
+        Excursion excurision = new Excursion();
         excurision.setId(0L);
         excurision.setExcursionName(excursionName);
         excurision.setPrice(price);
@@ -75,9 +75,9 @@ public class PortExcursionService {
         return list;
     }
 
-    public List<Excurision> ViewExcursionsInPortByPortId(Long portId) {
+    public List<Excursion> ViewExcursionsInPortByPortId(Long portId) {
         ExcursionDao excursionDao = null;
-        List<Excurision> list = new ArrayList<>();
+        List<Excursion> list = new ArrayList<>();
         try {
             excursionDao = daoFactory.getExcursionDaoImpl();
             list = excursionDao.findByPortId(portId);
@@ -90,9 +90,9 @@ public class PortExcursionService {
         return list;
     }
 
-    public Excurision ViewExcursionsInPortById(Long excursionId) {
+    public Excursion ViewExcursionsInPortById(Long excursionId) {
         ExcursionDao excursionDao = null;
-        Excurision excurision = new Excurision();
+        Excursion excurision = new Excursion();
         try {
             excursionDao = daoFactory.getExcursionDaoImpl();
             excurision = excursionDao.findById(excursionId);
@@ -119,4 +119,5 @@ public class PortExcursionService {
         }
         return port;
     }
+
 }

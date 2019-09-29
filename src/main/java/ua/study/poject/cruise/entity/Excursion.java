@@ -4,7 +4,7 @@ package ua.study.poject.cruise.entity;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Excurision implements Serializable {
+public class Excursion implements Serializable {
 
     private static final long serialVersionUID = 1982287818678270014L;
 
@@ -63,7 +63,7 @@ public class Excurision implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Excurision that = (Excurision) o;
+        Excursion that = (Excursion) o;
         return id.equals(that.id) &&
                 Double.compare(that.price, price) == 0 &&
                 portId.equals(that.portId) &&

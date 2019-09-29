@@ -1,6 +1,6 @@
 package ua.study.poject.cruise.commands;
 
-import ua.study.poject.cruise.entity.Excurision;
+import ua.study.poject.cruise.entity.Excursion;
 import ua.study.poject.cruise.resource.ConfigurationManager;
 import ua.study.poject.cruise.service.PortExcursionService;
 
@@ -28,7 +28,7 @@ public class ViewPort implements Action {
                 request.getSession().setAttribute(MESSAGE, "message.viewport.err");
             }
 
-        List<Excurision> allExcursions = portExcursionService.ViewExcursionsInPortByPortId(selectedPortId);
+        List<Excursion> allExcursions = portExcursionService.ViewExcursionsInPortByPortId(selectedPortId);
         request.getSession().setAttribute(ALL_EXCURSIONS, allExcursions);
         request.getSession().setAttribute(SELECTED_PORT, portExcursionService.getPortById(selectedPortId));
 
