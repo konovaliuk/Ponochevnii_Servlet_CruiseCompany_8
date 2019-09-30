@@ -3,7 +3,6 @@ package ua.study.poject.cruise.service;
 import org.apache.log4j.Logger;
 import ua.study.poject.cruise.entity.Service;
 import ua.study.poject.cruise.exceptions.GeneralCheckedException;
-import ua.study.poject.cruise.persistance.dao.CruiseDao;
 import ua.study.poject.cruise.persistance.dao.ServiceDao;
 import ua.study.poject.cruise.persistance.dao.ShipserviceDao;
 import ua.study.poject.cruise.persistance.dao.TicketclassBonusDao;
@@ -25,7 +24,7 @@ public class ShipserviceService {
         ServiceDao serviceDao = null;
         List<Service> list = new ArrayList<>();
         try {
-            serviceDao = daoFactory.getServiceDaoImpl();
+            serviceDao = daoFactory.getServiceDao();
             list = serviceDao.findAll();
         } catch (GeneralCheckedException e) {
             LOGGER.error("Неудачная работа с portDaoImpl");
@@ -40,7 +39,7 @@ public class ShipserviceService {
         Service service = new Service();
         ServiceDao serviceDao = null;
         try {
-            serviceDao = daoFactory.getServiceDaoImpl();
+            serviceDao = daoFactory.getServiceDao();
             service = serviceDao.findByName(serviceName);
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);
@@ -55,7 +54,7 @@ public class ShipserviceService {
         Service service = new Service();
         ServiceDao serviceDao = null;
         try {
-            serviceDao = daoFactory.getServiceDaoImpl();
+            serviceDao = daoFactory.getServiceDao();
             service = serviceDao.findById(serviceId);
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);
@@ -73,7 +72,7 @@ public class ShipserviceService {
         service.setServiceName(newServiseInSystem);
 
         try {
-            serviceDao = daoFactory.getServiceDaoImpl();
+            serviceDao = daoFactory.getServiceDao();
             return serviceDao.create(service);
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);
@@ -90,8 +89,8 @@ public class ShipserviceService {
         TicketclassBonusDao ticketclassBonusDao;
 
         try (Atomizer atomizer = AtomizerFactory.getAtomizer()) { // AutoCloseable
-            shipserviceDao = daoFactory.getShipserviceDaoImpl(atomizer);
-            ticketclassBonusDao = daoFactory.getTicketclassBonusDaoImpl(atomizer);
+            shipserviceDao = daoFactory.getShipserviceDao(atomizer);
+            ticketclassBonusDao = daoFactory.getTicketclassBonusDao(atomizer);
 
             int sum = 0; // сумируем все строки, которые изменены в БД
 

@@ -34,6 +34,11 @@ public class AddShipServicesToSystem implements Action {
         // id, service_name
         String newServiseInSystem = request.getParameter(NEW_SERVICE_IN_SYSTEM);
 
+        if(newServiseInSystem.length() < 2){
+            request.getSession().setAttribute(MESSAGE, "message.addshipservicestosystem.faildtocreate");
+            return ConfigurationManager.getProperty("path.page.addshipservicestosystem");
+        }
+
         Service shipService = shipServiceService.getServeceByName(newServiseInSystem);
 
         if (shipService.getId() != -1) {

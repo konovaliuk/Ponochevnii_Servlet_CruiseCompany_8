@@ -9,7 +9,6 @@ import ua.study.poject.cruise.persistance.dao.UserDao;
 import ua.study.poject.cruise.persistance.dao.impl.UserDaoImpl;
 import ua.study.poject.cruise.persistance.datasource.AbstractDaoFactory;
 import ua.study.poject.cruise.persistance.datasource.impl.MySqlDaoFactory;
-import ua.study.poject.cruise.service.constants.UserServiceConst;
 import ua.study.poject.cruise.util.PasswordEncryptor;
 
 import java.util.ArrayList;
@@ -17,10 +16,18 @@ import java.util.List;
 
 public class UserService {
 
-    private AbstractDaoFactory daoFactory = MySqlDaoFactory.getInstance();
+    private AbstractDaoFactory daoFactory;
     private PasswordEncryptor encryptor = new PasswordEncryptor();
 
     private static final Logger LOGGER = Logger.getLogger(UserService.class);
+
+    public UserService(){
+        daoFactory = MySqlDaoFactory.getInstance();
+    }
+
+    public UserService(AbstractDaoFactory daoFactory){
+        this.daoFactory = daoFactory;
+    }
 
     // войти
     public User findUserByLoginPassword(String login, String password) {
@@ -29,7 +36,7 @@ public class UserService {
             return user;
         UserDao userDao = null;
         try {
-            userDao = daoFactory.getUserDaoImpl();
+            userDao = daoFactory.getUserDao();
             user = userDao.findByLoginAndPassword(login, encryptor.encode(password));
         } catch (GeneralCheckedException e) {
             LOGGER.info(e);
@@ -40,31 +47,50 @@ public class UserService {
         return user;
     }
 
-    public User findUserById(Long id) {
+    public User findUserByLogin(String login) {
         User user = new User();
-        if (id < 1) return user;
-
+        if(login == null || login.equals(""))
+            return user;
+        UserDao userDao = null;
         try {
-            UserDao userDao = daoFactory.getUserDaoImpl();
-            user = userDao.findById(id);
-            userDao.close();
+            userDao = daoFactory.getUserDao();
+            user = userDao.findByLogin(login);
         } catch (GeneralCheckedException e) {
             LOGGER.info(e);
+        } finally {
+            if (userDao != null)
+                userDao.close();
         }
         return user;
     }
 
+
+
+//    public User findUserById(Long id) {
+//        User user = new User();
+//        if (id < 1) return user;
+//
+//        try {
+//            UserDao userDao = daoFactory.getUserDao();
+//            user = userDao.findById(id);
+//            userDao.close();
+//        } catch (GeneralCheckedException e) {
+//            LOGGER.info(e);
+//        }
+//        return user;
+//    }
+
     // зарегистрировать нового
     public int addNewUser(String login, String password, String firstName, String secondName, String email, String tel) {
-        UserDaoImpl userDao = null;
+        UserDao userDao = null;
         RoleDao roleDao = null;
         try {
-            userDao = daoFactory.getUserDaoImpl();
-            roleDao = daoFactory.getRoleDaoImpl();
+            userDao = daoFactory.getUserDao();
+            roleDao = daoFactory.getRoleDao();
 
             User user = userDao.findByLoginAndPassword(login, encryptor.encode(password));
             if (user.getId() != -1)
-                return UserServiceConst.USER_ALREADY_EXIST;
+                return -1;
 
             user.setLogin(login);
             user.setPassword(encryptor.encode(password));
@@ -84,27 +110,23 @@ public class UserService {
             if (roleDao != null)
                 roleDao.close();
         }
-        return UserServiceConst.UNSUCCESSFULL_USER_CREATION;
+        return -1;
     }
 
     public int editAccount(User oldUser, User newUser) {
-        if (oldUser == null || oldUser.getId() == -1 || oldUser.getLogin() == null || oldUser.getPassword() == null)
-            return UserServiceConst.USER_DOES_NOT_EXIST;
-
-        if (newUser == null || newUser.getLogin() == null || newUser.getPassword() == null)
-            return UserServiceConst.UNSUCCESSFULL_USER_UPDATE;
-
+        if(newUser.getPassword().equals(""))
+            return -1;
         if (!oldUser.getLogin().equals(newUser.getLogin()))
-            return UserServiceConst.USER_CANNOT_CHANGE_LOGIN;
-        UserDaoImpl userDao = null;
+            return -1;
+        UserDao userDao = null;
         RoleDao roleDao = null;
         try {
-            userDao = daoFactory.getUserDaoImpl();
-            roleDao = daoFactory.getRoleDaoImpl();
+            userDao = daoFactory.getUserDao();
+            roleDao = daoFactory.getRoleDao();
 
             User userFromDB = userDao.findByLoginAndPassword(oldUser.getLogin(), oldUser.getPassword());
             if (userFromDB.getId() == -1)
-                return UserServiceConst.USER_DOES_NOT_EXIST;
+                return -1;
 
             userFromDB.setPassword(newUser.getPassword());
             userFromDB.setFirstName(newUser.getFirstName());
@@ -121,32 +143,32 @@ public class UserService {
             if (roleDao != null)
                 roleDao.close();
         }
-        return UserServiceConst.UNSUCCESSFULL_USER_CREATION;
+        return -1;
     }
 
     public int changeUserRole(User oldUser, User adminUser, Role newRole) {
         if (oldUser == null || oldUser.getId() <= 1 || oldUser.getLogin() == null || oldUser.getPassword() == null)
-            return UserServiceConst.USER_DOES_NOT_EXIST;
+            return -1;
 
         if (adminUser == null || adminUser.getId() <= 1 || adminUser.getLogin() == null || adminUser.getPassword() == null)
-            return UserServiceConst.USER_DOES_NOT_EXIST;
+            return -1;
 
         User adminFromDB;
-        UserDaoImpl userDao = null;
+        UserDao userDao = null;
         RoleDao roleDao = null;
         try {
-            userDao = daoFactory.getUserDaoImpl();
-            roleDao = daoFactory.getRoleDaoImpl();
+            userDao = daoFactory.getUserDao();
+            roleDao = daoFactory.getRoleDao();
 
             adminFromDB = userDao.findByLoginAndPassword(adminUser.getLogin(), adminUser.getPassword());
             if (adminFromDB.getId() == -1)
-                return UserServiceConst.ADMIN_DOES_NOT_EXIST;
+                return -1;
 
             if (!adminFromDB.getRole().equals(roleDao.findByRole(Role.ROLE_ADMIN)))
-                return UserServiceConst.ADMIN_DOES_NOT_EXIST;
+                return -1;
 
             if (!roleDao.isRoleExist(newRole))
-                return UserServiceConst.ROLE_DOES_NOT_EXIST;
+                return -1;
 
             oldUser.setRole(newRole);
             return userDao.update(oldUser);
@@ -158,7 +180,7 @@ public class UserService {
             if (roleDao != null)
                     roleDao.close();
         }
-        return UserServiceConst.UNSUCCESSFULL_ROLE_UPDATING;
+        return -1;
     }
 
     public User fillFieldsUser(Long id, String login, String password, String firstName, String secondName, String email, String tel, Role role) {
@@ -178,7 +200,7 @@ public class UserService {
         RoleDao roleDao = null;
         Role role = new Role();
         try {
-            roleDao = daoFactory.getRoleDaoImpl();
+            roleDao = daoFactory.getRoleDao();
             role = roleDao.findByRole(roleName);
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);
@@ -193,7 +215,7 @@ public class UserService {
         RoleDao roleDao = null;
         List<Role> list = new ArrayList<>();
         try {
-            roleDao = daoFactory.getRoleDaoImpl();
+            roleDao = daoFactory.getRoleDao();
             list = roleDao.findAll();
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);

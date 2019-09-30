@@ -29,7 +29,7 @@ public class AddBonuses implements Action {
         final String CRUISE_LIST = "cruiseList";
         final String TICKETCLASS_LIST = "ticketclassList";
         final String ATTR_SCRUISE = "scruise";
-        final String SHIPSERVICE_LIST = "shipserviceList";
+        final String SHIPSERVICE_LIST = "shipserviceListBonus";
         final String TICKETCLASS = "sticketclass";
         final String ALL_BONUSES_FOR_TICKETCLASS_1 = "allBonusesForTicketClass1";
         final String ALL_BONUSES_FOR_TICKETCLASS_2 = "allBonusesForTicketClass2";

@@ -30,8 +30,16 @@ public class CreateExcursion implements Action {
 
         String excursionName = request.getParameter(EXCURSION_NAME);
         String description = request.getParameter(DESCRIPTION);
+        if(excursionName.length() < 2 || description.length() < 2){
+            request.getSession().setAttribute(MESSAGE, "message.createexcursion.errfaild");
+            return ConfigurationManager.getProperty("path.page.createexcursion");
+        }
         try {
             double price = Double.parseDouble(request.getParameter(PRICE));
+            if(price < 0){
+                request.getSession().setAttribute(MESSAGE, "message.createexcursion.errfaild");
+                return ConfigurationManager.getProperty("path.page.createexcursion");
+            }
             Long portId = Long.parseLong(request.getParameter(SELECTED_PORT));
 
             int result = portExcursionService.createExcursion(excursionName, price, description, portId);

@@ -74,8 +74,10 @@
         <fmt:message key="message.managebonuses.selectservice"/><br/>
         <select name="${StringStorage.SELECTED_SHIPSERVICE_ID}">
             <option value=""><fmt:message key="message.managebonuses.selectservice0"/></option>
-            <c:forEach var="shipservicen" items="${shipserviceList}">
-                <option value="${shipservicen.shipServiceId}">${shipservicen.serviceName}</option>
+            <c:forEach var="shipservicen" items="${shipserviceListBonus}">
+                <c:if test="${shipservicen.payable != 0}">
+                    <option value="${shipservicen.shipServiceId}">${shipservicen.serviceName}</option>
+                </c:if>
             </c:forEach>
         </select>
 
@@ -89,7 +91,7 @@
 
 </div>
 
-<c:if test="${shipserviceList != null && shipserviceList.size() != 0}">
+<c:if test="${shipserviceListBonus != null && shipserviceListBonus.size() != 0}">
     <br/><br/>
     <div class="form-style-2">
         <div class="form-style-2-heading">
@@ -102,7 +104,7 @@
                 <td><fmt:message key="message.addshipservicetoship.td2"/></td>
             </tr>
             </thead>
-            <c:forEach var="shipservicen" items="${shipserviceList}">
+            <c:forEach var="shipservicen" items="${shipserviceListBonus}">
                 <tr>
                     <td><c:out value="${shipservicen.serviceName}"/></td>
                     <td>
@@ -131,19 +133,12 @@
                 <thead>
                 <tr>
                     <td><fmt:message key="message.addshipservicetoship.td1"/></td>
-                    <td><fmt:message key="message.addshipservicetoship.td2"/></td>
                     <td><fmt:message key="message.addshipservicetoship.td3"/></td>
                 </tr>
                 </thead>
                 <c:forEach var="bonuseForTicketClass1" items="${allBonusesForTicketClass1}">
                     <tr>
                         <td><c:out value="${bonuseForTicketClass1.printableServiceOnShip.serviceName}"/></td>
-                        <td>
-                            <c:if test="${bonuseForTicketClass1.printableServiceOnShip.payable == 0}"> <fmt:message
-                                    key="message.addshipservicetoship.free"/> </c:if>
-                            <c:if test="${bonuseForTicketClass1.printableServiceOnShip.payable != 0}"> <fmt:message
-                                    key="message.addshipservicetoship.payable"/> </c:if>
-                        </td>
                         <td><input type="checkbox" name="${StringStorage.BONUSES}"
                                    value="${bonuseForTicketClass1.ticketClassBonusId}">
                         </td>
@@ -169,19 +164,12 @@
                 <thead>
                 <tr>
                     <td><fmt:message key="message.addshipservicetoship.td1"/></td>
-                    <td><fmt:message key="message.addshipservicetoship.td2"/></td>
                     <td><fmt:message key="message.addshipservicetoship.td3"/></td>
                 </tr>
                 </thead>
                 <c:forEach var="bonuseForTicketClass2" items="${allBonusesForTicketClass2}">
                     <tr>
                         <td><c:out value="${bonuseForTicketClass2.printableServiceOnShip.serviceName}"/></td>
-                        <td>
-                            <c:if test="${bonuseForTicketClass2.printableServiceOnShip.payable == 0}"> <fmt:message
-                                    key="message.addshipservicetoship.free"/> </c:if>
-                            <c:if test="${bonuseForTicketClass2.printableServiceOnShip.payable != 0}"> <fmt:message
-                                    key="message.addshipservicetoship.payable"/> </c:if>
-                        </td>
                         <td><input type="checkbox" name="${StringStorage.BONUSES}"
                                    value="${bonuseForTicketClass2.ticketClassBonusId}">
                         </td>
@@ -207,19 +195,12 @@
                 <thead>
                 <tr>
                     <td><fmt:message key="message.addshipservicetoship.td1"/></td>
-                    <td><fmt:message key="message.addshipservicetoship.td2"/></td>
                     <td><fmt:message key="message.addshipservicetoship.td3"/></td>
                 </tr>
                 </thead>
                 <c:forEach var="bonuseForTicketClass3" items="${allBonusesForTicketClass3}">
                     <tr>
                         <td><c:out value="${bonuseForTicketClass3.printableServiceOnShip.serviceName}"/></td>
-                        <td>
-                            <c:if test="${bonuseForTicketClass3.printableServiceOnShip.payable == 0}"> <fmt:message
-                                    key="message.addshipservicetoship.free"/> </c:if>
-                            <c:if test="${bonuseForTicketClass3.printableServiceOnShip.payable != 0}"> <fmt:message
-                                    key="message.addshipservicetoship.payable"/> </c:if>
-                        </td>
                         <td><input type="checkbox" name="${StringStorage.BONUSES}"
                                    value="${bonuseForTicketClass3.ticketClassBonusId}">
                         </td>
@@ -245,19 +226,12 @@
                 <thead>
                 <tr>
                     <td><fmt:message key="message.addshipservicetoship.td1"/></td>
-                    <td><fmt:message key="message.addshipservicetoship.td2"/></td>
                     <td><fmt:message key="message.addshipservicetoship.td3"/></td>
                 </tr>
                 </thead>
                 <c:forEach var="bonuseForTicketClass4" items="${allBonusesForTicketClass4}">
                     <tr>
                         <td><c:out value="${bonuseForTicketClass4.printableServiceOnShip.serviceName}"/></td>
-                        <td>
-                            <c:if test="${bonuseForTicketClass4.printableServiceOnShip.payable == 0}"> <fmt:message
-                                    key="message.addshipservicetoship.free"/> </c:if>
-                            <c:if test="${bonuseForTicketClass4.printableServiceOnShip.payable != 0}"> <fmt:message
-                                    key="message.addshipservicetoship.payable"/> </c:if>
-                        </td>
                         <td><input type="checkbox" name="${StringStorage.BONUSES}"
                                    value="${bonuseForTicketClass4.ticketClassBonusId}">
                         </td>

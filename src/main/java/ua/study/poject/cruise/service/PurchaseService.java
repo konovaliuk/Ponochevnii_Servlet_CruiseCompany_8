@@ -16,7 +16,7 @@ import java.util.List;
 
 public class PurchaseService {
 
-    private static final Logger LOGGER = Logger.getLogger(CruiseService.class);
+    private static final Logger LOGGER = Logger.getLogger(PurchaseService.class);
     private AbstractDaoFactory daoFactory = MySqlDaoFactory.getInstance();
 
     public List<PrintableCruise> findMyPrintableCruises(User user) {
@@ -25,12 +25,12 @@ public class PurchaseService {
         PrintableCruisePortDao printableCruisePortDao = null;
         TicketDao ticketDao = null;
         try {
-            printableCruiseDao = daoFactory.getPrintableCruiseDaoImpl();
+            printableCruiseDao = daoFactory.getPrintableCruiseDao();
             printableCruisePortDao = daoFactory.getPrintableCruisePortDao();
-            ticketDao = daoFactory.getTicketDaoImpl();
+            ticketDao = daoFactory.getTicketDao();
             List<Ticket> myCruiseTickets = ticketDao.findTicketByUserId(user.getId());
-            for (int i = 0; i < myCruiseTickets.size(); i++) {
-                PrintableCruise printableCruise = printableCruiseDao.findPrintableCruiseWithoutPortsByCruiseId(myCruiseTickets.get(i).getCruiseId());
+            for (Ticket myCruiseTicket : myCruiseTickets) {
+                PrintableCruise printableCruise = printableCruiseDao.findPrintableCruiseWithoutPortsByCruiseId(myCruiseTicket.getCruiseId());
                 printableCruise.setPrintableCruisePorts(printableCruisePortDao.findAllPrintableCruisePortByCruiseId(printableCruise.getCruiseId()));
                 list.add(printableCruise);
             }
@@ -51,10 +51,10 @@ public class PurchaseService {
         TicketExcursionDao ticketExcursionDao = null;
         ExcursionDao excursionDao = null;
         List<Excursion> myExcursions = new ArrayList<>();
-        List<TicketExcursion> ticketExcursionList = new ArrayList<>();
+        List<TicketExcursion> ticketExcursionList;
         try {
-            ticketExcursionDao = daoFactory.getTicketExcursionDaoImpl();
-            excursionDao = daoFactory.getExcursionDaoImpl();
+            ticketExcursionDao = daoFactory.getTicketExcursionDao();
+            excursionDao = daoFactory.getExcursionDao();
             ticketExcursionList = ticketExcursionDao.findByUserId(user.getId());
 
             for (TicketExcursion ticketExcursion : ticketExcursionList) {

@@ -26,7 +26,7 @@ public class ManagerAndBonuseService {
         List<Ship> list = new ArrayList<>();
         UserShipDao userShipDao = null;
         try {
-            userShipDao = daoFactory.getUserShipDaoImpl();
+            userShipDao = daoFactory.getUserShipDao();
             list.addAll(userShipDao.findShipsByUserId(managerId));
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);
@@ -42,7 +42,7 @@ public class ManagerAndBonuseService {
         List<Ticketclass> list = new ArrayList<>();
         TicketclassDao ticketclassDao = null;
         try {
-            ticketclassDao = daoFactory.getTicketclassDaoImpl();
+            ticketclassDao = daoFactory.getTicketclassDao();
             list = ticketclassDao.findAll();
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);
@@ -89,7 +89,7 @@ public class ManagerAndBonuseService {
         TicketclassBonusDao ticketclassBonusDao = null;
         int result = 0;
         try {
-            ticketclassBonusDao = daoFactory.getTicketclassBonusDaoImpl();
+            ticketclassBonusDao = daoFactory.getTicketclassBonusDao();
             TicketclassBonus ticketclassBonus = new TicketclassBonus();
             ticketclassBonus.setTicketclassId(ticketclassId);
             ticketclassBonus.setShipServiceId(selectedshipserviceid);
@@ -109,7 +109,7 @@ public class ManagerAndBonuseService {
         TicketclassBonusDao ticketclassBonusDao = null;
         int sum = 0;
         try {
-            ticketclassBonusDao = daoFactory.getTicketclassBonusDaoImpl();
+            ticketclassBonusDao = daoFactory.getTicketclassBonusDao();
             for(Long id : ticketclassBonusIdList)
                 sum += ticketclassBonusDao.deleteById(id);
             return sum;

@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ShipService {
 
-    private static final Logger LOGGER = Logger.getLogger(UserService.class);
+    private static final Logger LOGGER = Logger.getLogger(ShipService.class);
 
     private AbstractDaoFactory daoFactory = MySqlDaoFactory.getInstance();
     private Ship ship = new Ship();
@@ -32,7 +32,7 @@ public class ShipService {
 
         ShipDao shipDao = null;
         try {
-            shipDao = daoFactory.getShipDaoImpl();
+            shipDao = daoFactory.getShipDao();
             return shipDao.create(ship);
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);
@@ -47,7 +47,7 @@ public class ShipService {
         ShipDao shipDao = null;
         List<Ship> list = new ArrayList<>();
         try {
-            shipDao = daoFactory.getShipDaoImpl();
+            shipDao = daoFactory.getShipDao();
             list = shipDao.findAll();
         } catch (GeneralCheckedException e) {
             LOGGER.error("Неудачная работа с shipDaoImpl");
@@ -77,7 +77,7 @@ public class ShipService {
     public boolean isServicePresentOnThisShip(Long selectedShipId, Long selectedServiceId) {
         ShipserviceDao shipserviceDao = null;
         try {
-            shipserviceDao = daoFactory.getShipserviceDaoImpl();
+            shipserviceDao = daoFactory.getShipserviceDao();
             return shipserviceDao.isServicePresentOnThisShip(selectedShipId, selectedServiceId);
         } catch (GeneralCheckedException e) {
             LOGGER.error("Неудачная работа с ShipserviceDao");
@@ -100,7 +100,7 @@ public class ShipService {
 
         int result = 0;
         try {
-            shipserviceDao = daoFactory.getShipserviceDaoImpl();
+            shipserviceDao = daoFactory.getShipserviceDao();
             result = shipserviceDao.create(shipservice);
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);

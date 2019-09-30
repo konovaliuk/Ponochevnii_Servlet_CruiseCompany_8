@@ -28,9 +28,8 @@ public class ChangeUserRole implements Action {
 
 
         String login = request.getParameter(LOGIN);
-        String password = request.getParameter(PASSWORD);
 
-        User oldUser = userService.findUserByLoginPassword(login, password);
+        User oldUser = userService.findUserByLogin(login);
         if (oldUser.getId() < 1) {
             request.getSession().setAttribute(MESSAGE, "message.changeuserrole.errnouser");
             return ConfigurationManager.getProperty("path.page.changeuserrole");

@@ -115,19 +115,12 @@
             <thead>
             <tr>
                 <td><fmt:message key="message.addshipservicetoship.td1"/></td>
-                <td><fmt:message key="message.addshipservicetoship.td2"/></td>
             </tr>
             </thead>
 
             <c:forEach var="bonuseForTicketClass1" items="${allBonusesForTicketClass1}">
                 <tr>
                     <td><c:out value="${bonuseForTicketClass1.printableServiceOnShip.serviceName}"/></td>
-                    <td>
-                        <c:if test="${bonuseForTicketClass1.printableServiceOnShip.payable == 0}"> <fmt:message
-                                key="message.addshipservicetoship.free"/> </c:if>
-                        <c:if test="${bonuseForTicketClass1.printableServiceOnShip.payable != 0}"> <fmt:message
-                                key="message.addshipservicetoship.payable"/> </c:if>
-                    </td>
                 </tr>
             </c:forEach>
         </table>
@@ -148,19 +141,12 @@
             <thead>
             <tr>
                 <td><fmt:message key="message.addshipservicetoship.td1"/></td>
-                <td><fmt:message key="message.addshipservicetoship.td2"/></td>
             </tr>
             </thead>
 
             <c:forEach var="bonuseForTicketClass2" items="${allBonusesForTicketClass2}">
                 <tr>
                     <td><c:out value="${bonuseForTicketClass2.printableServiceOnShip.serviceName}"/></td>
-                    <td>
-                        <c:if test="${bonuseForTicketClass2.printableServiceOnShip.payable == 0}"> <fmt:message
-                                key="message.addshipservicetoship.free"/> </c:if>
-                        <c:if test="${bonuseForTicketClass2.printableServiceOnShip.payable != 0}"> <fmt:message
-                                key="message.addshipservicetoship.payable"/> </c:if>
-                    </td>
                 </tr>
             </c:forEach>
         </table>
@@ -180,18 +166,11 @@
             <thead>
             <tr>
                 <td><fmt:message key="message.addshipservicetoship.td1"/></td>
-                <td><fmt:message key="message.addshipservicetoship.td2"/></td>
             </tr>
             </thead>
             <c:forEach var="bonuseForTicketClass3" items="${allBonusesForTicketClass3}">
                 <tr>
                     <td><c:out value="${bonuseForTicketClass3.printableServiceOnShip.serviceName}"/></td>
-                    <td>
-                        <c:if test="${bonuseForTicketClass3.printableServiceOnShip.payable == 0}"> <fmt:message
-                                key="message.addshipservicetoship.free"/> </c:if>
-                        <c:if test="${bonuseForTicketClass3.printableServiceOnShip.payable != 0}"> <fmt:message
-                                key="message.addshipservicetoship.payable"/> </c:if>
-                    </td>
                 </tr>
             </c:forEach>
         </table>
@@ -212,19 +191,12 @@
             <thead>
             <tr>
                 <td><fmt:message key="message.addshipservicetoship.td1"/></td>
-                <td><fmt:message key="message.addshipservicetoship.td2"/></td>
             </tr>
             </thead>
 
             <c:forEach var="bonuseForTicketClass4" items="${allBonusesForTicketClass4}">
                 <tr>
                     <td><c:out value="${bonuseForTicketClass4.printableServiceOnShip.serviceName}"/></td>
-                    <td>
-                        <c:if test="${bonuseForTicketClass4.printableServiceOnShip.payable == 0}"> <fmt:message
-                                key="message.addshipservicetoship.free"/> </c:if>
-                        <c:if test="${bonuseForTicketClass4.printableServiceOnShip.payable != 0}"> <fmt:message
-                                key="message.addshipservicetoship.payable"/> </c:if>
-                    </td>
                 </tr>
             </c:forEach>
         </table>

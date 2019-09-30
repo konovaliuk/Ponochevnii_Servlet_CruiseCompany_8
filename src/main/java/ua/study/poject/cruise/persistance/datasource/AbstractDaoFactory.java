@@ -2,9 +2,7 @@ package ua.study.poject.cruise.persistance.datasource;
 
 import ua.study.poject.cruise.entity.printableentity.PrintableCruisePort;
 import ua.study.poject.cruise.exceptions.GeneralCheckedException;
-import ua.study.poject.cruise.persistance.dao.PrintableCruisePortDao;
-import ua.study.poject.cruise.persistance.dao.PrintableServiceOnShipDao;
-import ua.study.poject.cruise.persistance.dao.PrintableTicketclassBonusDao;
+import ua.study.poject.cruise.persistance.dao.*;
 import ua.study.poject.cruise.persistance.dao.impl.*;
 import ua.study.poject.cruise.persistance.dao.impl.printable.PrintableCruiseDaoImpl;
 
@@ -12,63 +10,63 @@ import java.util.List;
 
 public abstract class AbstractDaoFactory {
 
-    public abstract CruiseDaoImpl getCruiseDaoImpl() throws GeneralCheckedException;
+    public abstract CruiseDao getCruiseDao() throws GeneralCheckedException;
 
-    public abstract CruiseDaoImpl getCruiseDaoImpl(Atomizer atomizer);
+    public abstract CruiseDao getCruiseDao(Atomizer atomizer);
 
-    public abstract CruisePortsDaoImpl getCruisePortsDaoImpl() throws GeneralCheckedException;
+    public abstract CruisePortsDao getCruisePortsDao() throws GeneralCheckedException;
 
-    public abstract CruisePortsDaoImpl getCruisePortsDaoImpl(Atomizer atomizer);
+    public abstract CruisePortsDao getCruisePortsDao(Atomizer atomizer);
 
-    public abstract ExcursionDaoImpl getExcursionDaoImpl() throws GeneralCheckedException;
+    public abstract ExcursionDao getExcursionDao() throws GeneralCheckedException;
 
-    public abstract ExcursionDaoImpl getExcursionDaoImpl(Atomizer atomizer);
+    public abstract ExcursionDao getExcursionDao(Atomizer atomizer);
 
-    public abstract PortDaoImpl getPortDaoImpl() throws GeneralCheckedException;
+    public abstract PortDao getPortDao() throws GeneralCheckedException;
 
-    public abstract PortDaoImpl getPortDaoImpl(Atomizer atomizer);
+    public abstract PortDao getPortDao(Atomizer atomizer);
 
-    public abstract RoleDaoImpl getRoleDaoImpl() throws GeneralCheckedException;
+    public abstract RoleDao getRoleDao() throws GeneralCheckedException;
 
-    public abstract RoleDaoImpl getRoleDaoImpl(Atomizer atomizer);
+    public abstract RoleDao getRoleDao(Atomizer atomizer);
 
-    public abstract ServiceDaoImpl getServiceDaoImpl() throws GeneralCheckedException;
+    public abstract ServiceDao getServiceDao() throws GeneralCheckedException;
 
-    public abstract ServiceDaoImpl getServiceDaoImpl(Atomizer atomizer);
+    public abstract ServiceDao getServiceDao(Atomizer atomizer);
 
-    public abstract ShipDaoImpl getShipDaoImpl() throws GeneralCheckedException;
+    public abstract ShipDao getShipDao() throws GeneralCheckedException;
 
-    public abstract ShipDaoImpl getShipDaoImpl(Atomizer atomizer);
+    public abstract ShipDao getShipDao(Atomizer atomizer);
 
-    public abstract ShipserviceDaoImpl getShipserviceDaoImpl() throws GeneralCheckedException;
+    public abstract ShipserviceDao getShipserviceDao() throws GeneralCheckedException;
 
-    public abstract ShipserviceDaoImpl getShipserviceDaoImpl(Atomizer atomizer);
+    public abstract ShipserviceDao getShipserviceDao(Atomizer atomizer);
 
-    public abstract TicketclassBonusDaoImpl getTicketclassBonusDaoImpl() throws GeneralCheckedException;
+    public abstract TicketclassBonusDao getTicketclassBonusDao() throws GeneralCheckedException;
 
-    public abstract TicketclassBonusDaoImpl getTicketclassBonusDaoImpl(Atomizer atomizer);
+    public abstract TicketclassBonusDao getTicketclassBonusDao(Atomizer atomizer);
 
-    public abstract TicketclassDaoImpl getTicketclassDaoImpl() throws GeneralCheckedException;
+    public abstract TicketclassDao getTicketclassDao() throws GeneralCheckedException;
 
-    public abstract TicketclassDaoImpl getTicketclassDaoImpl(Atomizer atomizer);
+    public abstract TicketclassDao getTicketclassDao(Atomizer atomizer);
 
-    public abstract TicketDaoImpl getTicketDaoImpl() throws GeneralCheckedException;
+    public abstract TicketDao getTicketDao() throws GeneralCheckedException;
 
-    public abstract TicketDaoImpl getTicketDaoImpl(Atomizer atomizer);
+    public abstract TicketDao getTicketDao(Atomizer atomizer);
 
-    public abstract TicketExcursionDaoImpl getTicketExcursionDaoImpl() throws GeneralCheckedException;
+    public abstract TicketExcursionDao getTicketExcursionDao() throws GeneralCheckedException;
 
-    public abstract TicketExcursionDaoImpl getTicketExcursionDaoImpl(Atomizer atomizer);
+    public abstract TicketExcursionDao getTicketExcursionDao(Atomizer atomizer);
 
-    public abstract UserDaoImpl getUserDaoImpl() throws GeneralCheckedException;
+    public abstract UserDao getUserDao() throws GeneralCheckedException;
 
-    public abstract UserDaoImpl getUserDaoImpl(Atomizer atomizer);
+    public abstract UserDao getUserDao(Atomizer atomizer);
 
-    public abstract UserShipDaoImpl getUserShipDaoImpl() throws GeneralCheckedException;
+    public abstract UserShipDao getUserShipDao() throws GeneralCheckedException;
 
-    public abstract UserShipDaoImpl getUserShipDaoImpl(Atomizer atomizer);
+    public abstract UserShipDao getUserShipDao(Atomizer atomizer);
 
-    public abstract PrintableCruiseDaoImpl getPrintableCruiseDaoImpl() throws GeneralCheckedException;
+    public abstract PrintableCruiseDao getPrintableCruiseDao() throws GeneralCheckedException;
 
     public abstract PrintableServiceOnShipDao getPrintableServiceOnShipDao() throws GeneralCheckedException;
 

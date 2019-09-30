@@ -27,7 +27,7 @@ public class PortExcursionService {
 
         PortDao portDao = null;
         try {
-            portDao = daoFactory.getPortDaoImpl();
+            portDao = daoFactory.getPortDao();
             return portDao.create(port);
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);
@@ -49,7 +49,7 @@ public class PortExcursionService {
 
         ExcursionDao excursionDao = null;
         try {
-            excursionDao = daoFactory.getExcursionDaoImpl();
+            excursionDao = daoFactory.getExcursionDao();
             return excursionDao.create(excurision);
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);
@@ -64,7 +64,7 @@ public class PortExcursionService {
         PortDao portDao = null;
         List<Port> list = new ArrayList<>();
         try {
-            portDao = daoFactory.getPortDaoImpl();
+            portDao = daoFactory.getPortDao();
             list = portDao.findAll();
         } catch (GeneralCheckedException e) {
             LOGGER.error("Неудачная работа с portDao");
@@ -79,7 +79,7 @@ public class PortExcursionService {
         ExcursionDao excursionDao = null;
         List<Excursion> list = new ArrayList<>();
         try {
-            excursionDao = daoFactory.getExcursionDaoImpl();
+            excursionDao = daoFactory.getExcursionDao();
             list = excursionDao.findByPortId(portId);
         } catch (GeneralCheckedException e) {
             LOGGER.error("Неудачная работа с excursionDao");
@@ -94,7 +94,7 @@ public class PortExcursionService {
         ExcursionDao excursionDao = null;
         Excursion excurision = new Excursion();
         try {
-            excursionDao = daoFactory.getExcursionDaoImpl();
+            excursionDao = daoFactory.getExcursionDao();
             excurision = excursionDao.findById(excursionId);
         } catch (GeneralCheckedException e) {
             LOGGER.error("Неудачная работа с excursionDao");
@@ -109,7 +109,7 @@ public class PortExcursionService {
         Port port = new Port();
         PortDao portDao = null;
         try {
-            portDao = daoFactory.getPortDaoImpl();
+            portDao = daoFactory.getPortDao();
             port = portDao.findById(portId);
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);

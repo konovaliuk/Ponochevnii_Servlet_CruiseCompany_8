@@ -18,6 +18,7 @@ public class UserDaoImpl implements UserDao {
     private static final String FIND_ALL = "SELECT user.id, login, password, first_name, second_name, email, tel, role_id, role.role FROM user JOIN role ON user.role_id = role.id;";
     private static final String FIND_BY_ID = "SELECT user.id, login, password, first_name, second_name, email, tel, role_id, role.role FROM user JOIN role ON user.role_id = role.id WHERE user.id = ?";
     private static final String FIND_BY_LOGIN_PASSWORD = "SELECT user.id, login, password, first_name, second_name, user.email, user.tel, user.role_id, role.role FROM user JOIN role ON user.role_id = role.id WHERE login = ? AND password = ?";
+    private static final String FIND_BY_LOGIN = "SELECT user.id, login, password, first_name, second_name, user.email, user.tel, user.role_id, role.role FROM user JOIN role ON user.role_id = role.id WHERE login = ?";
     private static final String CREATE = "INSERT INTO user (login, password, first_name, second_name, email, tel, role_id) VALUES(?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE = "UPDATE user SET login = ?, password = ?, first_name = ?, second_name = ?, email = ?, tel = ?, role_id = ? WHERE id = ?";
 
@@ -70,6 +71,20 @@ public class UserDaoImpl implements UserDao {
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_LOGIN_PASSWORD)){
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, password);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next())
+                user = createUser(rs);
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            throw new GeneralCheckedException("Unsuccessful work with the database ", e);
+        }
+        return user;
+    }
+    @Override
+    public User findByLogin(String login) throws GeneralCheckedException {
+        User user = new User();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_LOGIN)){
+            preparedStatement.setString(1, login);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next())
                 user = createUser(rs);

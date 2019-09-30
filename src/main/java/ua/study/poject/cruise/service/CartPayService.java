@@ -28,7 +28,7 @@ public class CartPayService {
 
         try (Atomizer atomizer = AtomizerFactory.getAtomizer()) {
             if (cruisesInCart.size() != 0) {
-                TicketDao ticketDao = daoFactory.getTicketDaoImpl(atomizer);
+                TicketDao ticketDao = daoFactory.getTicketDao(atomizer);
                 for (int i = 0; i < cruisesInCart.size(); i++) {
                     Ticket ticket = new Ticket();
                     ticket.setId(0L);
@@ -40,7 +40,7 @@ public class CartPayService {
             }
 
             if (excurisionsInCart.size() != 0) {
-                TicketExcursionDao ticketExcursionDao = daoFactory.getTicketExcursionDaoImpl(atomizer);
+                TicketExcursionDao ticketExcursionDao = daoFactory.getTicketExcursionDao(atomizer);
                 for (Excursion excurision : excurisionsInCart) {
                     sum += ticketExcursionDao.create(userId, excurision.getId());
                 }
@@ -50,7 +50,7 @@ public class CartPayService {
             return sum;
 
         } catch (Exception e) {
-            LOGGER.error("Ошибка при работе с TicketDao или TicketExcursionDao");
+            LOGGER.error("Ошибка при работе с TicketDao или TicketExcursionDao", e);
         }
         return -1;
     }

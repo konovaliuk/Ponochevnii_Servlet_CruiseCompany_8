@@ -40,6 +40,7 @@ public interface UserDao {
      */
     User findByLoginAndPassword(String login, String password) throws GeneralCheckedException;
 
+    User findByLogin(String login) throws GeneralCheckedException;
     /**
      * Updates existing account
      *

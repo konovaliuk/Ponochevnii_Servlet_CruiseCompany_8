@@ -40,8 +40,6 @@
                value="${StringStorage.CHANGE_USER_ROLE_FORM}"/>
         <br/><br/><fmt:message key="message.changeuserrole.userlogin"/>
         <br/><input type="text" name="${StringStorage.LOGIN}" value="" autofocus/>
-        <br/><br/><fmt:message key="message.changeuserrole.userlpassword"/>
-        <br/><input type="password" name="${StringStorage.PASSWORD}" value=""/>
         <br/><br/>
 
         <fmt:message key="message.changeuserrole.newuserrole"/>

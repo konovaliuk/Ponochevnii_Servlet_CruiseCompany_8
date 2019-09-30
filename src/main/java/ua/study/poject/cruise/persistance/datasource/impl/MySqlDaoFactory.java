@@ -33,7 +33,7 @@ public class MySqlDaoFactory extends AbstractDaoFactory {
     private static final Logger LOGGER = Logger.getLogger(MySqlDaoFactory.class);
 
     @Override
-    public CruiseDaoImpl getCruiseDaoImpl() throws GeneralCheckedException {
+    public CruiseDaoImpl getCruiseDao() throws GeneralCheckedException {
         try {
             return new CruiseDaoImpl(ConnectionPool.getConnection());
         } catch (GeneralCheckedException e) {
@@ -43,12 +43,12 @@ public class MySqlDaoFactory extends AbstractDaoFactory {
     }
 
     @Override
-    public CruiseDaoImpl getCruiseDaoImpl(Atomizer atomizer) {
+    public CruiseDaoImpl getCruiseDao(Atomizer atomizer) {
         return new CruiseDaoImpl((Connection) atomizer.get());
     }
 
     @Override
-    public CruisePortsDaoImpl getCruisePortsDaoImpl() throws GeneralCheckedException {
+    public CruisePortsDaoImpl getCruisePortsDao() throws GeneralCheckedException {
         try {
             return new CruisePortsDaoImpl(ConnectionPool.getConnection());
         } catch (GeneralCheckedException e) {
@@ -58,12 +58,12 @@ public class MySqlDaoFactory extends AbstractDaoFactory {
     }
 
     @Override
-    public CruisePortsDaoImpl getCruisePortsDaoImpl(Atomizer atomizer) {
+    public CruisePortsDaoImpl getCruisePortsDao(Atomizer atomizer) {
         return new CruisePortsDaoImpl((Connection) atomizer.get());
     }
 
     @Override
-    public ExcursionDaoImpl getExcursionDaoImpl() throws GeneralCheckedException {
+    public ExcursionDaoImpl getExcursionDao() throws GeneralCheckedException {
         try {
             return new ExcursionDaoImpl(ConnectionPool.getConnection());
         } catch (GeneralCheckedException e) {
@@ -73,12 +73,12 @@ public class MySqlDaoFactory extends AbstractDaoFactory {
     }
 
     @Override
-    public ExcursionDaoImpl getExcursionDaoImpl(Atomizer atomizer) {
+    public ExcursionDaoImpl getExcursionDao(Atomizer atomizer) {
         return new ExcursionDaoImpl((Connection) atomizer.get());
     }
 
     @Override
-    public PortDaoImpl getPortDaoImpl() throws GeneralCheckedException {
+    public PortDaoImpl getPortDao() throws GeneralCheckedException {
         try {
             return new PortDaoImpl(ConnectionPool.getConnection());
         } catch (GeneralCheckedException e) {
@@ -88,12 +88,12 @@ public class MySqlDaoFactory extends AbstractDaoFactory {
     }
 
     @Override
-    public PortDaoImpl getPortDaoImpl(Atomizer atomizer) {
+    public PortDaoImpl getPortDao(Atomizer atomizer) {
         return new PortDaoImpl((Connection) atomizer.get());
     }
 
     @Override
-    public RoleDaoImpl getRoleDaoImpl() throws GeneralCheckedException {
+    public RoleDaoImpl getRoleDao() throws GeneralCheckedException {
         try {
             return new RoleDaoImpl(ConnectionPool.getConnection());
         } catch (GeneralCheckedException e) {
@@ -103,12 +103,12 @@ public class MySqlDaoFactory extends AbstractDaoFactory {
     }
 
     @Override
-    public RoleDaoImpl getRoleDaoImpl(Atomizer atomizer) {
+    public RoleDaoImpl getRoleDao(Atomizer atomizer) {
         return new RoleDaoImpl((Connection) atomizer.get());
     }
 
     @Override
-    public ServiceDaoImpl getServiceDaoImpl() throws GeneralCheckedException {
+    public ServiceDaoImpl getServiceDao() throws GeneralCheckedException {
         try {
             return new ServiceDaoImpl(ConnectionPool.getConnection());
         } catch (GeneralCheckedException e) {
@@ -118,12 +118,12 @@ public class MySqlDaoFactory extends AbstractDaoFactory {
     }
 
     @Override
-    public ServiceDaoImpl getServiceDaoImpl(Atomizer atomizer) {
+    public ServiceDaoImpl getServiceDao(Atomizer atomizer) {
         return new ServiceDaoImpl((Connection) atomizer.get());
     }
 
     @Override
-    public ShipDaoImpl getShipDaoImpl() throws GeneralCheckedException {
+    public ShipDaoImpl getShipDao() throws GeneralCheckedException {
         try {
             return new ShipDaoImpl(ConnectionPool.getConnection());
         } catch (GeneralCheckedException e) {
@@ -133,12 +133,12 @@ public class MySqlDaoFactory extends AbstractDaoFactory {
     }
 
     @Override
-    public ShipDaoImpl getShipDaoImpl(Atomizer atomizer) {
+    public ShipDaoImpl getShipDao(Atomizer atomizer) {
         return new ShipDaoImpl((Connection) atomizer.get());
     }
 
     @Override
-    public ShipserviceDaoImpl getShipserviceDaoImpl() throws GeneralCheckedException {
+    public ShipserviceDaoImpl getShipserviceDao() throws GeneralCheckedException {
         try {
             return new ShipserviceDaoImpl(ConnectionPool.getConnection());
         } catch (GeneralCheckedException e) {
@@ -148,12 +148,12 @@ public class MySqlDaoFactory extends AbstractDaoFactory {
     }
 
     @Override
-    public ShipserviceDaoImpl getShipserviceDaoImpl(Atomizer atomizer) {
+    public ShipserviceDaoImpl getShipserviceDao(Atomizer atomizer) {
         return new ShipserviceDaoImpl((Connection) atomizer.get());
     }
 
     @Override
-    public TicketclassBonusDaoImpl getTicketclassBonusDaoImpl() throws GeneralCheckedException {
+    public TicketclassBonusDaoImpl getTicketclassBonusDao() throws GeneralCheckedException {
         try {
             return new TicketclassBonusDaoImpl(ConnectionPool.getConnection());
         } catch (GeneralCheckedException e) {
@@ -163,12 +163,12 @@ public class MySqlDaoFactory extends AbstractDaoFactory {
     }
 
     @Override
-    public TicketclassBonusDaoImpl getTicketclassBonusDaoImpl(Atomizer atomizer) {
+    public TicketclassBonusDaoImpl getTicketclassBonusDao(Atomizer atomizer) {
         return new TicketclassBonusDaoImpl((Connection) atomizer.get());
     }
 
     @Override
-    public TicketclassDaoImpl getTicketclassDaoImpl() throws GeneralCheckedException {
+    public TicketclassDaoImpl getTicketclassDao() throws GeneralCheckedException {
         try {
             return new TicketclassDaoImpl(ConnectionPool.getConnection());
         } catch (GeneralCheckedException e) {
@@ -178,12 +178,12 @@ public class MySqlDaoFactory extends AbstractDaoFactory {
     }
 
     @Override
-    public TicketclassDaoImpl getTicketclassDaoImpl(Atomizer atomizer) {
+    public TicketclassDaoImpl getTicketclassDao(Atomizer atomizer) {
         return new TicketclassDaoImpl((Connection) atomizer.get());
     }
 
     @Override
-    public TicketDaoImpl getTicketDaoImpl() throws GeneralCheckedException {
+    public TicketDaoImpl getTicketDao() throws GeneralCheckedException {
         try {
             return new TicketDaoImpl(ConnectionPool.getConnection());
         } catch (GeneralCheckedException e) {
@@ -193,12 +193,12 @@ public class MySqlDaoFactory extends AbstractDaoFactory {
     }
 
     @Override
-    public TicketDaoImpl getTicketDaoImpl(Atomizer atomizer) {
+    public TicketDaoImpl getTicketDao(Atomizer atomizer) {
         return new TicketDaoImpl((Connection) atomizer.get());
     }
 
     @Override
-    public TicketExcursionDaoImpl getTicketExcursionDaoImpl() throws GeneralCheckedException {
+    public TicketExcursionDaoImpl getTicketExcursionDao() throws GeneralCheckedException {
         try {
             return new TicketExcursionDaoImpl(ConnectionPool.getConnection());
         } catch (GeneralCheckedException e) {
@@ -208,12 +208,12 @@ public class MySqlDaoFactory extends AbstractDaoFactory {
     }
 
     @Override
-    public TicketExcursionDaoImpl getTicketExcursionDaoImpl(Atomizer atomizer) {
+    public TicketExcursionDaoImpl getTicketExcursionDao(Atomizer atomizer) {
         return new TicketExcursionDaoImpl((Connection) atomizer.get());
     }
 
     @Override
-    public UserDaoImpl getUserDaoImpl() throws GeneralCheckedException {
+    public UserDaoImpl getUserDao() throws GeneralCheckedException {
         try {
             return new UserDaoImpl(ConnectionPool.getConnection());
         } catch (GeneralCheckedException e) {
@@ -223,12 +223,12 @@ public class MySqlDaoFactory extends AbstractDaoFactory {
     }
 
     @Override
-    public UserDaoImpl getUserDaoImpl(Atomizer atomizer) {
+    public UserDaoImpl getUserDao(Atomizer atomizer) {
         return new UserDaoImpl((Connection) atomizer.get());
     }
 
     @Override
-    public PrintableCruiseDaoImpl getPrintableCruiseDaoImpl() throws GeneralCheckedException {
+    public PrintableCruiseDaoImpl getPrintableCruiseDao() throws GeneralCheckedException {
         try {
             return new PrintableCruiseDaoImpl(ConnectionPool.getConnection());
         } catch (GeneralCheckedException e) {
@@ -248,7 +248,7 @@ public class MySqlDaoFactory extends AbstractDaoFactory {
     }
 
     @Override
-    public UserShipDaoImpl getUserShipDaoImpl() throws GeneralCheckedException {
+    public UserShipDaoImpl getUserShipDao() throws GeneralCheckedException {
         try {
             return new UserShipDaoImpl(ConnectionPool.getConnection());
         } catch (GeneralCheckedException e) {
@@ -258,7 +258,7 @@ public class MySqlDaoFactory extends AbstractDaoFactory {
     }
 
     @Override
-    public UserShipDaoImpl getUserShipDaoImpl(Atomizer atomizer) {
+    public UserShipDaoImpl getUserShipDao(Atomizer atomizer) {
         return new UserShipDaoImpl((Connection) atomizer.get());
     }
 

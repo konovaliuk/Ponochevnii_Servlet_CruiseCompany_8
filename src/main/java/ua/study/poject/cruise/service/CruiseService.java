@@ -22,7 +22,7 @@ public class CruiseService {
         TicketclassDao ticketclassDao = null;
         List<Ticketclass> list = new ArrayList<>();
         try {
-            ticketclassDao = daoFactory.getTicketclassDaoImpl();
+            ticketclassDao = daoFactory.getTicketclassDao();
             list = ticketclassDao.findAll();
         }catch (GeneralCheckedException e) {
             LOGGER.error(e);
@@ -36,8 +36,8 @@ public class CruiseService {
     public int createCruise(Long selectedShip, double priceFirstClass, double priceSecondClass, double priceThirdClass, double priceFourthClass, List<CruisePorts> cruisePortsList) {
         try (Atomizer atomizer = AtomizerFactory.getAtomizer()) {
 
-            CruiseDao cruiseDao = daoFactory.getCruiseDaoImpl(atomizer);
-            CruisePortsDao cruisePortsDao = daoFactory.getCruisePortsDaoImpl(atomizer);
+            CruiseDao cruiseDao = daoFactory.getCruiseDao(atomizer);
+            CruisePortsDao cruisePortsDao = daoFactory.getCruisePortsDao(atomizer);
 
             Cruise cruise = new Cruise();
             cruise.setShipId(selectedShip);
@@ -71,7 +71,7 @@ public class CruiseService {
         PrintableCruiseDao printableCruiseDao = null;
         PrintableCruisePortDao printableCruisePortDao = null;
         try {
-            printableCruiseDao = daoFactory.getPrintableCruiseDaoImpl();
+            printableCruiseDao = daoFactory.getPrintableCruiseDao();
             printableCruisePortDao = daoFactory.getPrintableCruisePortDao();
             list = printableCruiseDao.findAllPrintableCruisesWithoutPorts();
             for (PrintableCruise printableCruise : list) {
@@ -108,7 +108,7 @@ public class CruiseService {
         PrintableCruiseDao printableCruiseDao = null;
         PrintableCruisePortDao printableCruisePortDao = null;
         try {
-            printableCruiseDao = daoFactory.getPrintableCruiseDaoImpl();
+            printableCruiseDao = daoFactory.getPrintableCruiseDao();
             printableCruisePortDao = daoFactory.getPrintableCruisePortDao();
             list = printableCruiseDao.findAllPrintableCruisesWithoutPortsByShipId(shipId);
             for (PrintableCruise printableCruise : list) {

@@ -26,6 +26,10 @@ public class CreatePort implements Action {
 
         String country = request.getParameter(COUNTRY);
         String city = request.getParameter(CITY);
+        if(country.length() < 2 || city.length() < 2){
+            request.getSession().setAttribute(MESSAGE, "message.createport.errfaild");
+            return ConfigurationManager.getProperty("path.page.createport");
+        }
 
         int result = portExcursionService.createPort(country, city);
         if (result <= 0) {
