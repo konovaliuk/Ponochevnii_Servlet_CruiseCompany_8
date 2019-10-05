@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * PrintableCruise is entity which is designed to transmit information about the cruise to the JSP page
+ */
 public class PrintableCruise implements Serializable {
 
     private static final long serialVersionUID = 5332992361975215114L;

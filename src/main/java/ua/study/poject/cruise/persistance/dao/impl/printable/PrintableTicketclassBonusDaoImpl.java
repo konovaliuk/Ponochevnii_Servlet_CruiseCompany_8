@@ -18,12 +18,6 @@ public class PrintableTicketclassBonusDaoImpl implements PrintableTicketclassBon
 
     private static final Logger LOGGER = Logger.getLogger(PrintableTicketclassBonusDaoImpl.class);
 
-    private static final String FIND_ALL_BY_CRUISE_ID_TICKETCLASS_ID = "SELECT ticketclass_bonus.id AS ticketclass_bonus_id, cruise_id, ship_service_id, service_id, service_name, payable, ticketclass_id, ticketclass_name " +
-            "FROM ticketclass_bonus " +
-            "JOIN ship_service ON ship_service_id = ship_service.id " +
-            "JOIN service ON service_id = service.id " +
-            "JOIN ticketclass ON ticketclass_id = ticketclass.id WHERE cruise_id = ? AND ticketclass_id = ?;";
-
     private static final String FIND_ALL_BY_CRUISE_ID_TICKETCLASS_NAME = "SELECT ticketclass_bonus.id AS ticketclass_bonus_id, cruise_id, ship_service_id, service_id, service_name, payable, ticketclass_id, ticketclass_name " +
             "FROM ticketclass_bonus " +
             "JOIN ship_service ON ship_service_id = ship_service.id " +
@@ -34,23 +28,6 @@ public class PrintableTicketclassBonusDaoImpl implements PrintableTicketclassBon
 
     public PrintableTicketclassBonusDaoImpl(Connection connection) {
         this.connection = connection;
-    }
-
-
-    @Override
-    public List<PrintableTicketclassBonus> getAllBonusesByCruiseIdTicketclassId(Long cruiseId, Long ticketclassId) throws GeneralCheckedException {
-        List<PrintableTicketclassBonus> list = new ArrayList<>();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_BY_CRUISE_ID_TICKETCLASS_ID)) {
-            preparedStatement.setLong(1, cruiseId);
-            preparedStatement.setLong(2, ticketclassId);
-            ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next())
-                list.add(createPrintableTicketclassBonus(rs));
-        } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new GeneralCheckedException("Unsuccessful work with the database ", e);
-        }
-        return list;
     }
 
     @Override

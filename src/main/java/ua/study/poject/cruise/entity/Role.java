@@ -1,10 +1,11 @@
 package ua.study.poject.cruise.entity;
 
-
 import java.io.Serializable;
 import java.util.Objects;
 
-
+/**
+ * This class is an entity that corresponds to a row in the "role" table
+ */
 public class Role implements Serializable {
 
     private static final long serialVersionUID = -4854783357421218496L;

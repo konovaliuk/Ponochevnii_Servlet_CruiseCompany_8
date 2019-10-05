@@ -8,7 +8,9 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-
+/**
+ * Custom tag that allows you to format the date and display in the desired form
+ */
 public class DateTag extends TagSupport {
 
     private static final Logger LOGGER = Logger.getLogger(DateTag.class);

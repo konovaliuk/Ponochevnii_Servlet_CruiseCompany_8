@@ -14,11 +14,20 @@ import ua.study.poject.cruise.persistance.datasource.impl.MySqlDaoFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This is a class that contains logic for working with purchase history
+ */
 public class PurchaseService {
 
     private static final Logger LOGGER = Logger.getLogger(PurchaseService.class);
+
     private AbstractDaoFactory daoFactory = MySqlDaoFactory.getInstance();
 
+    /**
+     * This method finds all Cruises that were purchased by the user
+     * @param user current user
+     * @return List of PrintableCruises
+     */
     public List<PrintableCruise> findMyPrintableCruises(User user) {
         List<PrintableCruise> list = new ArrayList<>();
         PrintableCruiseDao printableCruiseDao = null;
@@ -37,16 +46,24 @@ public class PurchaseService {
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);
         } finally {
-            if (printableCruiseDao != null)
+            if (printableCruiseDao != null) {
                 printableCruiseDao.close();
-            if (printableCruisePortDao != null)
+            }
+            if (printableCruisePortDao != null) {
                 printableCruisePortDao.close();
-            if (ticketDao != null)
+            }
+            if (ticketDao != null) {
                 ticketDao.close();
+            }
         }
         return list;
     }
 
+    /**
+     * This method finds all Excursions that were purchased by the user
+     * @param user current user
+     * @return List of Excursion
+     */
     public List<Excursion> findMyExcursions(User user) {
         TicketExcursionDao ticketExcursionDao = null;
         ExcursionDao excursionDao = null;
@@ -63,10 +80,12 @@ public class PurchaseService {
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);
         } finally {
-            if (ticketExcursionDao != null)
+            if (ticketExcursionDao != null) {
                 ticketExcursionDao.close();
-            if (excursionDao != null)
+            }
+            if (excursionDao != null) {
                 excursionDao.close();
+            }
         }
         return myExcursions;
     }

@@ -3,6 +3,9 @@ package ua.study.poject.cruise.entity.printableentity;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * PrintableServiceOnShip is entity which is designed to transmit information about the service to the JSP page
+ */
 public class PrintableServiceOnShip implements Serializable {
 
     private static final long serialVersionUID = -5159349681961939291L;

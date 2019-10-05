@@ -5,49 +5,44 @@ import ua.study.poject.cruise.exceptions.GeneralCheckedException;
 
 import java.util.List;
 
+/**
+ * The interface UserDao defines an interaction contract with a User entity
+ */
 public interface UserDao {
 
     /**
-     * Inserts new entity into database
-     *
+     * The create method saves the new User entity, which is passed to it as a parameter.
      * @param user
-     * @return id of created entity or 0 if error occurred
+     * @return the id number of the entity under which it is stored
      */
     int create(User user) throws GeneralCheckedException;
 
-    /**
-     * Finds all users
-     *
-     * @return List of User object
-     */
-    List<User> findAll() throws GeneralCheckedException;
 
     /**
-     * Finds User entity by userId
-     *
-     * @param id
-     * @return User of null if user not found
-     */
-    User findById(Long id) throws GeneralCheckedException;
-
-
-    /**
-     * Retrieves user by login and password
-     *
+     * This method finds user by login and password
      * @param login
      * @param password
-     * @return User of null if user not found
+     * @return User entity
      */
     User findByLoginAndPassword(String login, String password) throws GeneralCheckedException;
 
+    /**
+     * This method finds user by login
+     * @param login
+     * @return
+     * @throws GeneralCheckedException
+     */
     User findByLogin(String login) throws GeneralCheckedException;
+
     /**
      * Updates existing account
-     *
      * @param user
      * @return id of updated entity
      */
     int update(User user) throws GeneralCheckedException;
 
+    /**
+     * The close method must be called after you have worked with this class to free resources
+     */
     void close();
 }

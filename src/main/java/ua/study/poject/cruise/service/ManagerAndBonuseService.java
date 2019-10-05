@@ -16,12 +16,21 @@ import ua.study.poject.cruise.persistance.datasource.impl.MySqlDaoFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * the class contains logic for working with Bonus and Manager entities
+ */
 public class ManagerAndBonuseService {
 
     private static final Logger LOGGER = Logger.getLogger(ManagerAndBonuseService.class);
 
     private AbstractDaoFactory daoFactory = MySqlDaoFactory.getInstance();
 
+    /**
+     * the method allows you to find all the ships on which the Manager is allowed to manage bonuses
+     *
+     * @param managerId
+     * @return List of Ship
+     */
     public List<Ship> getAllShipsByManagerId(Long managerId) {
         List<Ship> list = new ArrayList<>();
         UserShipDao userShipDao = null;
@@ -31,13 +40,18 @@ public class ManagerAndBonuseService {
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);
         } finally {
-            if (userShipDao != null)
+            if (userShipDao != null) {
                 userShipDao.close();
+            }
         }
         return list;
     }
 
-
+    /**
+     * The method allows you to get a list of all Ticketclass that are in the system
+     *
+     * @return List of Ticketclasses
+     */
     public List<Ticketclass> getAllTicketclass() {
         List<Ticketclass> list = new ArrayList<>();
         TicketclassDao ticketclassDao = null;
@@ -47,28 +61,21 @@ public class ManagerAndBonuseService {
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);
         } finally {
-            if (ticketclassDao != null)
+            if (ticketclassDao != null) {
                 ticketclassDao.close();
+            }
         }
         return list;
     }
 
-    public List<PrintableTicketclassBonus> getAllBonusesByCruiseIdTicketclassId(Long cruiseId, Long ticketclassId) {
-
-        PrintableTicketclassBonusDao printableTicketclassBonusDao = null;
-        List<PrintableTicketclassBonus> list = new ArrayList<>();
-        try {
-            printableTicketclassBonusDao = daoFactory.getPrintableTicketclassBonusDao();
-            list = printableTicketclassBonusDao.getAllBonusesByCruiseIdTicketclassId(cruiseId, ticketclassId);
-        } catch (GeneralCheckedException e) {
-            LOGGER.error(e);
-        } finally {
-            if (printableTicketclassBonusDao != null)
-                printableTicketclassBonusDao.close();
-        }
-        return list;
-    }
-
+    /**
+     * The method allows you to get a list of all PrintableTicketclassBonus that are available
+     * for this ticket class in the selected cruise
+     *
+     * @param cruiseId
+     * @param ticketclassName
+     * @return
+     */
     public List<PrintableTicketclassBonus> getAllBonusesByCruiseIdTicketclassName(Long cruiseId, String ticketclassName) {
 
         PrintableTicketclassBonusDao printableTicketclassBonusDao = null;
@@ -79,12 +86,21 @@ public class ManagerAndBonuseService {
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);
         } finally {
-            if (printableTicketclassBonusDao != null)
+            if (printableTicketclassBonusDao != null) {
                 printableTicketclassBonusDao.close();
+            }
         }
         return list;
     }
 
+    /**
+     * The method saves a bonus for the selected ticket class
+     *
+     * @param ticketclassId
+     * @param selectedshipserviceid
+     * @param selectedCruiseId
+     * @return
+     */
     public int addBonus(Long ticketclassId, Long selectedshipserviceid, Long selectedCruiseId) {
         TicketclassBonusDao ticketclassBonusDao = null;
         int result = 0;
@@ -94,30 +110,38 @@ public class ManagerAndBonuseService {
             ticketclassBonus.setTicketclassId(ticketclassId);
             ticketclassBonus.setShipServiceId(selectedshipserviceid);
             ticketclassBonus.setCruiseId(selectedCruiseId);
-
             result = ticketclassBonusDao.create(ticketclassBonus);
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);
         } finally {
-            if (ticketclassBonusDao != null)
+            if (ticketclassBonusDao != null) {
                 ticketclassBonusDao.close();
+            }
         }
         return result;
     }
 
+    /**
+     * The method removes a bonus by "ticketclassBonus id".
+     *
+     * @param ticketclassBonusIdList list of "ticketclassBonus id" to be removed
+     * @return
+     */
     public int deleteBonuses(List<Long> ticketclassBonusIdList) {
         TicketclassBonusDao ticketclassBonusDao = null;
         int sum = 0;
         try {
             ticketclassBonusDao = daoFactory.getTicketclassBonusDao();
-            for(Long id : ticketclassBonusIdList)
+            for (Long id : ticketclassBonusIdList) {
                 sum += ticketclassBonusDao.deleteById(id);
+            }
             return sum;
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);
         } finally {
-            if (ticketclassBonusDao != null)
+            if (ticketclassBonusDao != null) {
                 ticketclassBonusDao.close();
+            }
         }
         return 0;
     }

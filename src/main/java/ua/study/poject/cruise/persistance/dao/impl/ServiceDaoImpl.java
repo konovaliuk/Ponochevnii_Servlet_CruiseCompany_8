@@ -37,8 +37,9 @@ public class ServiceDaoImpl implements ServiceDao {
         List<Service> services = new ArrayList<>();
         try (Statement statement = connection.createStatement()){
             ResultSet rs = statement.executeQuery(FIND_ALL);
-            while (rs.next())
+            while (rs.next()) {
                 services.add(createService(rs));
+            }
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new GeneralCheckedException("Unsuccessful work with the database ", e);
@@ -52,8 +53,9 @@ public class ServiceDaoImpl implements ServiceDao {
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)){
             preparedStatement.setLong(1, id);
             ResultSet rs = preparedStatement.executeQuery();
-            if (rs.next())
+            if (rs.next()) {
                 service = createService(rs);
+            }
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new GeneralCheckedException("Unsuccessful work with the database ", e);
@@ -67,8 +69,9 @@ public class ServiceDaoImpl implements ServiceDao {
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_NAME)){
             preparedStatement.setString(1, serviceName);
             ResultSet rs = preparedStatement.executeQuery();
-            if (rs.next())
+            if (rs.next()) {
                 service = createService(rs);
+            }
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new GeneralCheckedException("Unsuccessful work with the database ", e);

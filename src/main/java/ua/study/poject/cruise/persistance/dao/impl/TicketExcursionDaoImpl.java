@@ -39,8 +39,9 @@ public class TicketExcursionDaoImpl implements TicketExcursionDao {
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_USER_ID)){
             preparedStatement.setLong(1, userId);
             ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next())
+            while (rs.next()) {
                 ticketExcursions.add(createTicketExcursion(rs));
+            }
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new GeneralCheckedException("Unsuccessful work with the database ", e);

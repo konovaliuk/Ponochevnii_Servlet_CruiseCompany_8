@@ -7,6 +7,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * PrintableCruisePort is entity which is designed to transmit information about the port to the JSP page
+ */
 public class PrintableCruisePort implements Serializable {
 
     private static final long serialVersionUID = -6195210574546484432L;

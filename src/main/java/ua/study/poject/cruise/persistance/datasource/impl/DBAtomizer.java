@@ -8,6 +8,9 @@ import java.sql.SQLException;
 
 import static java.sql.Connection.TRANSACTION_SERIALIZABLE;
 
+/**
+ * This is an implementation of the Atomizer interface that works with databases
+ */
 public class DBAtomizer implements Atomizer {
 
     private static final Logger LOGGER = Logger.getLogger(DBAtomizer.class);
@@ -45,9 +48,9 @@ public class DBAtomizer implements Atomizer {
     @Override
     public void close() throws GeneralCheckedException {
         try {
-            if(!alreadyCommitted)
+            if(!alreadyCommitted) {
                 connection.rollback();
-
+            }
             connection.setAutoCommit(true);
             connection.close();
         } catch (SQLException e){
@@ -55,7 +58,4 @@ public class DBAtomizer implements Atomizer {
             throw new GeneralCheckedException("Unsuccessful work with the database ", e);
         }
     }
-
-
-
 }

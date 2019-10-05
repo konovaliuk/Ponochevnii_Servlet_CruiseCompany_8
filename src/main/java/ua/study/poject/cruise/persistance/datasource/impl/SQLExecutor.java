@@ -11,8 +11,9 @@ public class SQLExecutor {
 
     public static int executeInsertUpdateDelete(Connection connection, String query, Object... args) throws GeneralCheckedException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
-            for (int i = 0; i < args.length; i++)
+            for (int i = 0; i < args.length; i++) {
                 preparedStatement.setObject(i + 1, args[i]);
+            }
             int rowsAffected = preparedStatement.executeUpdate();
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {

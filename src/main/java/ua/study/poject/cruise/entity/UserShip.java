@@ -1,9 +1,11 @@
 package ua.study.poject.cruise.entity;
 
-
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * This class is an entity that corresponds to a row in the "user_ship" table
+ */
 public class UserShip implements Serializable {
 
   private static final long serialVersionUID = -5654256149490721255L;

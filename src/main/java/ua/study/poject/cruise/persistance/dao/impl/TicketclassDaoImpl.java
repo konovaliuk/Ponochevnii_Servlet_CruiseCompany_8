@@ -16,8 +16,6 @@ public class TicketclassDaoImpl implements TicketclassDao {
     private static final Logger LOGGER = Logger.getLogger(TicketclassDaoImpl.class);
 
     private static final String FIND_ALL = "SELECT * FROM ticketclass";
-    private static final String FIND_BY_ID = "SELECT * FROM ticketclass WHERE id = ?";
-    private static final String FIND_BY_TICKET_CLASS_NAME = "SELECT * FROM ticketclass WHERE ticketclass_name = ?";
 
     private Connection connection;
 
@@ -25,8 +23,9 @@ public class TicketclassDaoImpl implements TicketclassDao {
 
     public TicketclassDaoImpl(Connection connection) {
         this.connection = connection;
-        if (ticketclasses == null)
+        if (ticketclasses == null) {
             fillTicketclassesMap();
+        }
     }
 
     @Override

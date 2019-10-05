@@ -1,12 +1,14 @@
 package ua.study.poject.cruise.entity;
 
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * This class is an entity that corresponds to a row in the "cruise_ports" table
+ */
 public class CruisePorts implements Serializable {
 
     private static final long serialVersionUID = 5830376018918459139L;

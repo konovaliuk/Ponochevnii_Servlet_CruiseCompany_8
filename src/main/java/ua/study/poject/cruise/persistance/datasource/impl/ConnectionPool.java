@@ -10,12 +10,14 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * This singletone class encapsulates the connection to the Connection Pool of Tomcat
+ */
 public class ConnectionPool {
 
     private static final Logger LOGGER = Logger.getLogger(ConnectionPool.class);
 
-    private ConnectionPool() {
-    }
+    private ConnectionPool() {}
 
     private static DataSource ds;
 
@@ -28,6 +30,11 @@ public class ConnectionPool {
         }
     }
 
+    /**
+     * This method retrieves the connection instance from the Connection Pool of the Tomcat server
+     * @return Connection from connectionPool of the Tomcat
+     * @throws GeneralCheckedException
+     */
     public static Connection getConnection() throws GeneralCheckedException {
         try {
             return ds.getConnection();
@@ -36,30 +43,5 @@ public class ConnectionPool {
             throw new GeneralCheckedException("Failed to get Connection from Connection Pool ", e);
         }
     }
-
-
-
-
-
-/*
-
-
-    static public Connection getConnection() throws SQLException {
-        ResourceBundle rb = ResourceBundle.getBundle("database");
-        String url = rb.getString("url");
-        String user = rb.getString("login");
-        String password = rb.getString("password");
-        return DriverManager.getConnection(url, user, password);
-    }
-*/
-
-//    public void close() {
-//        if (connection != null)
-//            try {
-//                connection.close();
-//            } catch (SQLException e) {
-//                System.out.println("Не удалось закрыть connection");
-//            }
-//    }
 
 }

@@ -8,10 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 
+/**
+ * ActionStorage is singletone class that stores all the commands that the user can execute,
+ * depending on his role
+ */
 public class ActionStorage {
 
     private static final String UNSIGNED = "unsigned";
-
     public static final String COMMAND = "command";
 
     public final static String SIGN_IN = "signin";
@@ -119,6 +122,16 @@ public class ActionStorage {
     private ActionStorage() {
     }
 
+    /**
+     * getAction method returns an instance of the class that implements the Action interface.
+     * Which specific object to return is decided based on which command the user wants to execute.
+     * Information about this command is stored in the request parameter "command"
+     * (request.getParameter ("command"))
+     * This object will perform the corresponding action when the execute method is called.
+     *
+     * @param request
+     * @return
+     */
     public Action getAction(HttpServletRequest request) {
 
         String role = checkRoleBySession(request);
@@ -151,12 +164,6 @@ public class ActionStorage {
         }
     }
 
-    /**
-     * Find role by session
-     *
-     * @param request
-     * @return
-     */
     private String checkRoleBySession(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         String role;

@@ -17,8 +17,6 @@ public class PortDaoImpl implements PortDao {
     private static final String CREATE = "INSERT INTO port (country, city) VALUES(?, ?)";
     private static final String FIND_ALL = "SELECT * FROM port";
     private static final String FIND_BY_ID = "SELECT * FROM port WHERE id = ?";
-    private static final String UPDATE = "UPDATE port SET country = ?, city = ? WHERE id = ?";
-
 
     private Connection connection;
 
@@ -34,10 +32,11 @@ public class PortDaoImpl implements PortDao {
     @Override
     public List<Port> findAll() throws GeneralCheckedException {
         List<Port> ports = new ArrayList<>();
-        try (Statement statement = connection.createStatement()){
+        try (Statement statement = connection.createStatement()) {
             ResultSet rs = statement.executeQuery(FIND_ALL);
-            while (rs.next())
+            while (rs.next()) {
                 ports.add(createPort(rs));
+            }
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new GeneralCheckedException("Unsuccessful work with the database ", e);
@@ -48,21 +47,17 @@ public class PortDaoImpl implements PortDao {
     @Override
     public Port findById(Long id) throws GeneralCheckedException {
         Port port = new Port();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
             preparedStatement.setLong(1, id);
             ResultSet rs = preparedStatement.executeQuery();
-            if (rs.next())
+            if (rs.next()) {
                 return createPort(rs);
+            }
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new GeneralCheckedException("Unsuccessful work with the database ", e);
         }
         return port;
-    }
-
-    @Override
-    public int update(Port port) throws GeneralCheckedException {
-        return SQLExecutor.executeInsertUpdateDelete(connection, UPDATE, port.getCountry(), port.getCity(), port.getId());
     }
 
     private Port createPort(ResultSet rs) throws SQLException {
@@ -73,8 +68,8 @@ public class PortDaoImpl implements PortDao {
         return port;
     }
 
-    public void close(){
-        if(connection != null) {
+    public void close() {
+        if (connection != null) {
             try {
                 connection.close();
             } catch (SQLException e) {

@@ -74,7 +74,7 @@
     <c:forEach var="excursion" items="${myExcursions}">
     <br/><hr/><br/>
     <h3>${excursion.excursionName}</h3>
-    <br/><br/><fmt:message key="message.viewexcursion.description"/> ${excursion.description}
+    <br/><br/><fmt:message key="message.viewexcursion.description"/><pre> ${excursion.description}</pre>
     <br/>
     <br/><br/>
 

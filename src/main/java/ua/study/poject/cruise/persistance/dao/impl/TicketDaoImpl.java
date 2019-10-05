@@ -15,11 +15,7 @@ public class TicketDaoImpl implements TicketDao {
     private static final Logger LOGGER = Logger.getLogger(TicketDaoImpl.class);
 
     private static final String CREATE = "INSERT INTO ticket (user_id, cruise_id, ticketclass_id) VALUES(?, ?, ?)";
-    private static final String FIND_ALL = "SELECT * FROM ticket";
-    private static final String FIND_BY_ID = "SELECT * FROM ticket WHERE id = ?";
     private static final String FIND_BY_USER_ID = "SELECT * FROM ticket WHERE user_id = ?";
-    private static final String UPDATE = "UPDATE ticket SET user_id = ?, cruise_id = ?, ticketclass_id = ? WHERE id = ?";
-
 
     private Connection connection;
 
@@ -33,54 +29,20 @@ public class TicketDaoImpl implements TicketDao {
     }
 
     @Override
-    public List<Ticket> findAll() throws GeneralCheckedException {
-        List<Ticket> tickets = new ArrayList<>();
-        try (Statement statement = connection.createStatement()){
-            ResultSet rs = statement.executeQuery(FIND_ALL);
-            while (rs.next())
-                tickets.add(createTicket(rs));
-        } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new GeneralCheckedException("Unsuccessful work with the database ", e);
-        }
-        return tickets;
-    }
-
-    @Override
-    public Ticket findById(Long id) throws GeneralCheckedException {
-        Ticket ticket = new Ticket();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)){
-            preparedStatement.setLong(1, id);
-            ResultSet rs = preparedStatement.executeQuery();
-            if (rs.next())
-                return createTicket(rs);
-        } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new GeneralCheckedException("Unsuccessful work with the database ", e);
-        }
-        return ticket;
-    }
-
-
-    @Override
     public List<Ticket> findTicketByUserId(Long id) throws GeneralCheckedException {
         List<Ticket> list = new ArrayList<>();
         Ticket ticket = new Ticket();
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_USER_ID)){
             preparedStatement.setLong(1, id);
             ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next())
+            while (rs.next()) {
                 list.add(createTicket(rs));
+            }
        } catch (SQLException e) {
             LOGGER.error(e);
             throw new GeneralCheckedException("Unsuccessful work with the database ", e);
         }
         return list;
-    }
-
-    @Override
-    public int update(Ticket ticket) throws GeneralCheckedException {
-        return SQLExecutor.executeInsertUpdateDelete(connection, UPDATE, ticket.getUserId(), ticket.getCruiseId(), ticket.getTicketclassId(), ticket.getId());
     }
 
     private Ticket createTicket(ResultSet rs) throws SQLException {

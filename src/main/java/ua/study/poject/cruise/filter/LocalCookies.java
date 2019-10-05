@@ -8,17 +8,27 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Locale;
 
+/**
+ *
+ * The LocalCookies class is a filter that reads the locale from the user's cookies
+ * and sets the locale in the current session to the value that is written in cookies.
+ * If cookies do not have this setting, then the default locale is set.
+ */
 public class LocalCookies implements Filter {
-    private static final String FILTERBLE_CONTENT_TYPE = "application/x-www-form-urlencoded";
-    private static final String ENCODING_DEFAULT = "UTF-8";
-    private static final String ENCODING_INIT_PARAM_NAME = "encoding";
-    private String encoding;
-
 
     @Override
     public void init(FilterConfig filterConfig) {
     }
 
+    /**
+     * The doFilter method reads the locale from the user's cookies and sets the locale in the current session to the value
+     * that is written in cookies. If cookies do not have this setting, then the default locale is set.
+     * @param servletRequest
+     * @param servletResponse
+     * @param filterChain
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         // Если нет сессии, то смотрим язык локали в Cookie. Если там нет, то устанавливаем по умолчанию

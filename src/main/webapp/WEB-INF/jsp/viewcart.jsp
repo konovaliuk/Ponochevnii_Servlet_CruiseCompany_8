@@ -110,7 +110,7 @@
     <c:forEach var="excursion" items="${excurisionsInCart}">
 	<br/><hr/><br/>
     <h3>${excursion.excursionName}</h3>
-    <br/><br/><fmt:message key="message.viewexcursion.description"/> ${excursion.description}
+    <br/><br/><fmt:message key="message.viewexcursion.description"/> <pre>${excursion.description}</pre>
     <br/><br/><fmt:message key="message.viewexcursion.price"/> ${excursion.price} $
     <br/>
     <form class="inline" method="post" action="${StringStorage.CONTROLLER}">

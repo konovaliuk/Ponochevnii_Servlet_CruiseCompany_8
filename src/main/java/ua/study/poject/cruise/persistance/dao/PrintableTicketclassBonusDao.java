@@ -5,12 +5,23 @@ import ua.study.poject.cruise.exceptions.GeneralCheckedException;
 
 import java.util.List;
 
+/**
+ * The interface PrintableTicketclassBonusDao defines an interaction contract with a PrintableTicketclassBonus entity
+ */
 public interface PrintableTicketclassBonusDao {
 
-    List<PrintableTicketclassBonus> getAllBonusesByCruiseIdTicketclassId (Long cruiseId, Long ticketclassId) throws GeneralCheckedException;
-
+    /**
+     * This method finds all the PrintableTicketclassBonus by "Cruise id" and "Ticketclass name"
+     * @param cruiseId
+     * @param ticketclassName
+     * @return List of PrintableTicketclassBonus
+     * @throws GeneralCheckedException
+     */
     List<PrintableTicketclassBonus> getAllBonusesByCruiseIdTicketclassName(Long cruiseId, String ticketclassName) throws GeneralCheckedException;
 
+    /**
+     * The close method must be called after you have worked with this class to free resources
+     */
     void close();
 
 }

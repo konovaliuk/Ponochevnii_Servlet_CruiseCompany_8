@@ -31,10 +31,11 @@ public class PrintableCruiseDaoImpl implements PrintableCruiseDao {
     @Override
     public List<PrintableCruise> findAllPrintableCruisesWithoutPorts() throws GeneralCheckedException {
         List<PrintableCruise> printableCruise = new ArrayList<>();
-        try (Statement statement = connection.createStatement()){
+        try (Statement statement = connection.createStatement()) {
             ResultSet rs = statement.executeQuery(FIND_ALL);
-            while (rs.next())
+            while (rs.next()) {
                 printableCruise.add(createPrintableCruise(rs));
+            }
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new GeneralCheckedException("Unsuccessful work with the database ", e);
@@ -45,11 +46,12 @@ public class PrintableCruiseDaoImpl implements PrintableCruiseDao {
     @Override
     public List<PrintableCruise> findAllPrintableCruisesWithoutPortsByShipId(Long shipId) throws GeneralCheckedException {
         List<PrintableCruise> printableCruise = new ArrayList<>();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_BY_SHIP_ID)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_BY_SHIP_ID)) {
             preparedStatement.setLong(1, shipId);
             ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next())
+            while (rs.next()) {
                 printableCruise.add(createPrintableCruise(rs));
+            }
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new GeneralCheckedException("Unsuccessful work with the database ", e);
@@ -60,11 +62,12 @@ public class PrintableCruiseDaoImpl implements PrintableCruiseDao {
     @Override
     public PrintableCruise findPrintableCruiseWithoutPortsByCruiseId(Long cruiseId) throws GeneralCheckedException {
         PrintableCruise printableCruise = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_CRUISE_ID)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_CRUISE_ID)) {
             preparedStatement.setLong(1, cruiseId);
             ResultSet rs = preparedStatement.executeQuery();
-            if (rs.next())
+            if (rs.next()) {
                 printableCruise = createPrintableCruise(rs);
+            }
         } catch (SQLException e) {
             LOGGER.error(e);
             throw new GeneralCheckedException("Unsuccessful work with the database ", e);
@@ -85,8 +88,8 @@ public class PrintableCruiseDaoImpl implements PrintableCruiseDao {
         return printableCruise;
     }
 
-    public void close(){
-        if(connection != null) {
+    public void close() {
+        if (connection != null) {
             try {
                 connection.close();
             } catch (SQLException e) {

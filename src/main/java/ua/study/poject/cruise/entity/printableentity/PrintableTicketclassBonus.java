@@ -4,6 +4,9 @@ import ua.study.poject.cruise.entity.Ticketclass;
 
 import java.util.Objects;
 
+/**
+ * PrintableTicketclassBonus is entity which is designed to transmit information about the bonuses to the JSP page
+ */
 public class PrintableTicketclassBonus {
 
     private Long ticketClassBonusId;

@@ -2,6 +2,9 @@ package ua.study.poject.cruise.util;
 
 import static ua.study.poject.cruise.entity.Ticketclass.*;
 
+/**
+ * The class contains string constants that are used in different parts of the program
+ */
 public class StringStorage {
 
     // All

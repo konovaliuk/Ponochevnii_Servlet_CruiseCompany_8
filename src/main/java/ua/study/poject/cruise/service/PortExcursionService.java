@@ -13,12 +13,22 @@ import ua.study.poject.cruise.persistance.datasource.impl.MySqlDaoFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This is a class that contains logic for working with Port and Excursion entities
+ */
 public class PortExcursionService {
 
     private static final Logger LOGGER = Logger.getLogger(PortExcursionService.class);
 
     private AbstractDaoFactory daoFactory = MySqlDaoFactory.getInstance();
 
+    /**
+     * The method creates new Port
+     *
+     * @param country country where the port is located
+     * @param city    city where the port is located
+     * @return Port id
+     */
     public int createPort(String country, String city) {
         Port port = new Port();
         port.setId(0L);
@@ -32,13 +42,23 @@ public class PortExcursionService {
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);
         } finally {
-            if (portDao != null)
+            if (portDao != null) {
                 portDao.close();
+            }
         }
         return 0;
     }
 
 
+    /**
+     * The method creates new Excursion
+     *
+     * @param excursionName
+     * @param price
+     * @param description
+     * @param port          id of the Port
+     * @return Excursion id
+     */
     public int createExcursion(String excursionName, double price, String description, Long port) {
         Excursion excurision = new Excursion();
         excurision.setId(0L);
@@ -54,12 +74,18 @@ public class PortExcursionService {
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);
         } finally {
-            if (excursionDao != null)
+            if (excursionDao != null) {
                 excursionDao.close();
+            }
         }
         return 0;
     }
 
+    /**
+     * The method allows find all the ports in system
+     *
+     * @return List of Port, or an empty List if the search was unsuccessful
+     */
     public List<Port> getAllPorts() {
         PortDao portDao = null;
         List<Port> list = new ArrayList<>();
@@ -69,12 +95,19 @@ public class PortExcursionService {
         } catch (GeneralCheckedException e) {
             LOGGER.error("Неудачная работа с portDao");
         } finally {
-            if (portDao != null)
+            if (portDao != null) {
                 portDao.close();
+            }
         }
         return list;
     }
 
+    /**
+     * the method finds all excursions that are available in this port
+     *
+     * @param portId
+     * @return List of Excursions, or an empty List if the search was unsuccessful
+     */
     public List<Excursion> ViewExcursionsInPortByPortId(Long portId) {
         ExcursionDao excursionDao = null;
         List<Excursion> list = new ArrayList<>();
@@ -84,12 +117,19 @@ public class PortExcursionService {
         } catch (GeneralCheckedException e) {
             LOGGER.error("Неудачная работа с excursionDao");
         } finally {
-            if (excursionDao != null)
+            if (excursionDao != null) {
                 excursionDao.close();
+            }
         }
         return list;
     }
 
+    /**
+     * the method finds excursion by id
+     *
+     * @param excursionId
+     * @return Excursion or an empty Excursion if the search was unsuccessful
+     */
     public Excursion ViewExcursionsInPortById(Long excursionId) {
         ExcursionDao excursionDao = null;
         Excursion excurision = new Excursion();
@@ -99,12 +139,19 @@ public class PortExcursionService {
         } catch (GeneralCheckedException e) {
             LOGGER.error("Неудачная работа с excursionDao");
         } finally {
-            if (excursionDao != null)
+            if (excursionDao != null) {
                 excursionDao.close();
+            }
         }
         return excurision;
     }
 
+    /**
+     * method finds port by id
+     *
+     * @param portId
+     * @return Port or an empty Port if the search was unsuccessful
+     */
     public Port getPortById(Long portId) {
         Port port = new Port();
         PortDao portDao = null;
@@ -114,8 +161,9 @@ public class PortExcursionService {
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);
         } finally {
-            if (portDao != null)
+            if (portDao != null) {
                 portDao.close();
+            }
         }
         return port;
     }

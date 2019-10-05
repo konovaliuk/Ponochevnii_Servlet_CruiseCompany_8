@@ -13,26 +13,25 @@ import ua.study.poject.cruise.persistance.datasource.impl.MySqlDaoFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class that contains all the logic for working with the Cruise entity
+ */
 public class CruiseService {
 
     private static final Logger LOGGER = Logger.getLogger(CruiseService.class);
     private AbstractDaoFactory daoFactory = MySqlDaoFactory.getInstance();
 
-    public List<Ticketclass> getAllTicketClasses(){
-        TicketclassDao ticketclassDao = null;
-        List<Ticketclass> list = new ArrayList<>();
-        try {
-            ticketclassDao = daoFactory.getTicketclassDao();
-            list = ticketclassDao.findAll();
-        }catch (GeneralCheckedException e) {
-            LOGGER.error(e);
-        } finally {
-            if (ticketclassDao != null)
-                ticketclassDao.close();
-        }
-        return list;
-    }
-
+    /**
+     * Method creates a new cruise. The method is organized transactional,
+     * because records have to be done in several tables at the same time
+     * @param selectedShip "id" of the ship selected for this cruise
+     * @param priceFirstClass first class ticket price
+     * @param priceSecondClass second class ticket price
+     * @param priceThirdClass third class ticket price
+     * @param priceFourthClass fourth class ticket price
+     * @param cruisePortsList list of ports through which the cruise passes
+     * @return the number of recorded rows in the table or -1 if write failed
+     */
     public int createCruise(Long selectedShip, double priceFirstClass, double priceSecondClass, double priceThirdClass, double priceFourthClass, List<CruisePorts> cruisePortsList) {
         try (Atomizer atomizer = AtomizerFactory.getAtomizer()) {
 
@@ -47,25 +46,26 @@ public class CruiseService {
             cruise.setPriceFourthClass(priceFourthClass);
 
             int cruiseId = cruiseDao.create(cruise);
-
             int result;
             for(CruisePorts tempCP : cruisePortsList){
                 tempCP.setCruiseId((long)cruiseId);
                 result = cruisePortsDao.create(tempCP);
-                if(result < 1)
+                if(result < 1) {
                     throw new GeneralCheckedException("Не удалось записать порты для круиза №" + cruiseId);
+                }
             }
-
             atomizer.recordChanges();
-
             return cruiseId;
-
         } catch (Exception e) {
             LOGGER.error("Ошибка при работе с CruiseDao или CruisePortsDao");
         }
         return -1;
     }
 
+    /**
+     * the method finds all Printable Cruises in order to display them later on the JSP page
+     * @return List of PrintableCruises
+     */
     public List<PrintableCruise> viewAllCruises() {
         List<PrintableCruise> list = new ArrayList<>();
         PrintableCruiseDao printableCruiseDao = null;
@@ -80,29 +80,21 @@ public class CruiseService {
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);
         } finally {
-            if (printableCruiseDao != null)
+            if (printableCruiseDao != null) {
                 printableCruiseDao.close();
-            if (printableCruisePortDao != null)
+            }
+            if (printableCruisePortDao != null){
                 printableCruisePortDao.close();
+            }
         }
         return list;
     }
-//
-//    public List<PrintableCruisePort> findAllPrintableCruisePortByCruiseId(Long cruiseId) {
-//        PrintableCruisePortDao printableCruisePortDao = null;
-//        List<PrintableCruisePort> list = new ArrayList<>();
-//        try {
-//            printableCruisePortDao = daoFactory.getPrintableCruisePortDao();
-//            list = printableCruisePortDao.findAllPrintableCruisePortByCruiseId(cruiseId);
-//        } catch (GeneralCheckedException e) {
-//            LOGGER.error(e);
-//        } finally {
-//            if (printableCruisePortDao != null)
-//                printableCruisePortDao.close();
-//        }
-//        return list;
-//    }
 
+    /**
+     * the method finds all PrintableCruises by "Ship id"
+     * @param shipId
+     * @return
+     */
     public List<PrintableCruise> getAllPrintableCruisesByShipId(Long shipId) {
         List<PrintableCruise> list = new ArrayList<>();
         PrintableCruiseDao printableCruiseDao = null;
@@ -117,13 +109,13 @@ public class CruiseService {
         } catch (GeneralCheckedException e) {
             LOGGER.error(e);
         } finally {
-            if (printableCruiseDao != null)
+            if (printableCruiseDao != null) {
                 printableCruiseDao.close();
-            if (printableCruisePortDao != null)
+            }
+            if (printableCruisePortDao != null) {
                 printableCruisePortDao.close();
+            }
         }
         return list;
     }
-
-
 }
