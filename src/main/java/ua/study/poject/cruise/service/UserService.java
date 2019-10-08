@@ -177,9 +177,10 @@ public class UserService {
 
     /**
      * The method allows the Admin to change the role of the selected User
-     * @param oldUser selected User
+     *
+     * @param oldUser   selected User
      * @param adminUser Admin
-     * @param newRole new Role
+     * @param newRole   new Role
      * @return number of entries made
      */
     public int changeUserRole(User oldUser, User adminUser, Role newRole) {
@@ -242,6 +243,7 @@ public class UserService {
 
     /**
      * The method finds a Role by name
+     *
      * @param roleName
      * @return Role
      */
@@ -263,6 +265,7 @@ public class UserService {
 
     /**
      * The method finds all Roles in system
+     *
      * @return
      */
     public List<Role> findAllRoles() {

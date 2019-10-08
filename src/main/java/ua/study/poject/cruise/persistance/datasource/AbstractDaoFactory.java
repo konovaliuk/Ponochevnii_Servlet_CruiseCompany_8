@@ -10,6 +10,7 @@ import ua.study.poject.cruise.persistance.datasource.impl.AtomizerFactory;
  * If you need to organize the transaction during the execution of the method,
  * you must first obtain an instance of the Atomizer class and when creating a DAO instance,
  * pass this Atomizer instance as a parameter to each GET method
+ *
  * @see Atomizer
  * @see AtomizerFactory
  */

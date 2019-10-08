@@ -17,7 +17,8 @@ public class ConnectionPool {
 
     private static final Logger LOGGER = Logger.getLogger(ConnectionPool.class);
 
-    private ConnectionPool() {}
+    private ConnectionPool() {
+    }
 
     private static DataSource ds;
 
@@ -32,6 +33,7 @@ public class ConnectionPool {
 
     /**
      * This method retrieves the connection instance from the Connection Pool of the Tomcat server
+     *
      * @return Connection from connectionPool of the Tomcat
      * @throws GeneralCheckedException
      */

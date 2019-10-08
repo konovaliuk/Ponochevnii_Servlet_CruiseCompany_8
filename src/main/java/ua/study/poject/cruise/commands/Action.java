@@ -14,7 +14,7 @@ public interface Action {
      * The execute method accepts all the parameters
      * necessary for work from request and performs the corresponding actions.
      *
-     * @param request All data that is necessary to execute the command is in request
+     * @param request  All data that is necessary to execute the command is in request
      * @param response It can be used to send data to the user, for example Cookie
      * @return Returns the link to the page to be rendered
      */

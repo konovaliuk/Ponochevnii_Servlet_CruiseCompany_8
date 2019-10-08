@@ -13,6 +13,7 @@ public interface TicketExcursionDao {
 
     /**
      * The create method saves the new TicketExcursion entity, which is depends of "User id" and "Excursion id".
+     *
      * @param userId
      * @param excursionId
      * @return the id number of the entity under which it is stored
@@ -22,6 +23,7 @@ public interface TicketExcursionDao {
 
     /**
      * The method findByUserId allows find all of the TicketExcursions entity by "User id"
+     *
      * @param id
      * @return List of TicketExcursion
      * @throws GeneralCheckedException

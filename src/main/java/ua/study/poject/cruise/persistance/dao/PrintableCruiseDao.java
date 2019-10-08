@@ -13,6 +13,7 @@ public interface PrintableCruiseDao {
 
     /**
      * This method finds all the PrintableCruises without List of ports
+     *
      * @return List of PrintableCruises
      * @throws GeneralCheckedException
      */
@@ -20,6 +21,7 @@ public interface PrintableCruiseDao {
 
     /**
      * This method finds all the PrintableCruises without List of ports by "Ship id"
+     *
      * @param shipId
      * @return List of PrintableCruises
      * @throws GeneralCheckedException
@@ -27,7 +29,8 @@ public interface PrintableCruiseDao {
     List<PrintableCruise> findAllPrintableCruisesWithoutPortsByShipId(Long shipId) throws GeneralCheckedException;
 
     /**
-     * This method finds all the PrintableCruises without List of ports by "Cruise id"
+     * This method finds a PrintableCruise without List of ports by "Cruise id"
+     *
      * @param cruiseId
      * @return
      * @throws GeneralCheckedException

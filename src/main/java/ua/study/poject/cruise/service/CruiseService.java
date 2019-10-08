@@ -1,10 +1,14 @@
 package ua.study.poject.cruise.service;
 
 import org.apache.log4j.Logger;
-import ua.study.poject.cruise.entity.*;
+import ua.study.poject.cruise.entity.Cruise;
+import ua.study.poject.cruise.entity.CruisePorts;
 import ua.study.poject.cruise.entity.printableentity.PrintableCruise;
 import ua.study.poject.cruise.exceptions.GeneralCheckedException;
-import ua.study.poject.cruise.persistance.dao.*;
+import ua.study.poject.cruise.persistance.dao.CruiseDao;
+import ua.study.poject.cruise.persistance.dao.CruisePortsDao;
+import ua.study.poject.cruise.persistance.dao.PrintableCruiseDao;
+import ua.study.poject.cruise.persistance.dao.PrintableCruisePortDao;
 import ua.study.poject.cruise.persistance.datasource.AbstractDaoFactory;
 import ua.study.poject.cruise.persistance.datasource.Atomizer;
 import ua.study.poject.cruise.persistance.datasource.impl.AtomizerFactory;
@@ -19,17 +23,26 @@ import java.util.List;
 public class CruiseService {
 
     private static final Logger LOGGER = Logger.getLogger(CruiseService.class);
-    private AbstractDaoFactory daoFactory = MySqlDaoFactory.getInstance();
+    private AbstractDaoFactory daoFactory;
+
+    public CruiseService() {
+        daoFactory = MySqlDaoFactory.getInstance();
+    }
+
+    public CruiseService(AbstractDaoFactory daoFactory) {
+        this.daoFactory = daoFactory;
+    }
 
     /**
      * Method creates a new cruise. The method is organized transactional,
      * because records have to be done in several tables at the same time
-     * @param selectedShip "id" of the ship selected for this cruise
-     * @param priceFirstClass first class ticket price
+     *
+     * @param selectedShip     "id" of the ship selected for this cruise
+     * @param priceFirstClass  first class ticket price
      * @param priceSecondClass second class ticket price
-     * @param priceThirdClass third class ticket price
+     * @param priceThirdClass  third class ticket price
      * @param priceFourthClass fourth class ticket price
-     * @param cruisePortsList list of ports through which the cruise passes
+     * @param cruisePortsList  list of ports through which the cruise passes
      * @return the number of recorded rows in the table or -1 if write failed
      */
     public int createCruise(Long selectedShip, double priceFirstClass, double priceSecondClass, double priceThirdClass, double priceFourthClass, List<CruisePorts> cruisePortsList) {
@@ -47,10 +60,10 @@ public class CruiseService {
 
             int cruiseId = cruiseDao.create(cruise);
             int result;
-            for(CruisePorts tempCP : cruisePortsList){
-                tempCP.setCruiseId((long)cruiseId);
+            for (CruisePorts tempCP : cruisePortsList) {
+                tempCP.setCruiseId((long) cruiseId);
                 result = cruisePortsDao.create(tempCP);
-                if(result < 1) {
+                if (result < 1) {
                     throw new GeneralCheckedException("Не удалось записать порты для круиза №" + cruiseId);
                 }
             }
@@ -63,7 +76,8 @@ public class CruiseService {
     }
 
     /**
-     * the method finds all Printable Cruises in order to display them later on the JSP page
+     * The method finds all Printable Cruises in order to display them later on the JSP page
+     *
      * @return List of PrintableCruises
      */
     public List<PrintableCruise> viewAllCruises() {
@@ -83,7 +97,7 @@ public class CruiseService {
             if (printableCruiseDao != null) {
                 printableCruiseDao.close();
             }
-            if (printableCruisePortDao != null){
+            if (printableCruisePortDao != null) {
                 printableCruisePortDao.close();
             }
         }
@@ -91,7 +105,8 @@ public class CruiseService {
     }
 
     /**
-     * the method finds all PrintableCruises by "Ship id"
+     * The method finds all PrintableCruises by "Ship id"
+     *
      * @param shipId
      * @return
      */

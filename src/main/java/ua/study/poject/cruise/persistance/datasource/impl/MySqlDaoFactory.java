@@ -15,13 +15,15 @@ import ua.study.poject.cruise.persistance.datasource.Atomizer;
 
 /**
  * This class is an implementation of AbstractDao Factory for working with the MySql database
+ *
  * @see AbstractDaoFactory
  */
 public class MySqlDaoFactory extends AbstractDaoFactory {
 
     private static MySqlDaoFactory instance;
 
-    private MySqlDaoFactory() {}
+    private MySqlDaoFactory() {
+    }
 
     public static MySqlDaoFactory getInstance() {
         if (instance == null) {

@@ -12,6 +12,7 @@ public interface PrintableTicketclassBonusDao {
 
     /**
      * This method finds all the PrintableTicketclassBonus by "Cruise id" and "Ticketclass name"
+     *
      * @param cruiseId
      * @param ticketclassName
      * @return List of PrintableTicketclassBonus

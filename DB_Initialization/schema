@@ -1,0 +1,307 @@
+DROP DATABASE IF EXISTS cruisecompany;
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema cruisecompany
+-- -----------------------------------------------------
+
+CREATE SCHEMA IF NOT EXISTS `cruisecompany` DEFAULT CHARACTER SET utf8 ;
+USE `cruisecompany` ;
+
+-- -----------------------------------------------------
+-- Table `cruisecompany`.`ship`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `cruisecompany`.`ship` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `ship_name` VARCHAR(50) NOT NULL,
+  `n_staff` BIGINT NOT NULL,
+  `n_first_class` BIGINT NOT NULL,
+  `n_second_class` BIGINT NOT NULL,
+  `n_third_class` BIGINT NOT NULL,
+  `n_fourth_class` BIGINT NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cruisecompany`.`port`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `cruisecompany`.`port` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `country` VARCHAR(45) NOT NULL,
+  `city` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cruisecompany`.`excurision`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `cruisecompany`.`excurision` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `excursion_name` VARCHAR(256) NOT NULL,
+  `price` DECIMAL(10,2) NOT NULL,
+  `description` VARCHAR(8000) NOT NULL,
+  `port_id` BIGINT NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  INDEX `fk_excurision_port1_idx` (`port_id` ASC),
+  CONSTRAINT `fk_excurision_port1`
+    FOREIGN KEY (`port_id`)
+    REFERENCES `cruisecompany`.`port` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cruisecompany`.`cruise`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `cruisecompany`.`cruise` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `ship_id` BIGINT NOT NULL,
+  `price_first_class` DECIMAL(10,2) ZEROFILL NOT NULL,
+  `price_second_class` DECIMAL(10,2) ZEROFILL NOT NULL,
+  `price_third_class` DECIMAL(10,2) ZEROFILL NOT NULL,
+  `price_fourth_class` DECIMAL(10,2) ZEROFILL NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  INDEX `fk_cruise_ship1_idx` (`ship_id` ASC),
+  CONSTRAINT `fk_cruise_ship1`
+    FOREIGN KEY (`ship_id`)
+    REFERENCES `cruisecompany`.`ship` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cruisecompany`.`role`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `cruisecompany`.`role` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `role` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  UNIQUE INDEX `role_UNIQUE` (`role` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cruisecompany`.`user`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `cruisecompany`.`user` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `login` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  `first_name` VARCHAR(45) NOT NULL,
+  `second_name` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(50) NOT NULL,
+  `tel` VARCHAR(25) NOT NULL,
+  `role_id` BIGINT NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  UNIQUE INDEX `login_UNIQUE` (`login` ASC),
+  INDEX `fk_user_role_idx` (`role_id` ASC),
+  UNIQUE INDEX `tel_UNIQUE` (`tel` ASC),
+  CONSTRAINT `fk_user_role`
+    FOREIGN KEY (`role_id`)
+    REFERENCES `cruisecompany`.`role` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cruisecompany`.`ticketclass`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `cruisecompany`.`ticketclass` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `ticketclass_name` VARCHAR(25) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  UNIQUE INDEX `ticketclass_name_UNIQUE` (`ticketclass_name` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cruisecompany`.`ticket`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `cruisecompany`.`ticket` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `user_id` BIGINT NOT NULL,
+  `cruise_id` BIGINT NOT NULL,
+  `ticketclass_id` BIGINT NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  INDEX `fk_ticket_user1_idx` (`user_id` ASC),
+  INDEX `fk_ticket_cruise1_idx` (`cruise_id` ASC),
+  INDEX `fk_ticket_ticketclass1_idx` (`ticketclass_id` ASC),
+  CONSTRAINT `fk_ticket_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `cruisecompany`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_ticket_cruise1`
+    FOREIGN KEY (`cruise_id`)
+    REFERENCES `cruisecompany`.`cruise` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_ticket_ticketclass1`
+    FOREIGN KEY (`ticketclass_id`)
+    REFERENCES `cruisecompany`.`ticketclass` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cruisecompany`.`service`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `cruisecompany`.`service` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `service_name` VARCHAR(255) NOT NULL,
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `service_name_UNIQUE` (`service_name` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cruisecompany`.`ship_service`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `cruisecompany`.`ship_service` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `ship_id` BIGINT NOT NULL,
+  `payable` BIGINT NOT NULL,
+  `service_id` BIGINT NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  INDEX `fk_bonus_ship1_idx` (`ship_id` ASC),
+  INDEX `fk_shipservice_service1_idx` (`service_id` ASC),
+  CONSTRAINT `fk_bonus_ship1`
+    FOREIGN KEY (`ship_id`)
+    REFERENCES `cruisecompany`.`ship` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_shipservice_service1`
+    FOREIGN KEY (`service_id`)
+    REFERENCES `cruisecompany`.`service` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cruisecompany`.`cruise_ports`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `cruisecompany`.`cruise_ports` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `date_in` TIMESTAMP NULL,
+  `date_out` TIMESTAMP NULL,
+  `cruise_id` BIGINT NOT NULL,
+  `port_id` BIGINT NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  INDEX `fk_cruise_ports_cruise1_idx` (`cruise_id` ASC),
+  INDEX `fk_cruise_ports_port1_idx` (`port_id` ASC),
+  CONSTRAINT `fk_cruise_ports_cruise1`
+    FOREIGN KEY (`cruise_id`)
+    REFERENCES `cruisecompany`.`cruise` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_cruise_ports_port1`
+    FOREIGN KEY (`port_id`)
+    REFERENCES `cruisecompany`.`port` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cruisecompany`.`ticketclass_bonus`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `cruisecompany`.`ticketclass_bonus` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `ticketclass_id` BIGINT NOT NULL,
+  `ship_service_id` BIGINT NOT NULL,
+  `cruise_id` BIGINT NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  INDEX `fk_ticketclass_bonus_ticketclass1_idx` (`ticketclass_id` ASC),
+  INDEX `fk_ticketclass_bonus_bonus1_idx` (`ship_service_id` ASC),
+  INDEX `fk_ticketclass_bonus_cruise1_idx` (`cruise_id` ASC),
+  CONSTRAINT `fk_ticketclass_bonus_ticketclass1`
+    FOREIGN KEY (`ticketclass_id`)
+    REFERENCES `cruisecompany`.`ticketclass` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_ticketclass_bonus_ship_service1`
+    FOREIGN KEY (`ship_service_id`)
+    REFERENCES `cruisecompany`.`ship_service` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_ticketclass_bonus_cruise1`
+    FOREIGN KEY (`cruise_id`)
+    REFERENCES `cruisecompany`.`cruise` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cruisecompany`.`ticket_excursion`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `cruisecompany`.`ticket_excursion` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `excurision_id` BIGINT NOT NULL,
+  `user_id` BIGINT NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  INDEX `fk_ticket_excursion_excurision1_idx` (`excurision_id` ASC),
+  INDEX `fk_ticket_excursion_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_ticket_excursion_excurision1`
+    FOREIGN KEY (`excurision_id`)
+    REFERENCES `cruisecompany`.`excurision` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_ticket_excursion_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `cruisecompany`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cruisecompany`.`user_ship`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `cruisecompany`.`user_ship` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `ship_id` BIGINT NOT NULL,
+  `user_id` BIGINT NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  INDEX `fk_user_ship_ship1_idx` (`ship_id` ASC),
+  INDEX `fk_user_ship_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_user_ship_ship1`
+    FOREIGN KEY (`ship_id`)
+    REFERENCES `cruisecompany`.`ship` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_ship_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `cruisecompany`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

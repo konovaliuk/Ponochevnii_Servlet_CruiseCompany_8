@@ -21,10 +21,20 @@ public class PurchaseService {
 
     private static final Logger LOGGER = Logger.getLogger(PurchaseService.class);
 
-    private AbstractDaoFactory daoFactory = MySqlDaoFactory.getInstance();
+    private AbstractDaoFactory daoFactory;
+
+    public PurchaseService() {
+        daoFactory = MySqlDaoFactory.getInstance();
+    }
+
+    public PurchaseService(AbstractDaoFactory daoFactory) {
+        this.daoFactory = daoFactory;
+    }
+
 
     /**
      * This method finds all Cruises that were purchased by the user
+     *
      * @param user current user
      * @return List of PrintableCruises
      */
@@ -61,6 +71,7 @@ public class PurchaseService {
 
     /**
      * This method finds all Excursions that were purchased by the user
+     *
      * @param user current user
      * @return List of Excursion
      */

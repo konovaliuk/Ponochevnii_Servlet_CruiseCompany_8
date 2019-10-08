@@ -12,6 +12,7 @@ public interface PrintableServiceOnShipDao {
 
     /**
      * This method finds all the PrintableServiceOnShip by "Ship id"
+     *
      * @param shipId
      * @return List of PrintableServiceOnShip
      * @throws GeneralCheckedException

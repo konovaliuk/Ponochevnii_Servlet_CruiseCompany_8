@@ -12,7 +12,7 @@ public interface RoleDao {
     /**
      * This method finds all the Roles
      *
-     * @return List of Role
+     * @return List of Roles
      */
     List<Role> findAll();
 
@@ -26,6 +26,7 @@ public interface RoleDao {
 
     /**
      * This method allows check if Role exist in system
+     *
      * @param role
      * @return true if Role exist
      */

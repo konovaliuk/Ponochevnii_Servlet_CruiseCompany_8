@@ -12,6 +12,7 @@ public interface ShipDao {
 
     /**
      * The create method saves the new Ship entity, which is passed to it as a parameter.
+     *
      * @param ship new entity that needs to be stored
      * @return the id number of the entity under which it is stored
      * @throws GeneralCheckedException
@@ -20,6 +21,7 @@ public interface ShipDao {
 
     /**
      * This method allow find all the Ships that are presented in the system
+     *
      * @return List of Ships
      * @throws GeneralCheckedException
      */

@@ -23,10 +23,19 @@ public class ManagerAndBonuseService {
 
     private static final Logger LOGGER = Logger.getLogger(ManagerAndBonuseService.class);
 
-    private AbstractDaoFactory daoFactory = MySqlDaoFactory.getInstance();
+    private AbstractDaoFactory daoFactory;
+
+    public ManagerAndBonuseService() {
+        daoFactory = MySqlDaoFactory.getInstance();
+    }
+
+    public ManagerAndBonuseService(AbstractDaoFactory daoFactory) {
+        this.daoFactory = daoFactory;
+    }
+
 
     /**
-     * the method allows you to find all the ships on which the Manager is allowed to manage bonuses
+     * the method finds all the ships on which the Manager is allowed to manage bonuses
      *
      * @param managerId
      * @return List of Ship
@@ -74,7 +83,7 @@ public class ManagerAndBonuseService {
      *
      * @param cruiseId
      * @param ticketclassName
-     * @return
+     * @return List of PrintableTicketclassBonus
      */
     public List<PrintableTicketclassBonus> getAllBonusesByCruiseIdTicketclassName(Long cruiseId, String ticketclassName) {
 
@@ -99,7 +108,7 @@ public class ManagerAndBonuseService {
      * @param ticketclassId
      * @param selectedshipserviceid
      * @param selectedCruiseId
-     * @return
+     * @return the number of recorded rows in the table or 0 if write failed
      */
     public int addBonus(Long ticketclassId, Long selectedshipserviceid, Long selectedCruiseId) {
         TicketclassBonusDao ticketclassBonusDao = null;
@@ -122,7 +131,7 @@ public class ManagerAndBonuseService {
     }
 
     /**
-     * The method removes a bonus by "ticketclassBonus id".
+     * The method removes a bonus by "ticketclassBonus id"
      *
      * @param ticketclassBonusIdList list of "ticketclassBonus id" to be removed
      * @return

@@ -28,7 +28,7 @@ public class ViewPort implements Action {
                 request.getSession().setAttribute(MESSAGE, "message.viewport.err");
             }
 
-        List<Excursion> allExcursions = portExcursionService.ViewExcursionsInPortByPortId(selectedPortId);
+        List<Excursion> allExcursions = portExcursionService.viewExcursionsInPortByPortId(selectedPortId);
         request.getSession().setAttribute(ALL_EXCURSIONS, allExcursions);
         request.getSession().setAttribute(SELECTED_PORT, portExcursionService.getPortById(selectedPortId));
 

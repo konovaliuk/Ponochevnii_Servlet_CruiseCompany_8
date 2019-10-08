@@ -12,6 +12,7 @@ public interface ExcursionDao {
 
     /**
      * The create method saves the new Excursion entity, which is passed to it as a parameter.
+     *
      * @param excurision new entity that needs to be stored
      * @return the id number of the entity under which it is stored
      * @throws GeneralCheckedException
@@ -20,6 +21,7 @@ public interface ExcursionDao {
 
     /**
      * The method findById returns a Excursion entity whose number is "id"
+     *
      * @param id
      * @return Excursion entity
      * @throws GeneralCheckedException
@@ -28,6 +30,7 @@ public interface ExcursionDao {
 
     /**
      * This method allows to find all excursions in a given port
+     *
      * @param portId
      * @return List of Excursion
      * @throws GeneralCheckedException

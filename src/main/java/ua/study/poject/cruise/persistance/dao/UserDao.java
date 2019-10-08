@@ -3,8 +3,6 @@ package ua.study.poject.cruise.persistance.dao;
 import ua.study.poject.cruise.entity.User;
 import ua.study.poject.cruise.exceptions.GeneralCheckedException;
 
-import java.util.List;
-
 /**
  * The interface UserDao defines an interaction contract with a User entity
  */
@@ -12,6 +10,7 @@ public interface UserDao {
 
     /**
      * The create method saves the new User entity, which is passed to it as a parameter.
+     *
      * @param user
      * @return the id number of the entity under which it is stored
      */
@@ -20,6 +19,7 @@ public interface UserDao {
 
     /**
      * This method finds user by login and password
+     *
      * @param login
      * @param password
      * @return User entity
@@ -27,7 +27,8 @@ public interface UserDao {
     User findByLoginAndPassword(String login, String password) throws GeneralCheckedException;
 
     /**
-     * This method finds user by login
+     * This method finds User by login
+     *
      * @param login
      * @return
      * @throws GeneralCheckedException
@@ -36,6 +37,7 @@ public interface UserDao {
 
     /**
      * Updates existing account
+     *
      * @param user
      * @return id of updated entity
      */

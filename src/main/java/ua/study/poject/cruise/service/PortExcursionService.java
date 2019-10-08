@@ -20,7 +20,16 @@ public class PortExcursionService {
 
     private static final Logger LOGGER = Logger.getLogger(PortExcursionService.class);
 
-    private AbstractDaoFactory daoFactory = MySqlDaoFactory.getInstance();
+    private AbstractDaoFactory daoFactory;
+
+    public PortExcursionService() {
+        daoFactory = MySqlDaoFactory.getInstance();
+    }
+
+    public PortExcursionService(AbstractDaoFactory daoFactory) {
+        this.daoFactory = daoFactory;
+    }
+
 
     /**
      * The method creates new Port
@@ -108,7 +117,7 @@ public class PortExcursionService {
      * @param portId
      * @return List of Excursions, or an empty List if the search was unsuccessful
      */
-    public List<Excursion> ViewExcursionsInPortByPortId(Long portId) {
+    public List<Excursion> viewExcursionsInPortByPortId(Long portId) {
         ExcursionDao excursionDao = null;
         List<Excursion> list = new ArrayList<>();
         try {
@@ -130,7 +139,7 @@ public class PortExcursionService {
      * @param excursionId
      * @return Excursion or an empty Excursion if the search was unsuccessful
      */
-    public Excursion ViewExcursionsInPortById(Long excursionId) {
+    public Excursion viewExcursionsInPortById(Long excursionId) {
         ExcursionDao excursionDao = null;
         Excursion excurision = new Excursion();
         try {

@@ -12,6 +12,7 @@ public interface ServiceDao {
 
     /**
      * The create method saves the new Service entity, which is passed to it as a parameter.
+     *
      * @param service new entity that needs to be stored
      * @return the id number of the entity under which it is stored
      * @throws GeneralCheckedException
@@ -20,6 +21,7 @@ public interface ServiceDao {
 
     /**
      * This method allows find all the Services that are presented in the system
+     *
      * @return List of Service
      * @throws GeneralCheckedException
      */
@@ -27,6 +29,7 @@ public interface ServiceDao {
 
     /**
      * This method allows find the Services by "id"
+     *
      * @param id
      * @return Service
      * @throws GeneralCheckedException
@@ -35,6 +38,7 @@ public interface ServiceDao {
 
     /**
      * This method allows find the Services by "service name"
+     *
      * @param serviceName
      * @return Service
      * @throws GeneralCheckedException

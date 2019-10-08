@@ -10,6 +10,7 @@ public class AtomizerFactory {
 
     /**
      * Static method is used to create new Atomizer
+     *
      * @return new Atomizer
      * @throws GeneralCheckedException
      */

@@ -12,6 +12,7 @@ public interface CruiseDao {
 
     /**
      * The create method saves the new Cruise entity, which is passed to it as a parameter.
+     *
      * @param cruise new entity that needs to be stored
      * @return the id number of the entity under which it is stored
      * @throws GeneralCheckedException
@@ -20,6 +21,7 @@ public interface CruiseDao {
 
     /**
      * The method findAll returns all the Cruises
+     *
      * @return List of Cruises
      * @throws GeneralCheckedException
      */
@@ -27,6 +29,7 @@ public interface CruiseDao {
 
     /**
      * The method findById returns a Cruise entity whose number is "id"
+     *
      * @param id number of crusie
      * @return Cruise entity
      * @throws GeneralCheckedException

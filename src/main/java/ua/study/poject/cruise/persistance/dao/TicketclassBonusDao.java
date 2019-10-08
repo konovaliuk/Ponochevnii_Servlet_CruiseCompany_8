@@ -3,8 +3,6 @@ package ua.study.poject.cruise.persistance.dao;
 import ua.study.poject.cruise.entity.TicketclassBonus;
 import ua.study.poject.cruise.exceptions.GeneralCheckedException;
 
-import java.util.List;
-
 /**
  * The interface TicketclassBonusDao defines an interaction contract with a TicketclassBonus entity
  */
@@ -12,6 +10,7 @@ public interface TicketclassBonusDao {
 
     /**
      * The create method saves the new TicketclassBonus entity, which is passed to it as a parameter.
+     *
      * @param ticketclassBonus new entity that needs to be stored
      * @return the id number of the entity under which it is stored
      * @throws GeneralCheckedException
@@ -20,6 +19,7 @@ public interface TicketclassBonusDao {
 
     /**
      * This method removes all TicketclassBonuse records by "Shipservice id"
+     *
      * @param id
      * @return Amount of deleted records
      * @throws GeneralCheckedException
@@ -28,6 +28,7 @@ public interface TicketclassBonusDao {
 
     /**
      * This method removes TicketclassBonuse record by "id"
+     *
      * @param id
      * @return Amount of deleted record
      * @throws GeneralCheckedException

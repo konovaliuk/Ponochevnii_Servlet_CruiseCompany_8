@@ -21,10 +21,19 @@ public class ShipserviceService {
 
     private static final Logger LOGGER = Logger.getLogger(ShipserviceService.class);
 
-    private AbstractDaoFactory daoFactory = MySqlDaoFactory.getInstance();
+    private AbstractDaoFactory daoFactory;
+
+    public ShipserviceService() {
+        daoFactory = MySqlDaoFactory.getInstance();
+    }
+
+    public ShipserviceService(AbstractDaoFactory daoFactory) {
+        this.daoFactory = daoFactory;
+    }
 
     /**
      * The method finds all services in the system
+     *
      * @return List of Services
      */
     public List<Service> getAllServisesInSystem() {
@@ -45,6 +54,7 @@ public class ShipserviceService {
 
     /**
      * The method finds service by the "Service name"
+     *
      * @param serviceName
      * @return Service
      */
@@ -66,6 +76,7 @@ public class ShipserviceService {
 
     /**
      * The method finds service by the "Service id"
+     *
      * @param serviceId
      * @return Service
      */
@@ -87,6 +98,7 @@ public class ShipserviceService {
 
     /**
      * The method adds new Service in the system
+     *
      * @param newServiseInSystem
      * @return "Service id"
      */
@@ -109,8 +121,9 @@ public class ShipserviceService {
 
     /**
      * Method removes a service from the Ship
-     * @param shipId selected Ship
-     * @param listServiceId List of Services
+     *
+     * @param shipId        selected Ship
+     * @param listServiceId List of "Services id"
      * @return number of deleted records
      */
     public int deleteServicesFromShip(Long shipId, List<Long> listServiceId) {

@@ -12,6 +12,7 @@ public interface PortDao {
 
     /**
      * The create method saves the new Port entity, which is passed to it as a parameter.
+     *
      * @param port new entity that needs to be stored
      * @return the id number of the entity under which it is stored
      * @throws GeneralCheckedException
@@ -20,6 +21,7 @@ public interface PortDao {
 
     /**
      * The method findAll returns all the Ports
+     *
      * @return List of Ports
      * @throws GeneralCheckedException
      */
@@ -27,6 +29,7 @@ public interface PortDao {
 
     /**
      * The method findById returns a Port entity whose number is "id"
+     *
      * @param id
      * @return Port entity
      * @throws GeneralCheckedException

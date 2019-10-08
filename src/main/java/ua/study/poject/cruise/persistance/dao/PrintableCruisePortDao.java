@@ -12,6 +12,7 @@ public interface PrintableCruisePortDao {
 
     /**
      * This method finds all the PrintableCruisePorts by "Cruise id"
+     *
      * @param cruiseId
      * @return List of PrintableCruisePorts
      * @throws GeneralCheckedException

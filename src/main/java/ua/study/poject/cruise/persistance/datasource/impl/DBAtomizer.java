@@ -3,6 +3,7 @@ package ua.study.poject.cruise.persistance.datasource.impl;
 import org.apache.log4j.Logger;
 import ua.study.poject.cruise.exceptions.GeneralCheckedException;
 import ua.study.poject.cruise.persistance.datasource.Atomizer;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -30,7 +31,7 @@ public class DBAtomizer implements Atomizer {
         }
     }
 
-    public Connection get(){
+    public Connection get() {
         return connection;
     }
 
@@ -48,12 +49,12 @@ public class DBAtomizer implements Atomizer {
     @Override
     public void close() throws GeneralCheckedException {
         try {
-            if(!alreadyCommitted) {
+            if (!alreadyCommitted) {
                 connection.rollback();
             }
             connection.setAutoCommit(true);
             connection.close();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             LOGGER.error(e);
             throw new GeneralCheckedException("Unsuccessful work with the database ", e);
         }

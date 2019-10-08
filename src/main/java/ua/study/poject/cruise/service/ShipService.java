@@ -21,16 +21,26 @@ public class ShipService {
 
     private static final Logger LOGGER = Logger.getLogger(ShipService.class);
 
-    private AbstractDaoFactory daoFactory = MySqlDaoFactory.getInstance();
+    private AbstractDaoFactory daoFactory;
+
+    public ShipService() {
+        daoFactory = MySqlDaoFactory.getInstance();
+    }
+
+    public ShipService(AbstractDaoFactory daoFactory) {
+        this.daoFactory = daoFactory;
+    }
+
     private Ship ship = new Ship();
 
     /**
      * This method create new Ship
-     * @param shipName ship name
-     * @param nStaff number of staff
-     * @param nFirstClass number of first class cabins
+     *
+     * @param shipName     ship name
+     * @param nStaff       number of staff
+     * @param nFirstClass  number of first class cabins
      * @param nSecondClass number of second class cabins
-     * @param nThirdClass number of third class cabins
+     * @param nThirdClass  number of third class cabins
      * @param nFourthClass number of fourth class cabins
      * @return Ship id
      */
@@ -59,6 +69,7 @@ public class ShipService {
 
     /**
      * The method returns all the ships that are in the system
+     *
      * @return List of Ships
      */
     public List<Ship> getAllShips() {
@@ -79,6 +90,7 @@ public class ShipService {
 
     /**
      * The method returns all the PrintableServiceOnShip by "Ship id"
+     *
      * @param id
      * @return
      */
@@ -101,6 +113,7 @@ public class ShipService {
 
     /**
      * The method checks if this service is present on the selected ship
+     *
      * @param selectedShipId
      * @param selectedServiceId
      * @return true if the Service present on this Ship
@@ -122,6 +135,7 @@ public class ShipService {
 
     /**
      * The method adds a new service to the ship. If payable> 0, then the service is considered paid
+     *
      * @param shipId
      * @param payable
      * @param serviceId

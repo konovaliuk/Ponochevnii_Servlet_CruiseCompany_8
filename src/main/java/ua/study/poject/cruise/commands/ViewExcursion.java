@@ -45,7 +45,7 @@ public class ViewExcursion implements Action {
                 }
             }
         } else
-            request.getSession().setAttribute(EXCURSION, new PortExcursionService().ViewExcursionsInPortById(excursionId));
+            request.getSession().setAttribute(EXCURSION, new PortExcursionService().viewExcursionsInPortById(excursionId));
 
         return ConfigurationManager.getProperty("path.page.viewexcursion");
     }
