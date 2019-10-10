@@ -31,7 +31,7 @@
 
 <div class="form-style-2">
     <div class="form-style-2-heading">
-        <fmt:message key="message.editaccount.uniq"/>
+        <fmt:message key="message.editaccount.title"/>
     </div>
     <br/>
     <form method="post" action="${StringStorage.CONTROLLER}">

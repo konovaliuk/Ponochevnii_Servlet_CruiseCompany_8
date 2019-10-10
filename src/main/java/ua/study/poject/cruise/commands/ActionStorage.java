@@ -6,6 +6,7 @@ import ua.study.poject.cruise.util.StringStorage;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
 /**
@@ -45,82 +46,80 @@ public class ActionStorage {
     public final static String DELETE_SHIP_SERVICES_FROM_SHIP = "deleteshipservicefromship";
     public final static String MY_ACCOUNT = "myaccount";
 
-
-    private static HashMap<String, Action> generalAction = new HashMap<>();
-    private static HashMap<String, Action> adminAction = new HashMap<>();
-    private static HashMap<String, Action> managerAction = new HashMap<>();
-    private static HashMap<String, Action> customerAction = new HashMap<>();
+    private static HashMap<String, String> generalAction = new HashMap<>();
+    private static HashMap<String, String> customerAction = new HashMap<>();
+    private static HashMap<String, String> managerAction = new HashMap<>();
+    private static HashMap<String, String> adminAction = new HashMap<>();
 
     static {
-        generalAction.put(SIGN_IN, new SingIn());
-        generalAction.put(SIGN_UP, new SingUp());
-        generalAction.put(START_PAGE, new StartPage());
-        generalAction.put(CHANGE_LANGUAGE, new ChangeLanguage());
-        generalAction.put(VIEW_CRUISE, new ViewCruise());
-        generalAction.put(VIEW_EXCURSION, new ViewExcursion());
-        generalAction.put(VIEW_PORT, new ViewPort());
-        generalAction.put(ADD_TO_CART, new SingIn());
+        generalAction.put(SIGN_IN, "ua.study.poject.cruise.commands.SingIn");
+        generalAction.put(SIGN_UP, "ua.study.poject.cruise.commands.SingUp");
+        generalAction.put(START_PAGE, "ua.study.poject.cruise.commands.StartPage");
+        generalAction.put(CHANGE_LANGUAGE, "ua.study.poject.cruise.commands.ChangeLanguage");
+        generalAction.put(VIEW_CRUISE, "ua.study.poject.cruise.commands.ViewCruise");
+        generalAction.put(VIEW_EXCURSION, "ua.study.poject.cruise.commands.ViewExcursion");
+        generalAction.put(VIEW_PORT, "ua.study.poject.cruise.commands.ViewPort");
+        generalAction.put(ADD_TO_CART, "ua.study.poject.cruise.commands.SingIn");
 
-        customerAction.put(EDIT_ACCOUNT, new EditAccount());
-        customerAction.put(START_PAGE, new StartPage());
-        customerAction.put(CHANGE_LANGUAGE, new ChangeLanguage());
-        customerAction.put(MY_ACCOUNT, new MyAccountCustomer());
-        customerAction.put(ADD_TO_CART, new AddToCart());
-        customerAction.put(DELETE_FROM_CART, new DeleteFromCart());
-        customerAction.put(PAY, new Pay());
-        customerAction.put(LOGOUT, new Logout());
-        customerAction.put(VIEW_MY_CART, new ViewCart());
-        customerAction.put(VIEW_CRUISE, new ViewCruise());
-        customerAction.put(VIEW_EXCURSION, new ViewExcursion());
-        customerAction.put(VIEW_MY_CRUISES, new ViewMyCruises());
-        customerAction.put(VIEW_PORT, new ViewPort());
-        customerAction.put(DELETE_ALL, new DeleteAllFromCart());
+        customerAction.put(EDIT_ACCOUNT, "ua.study.poject.cruise.commands.EditAccount");
+        customerAction.put(START_PAGE, "ua.study.poject.cruise.commands.StartPage");
+        customerAction.put(CHANGE_LANGUAGE, "ua.study.poject.cruise.commands.ChangeLanguage");
+        customerAction.put(MY_ACCOUNT, "ua.study.poject.cruise.commands.MyAccountCustomer");
+        customerAction.put(ADD_TO_CART, "ua.study.poject.cruise.commands.AddToCart");
+        customerAction.put(DELETE_FROM_CART, "ua.study.poject.cruise.commands.DeleteFromCart");
+        customerAction.put(PAY, "ua.study.poject.cruise.commands.Pay");
+        customerAction.put(LOGOUT, "ua.study.poject.cruise.commands.Logout");
+        customerAction.put(VIEW_MY_CART, "ua.study.poject.cruise.commands.ViewCart");
+        customerAction.put(VIEW_CRUISE, "ua.study.poject.cruise.commands.ViewCruise");
+        customerAction.put(VIEW_EXCURSION, "ua.study.poject.cruise.commands.ViewExcursion");
+        customerAction.put(VIEW_MY_CRUISES, "ua.study.poject.cruise.commands.ViewMyCruises");
+        customerAction.put(VIEW_PORT, "ua.study.poject.cruise.commands.ViewPort");
+        customerAction.put(DELETE_ALL, "ua.study.poject.cruise.commands.DeleteAllFromCart");
 
-        managerAction.put(EDIT_ACCOUNT, new EditAccount());
-        managerAction.put(ADD_TO_CART, new AddToCart());
-        managerAction.put(DELETE_FROM_CART, new DeleteFromCart());
-        managerAction.put(PAY, new Pay());
-        managerAction.put(LOGOUT, new Logout());
-        managerAction.put(ADD_BONUSES, new AddBonuses());
-        managerAction.put(DELETE_BONUSES, new DeleteBonuses());
-        managerAction.put(START_PAGE, new StartPage());
-        managerAction.put(CHANGE_LANGUAGE, new ChangeLanguage());
-        managerAction.put(MY_ACCOUNT, new MyAccountManager());
-        managerAction.put(VIEW_MY_CART, new ViewCart());
-        managerAction.put(VIEW_CRUISE, new ViewCruise());
-        managerAction.put(VIEW_EXCURSION, new ViewExcursion());
-        managerAction.put(VIEW_MY_CRUISES, new ViewMyCruises());
-        managerAction.put(VIEW_PORT, new ViewPort());
-        managerAction.put(DELETE_ALL, new DeleteAllFromCart());
+        managerAction.put(EDIT_ACCOUNT, "ua.study.poject.cruise.commands.EditAccount");
+        managerAction.put(ADD_TO_CART, "ua.study.poject.cruise.commands.AddToCart");
+        managerAction.put(DELETE_FROM_CART, "ua.study.poject.cruise.commands.DeleteFromCart");
+        managerAction.put(PAY, "ua.study.poject.cruise.commands.Pay");
+        managerAction.put(LOGOUT, "ua.study.poject.cruise.commands.Logout");
+        managerAction.put(ADD_BONUSES, "ua.study.poject.cruise.commands.AddBonuses");
+        managerAction.put(DELETE_BONUSES, "ua.study.poject.cruise.commands.DeleteBonuses");
+        managerAction.put(START_PAGE, "ua.study.poject.cruise.commands.StartPage");
+        managerAction.put(CHANGE_LANGUAGE, "ua.study.poject.cruise.commands.ChangeLanguage");
+        managerAction.put(MY_ACCOUNT, "ua.study.poject.cruise.commands.MyAccountManager");
+        managerAction.put(VIEW_MY_CART, "ua.study.poject.cruise.commands.ViewCart");
+        managerAction.put(VIEW_CRUISE, "ua.study.poject.cruise.commands.ViewCruise");
+        managerAction.put(VIEW_EXCURSION, "ua.study.poject.cruise.commands.ViewExcursion");
+        managerAction.put(VIEW_MY_CRUISES, "ua.study.poject.cruise.commands.ViewMyCruises");
+        managerAction.put(VIEW_PORT, "ua.study.poject.cruise.commands.ViewPort");
+        managerAction.put(DELETE_ALL, "ua.study.poject.cruise.commands.DeleteAllFromCart");
 
-        adminAction.put(EDIT_ACCOUNT, new EditAccount());
-        adminAction.put(ADD_TO_CART, new AddToCart());
-        adminAction.put(DELETE_FROM_CART, new DeleteFromCart());
-        adminAction.put(PAY, new Pay());
-        adminAction.put(LOGOUT, new Logout());
-        adminAction.put(CREATE_CRUISE, new CreateCruise());
-        adminAction.put(CREATE_PORT, new CreatePort());
-        adminAction.put(CREATE_SHIP, new CreateShip());
-        adminAction.put(CREATE_EXCURSION, new CreateExcursion());
-        adminAction.put(CHANGE_USER_ROLE, new ChangeUserRole());
-        adminAction.put(START_PAGE, new StartPage());
-        adminAction.put(CHANGE_LANGUAGE, new ChangeLanguage());
-        adminAction.put(ADD_SHIP_SERVICES_TO_SYSTEM, new AddShipServicesToSystem());
-        adminAction.put(ADD_SHIP_SERVICES_TO_SHIP, new AddShipServicesToShip());
-        adminAction.put(DELETE_SHIP_SERVICES_FROM_SHIP, new DeleteShipServicesFromShip());
-        adminAction.put(MY_ACCOUNT, new MyAccountAdmin());
-        adminAction.put(VIEW_MY_CART, new ViewCart());
-        adminAction.put(VIEW_CRUISE, new ViewCruise());
-        adminAction.put(VIEW_EXCURSION, new ViewExcursion());
-        adminAction.put(VIEW_MY_CRUISES, new ViewMyCruises());
-        adminAction.put(VIEW_PORT, new ViewPort());
-        adminAction.put(DELETE_ALL, new DeleteAllFromCart());
+        adminAction.put(EDIT_ACCOUNT, "ua.study.poject.cruise.commands.EditAccount");
+        adminAction.put(ADD_TO_CART, "ua.study.poject.cruise.commands.AddToCart");
+        adminAction.put(DELETE_FROM_CART, "ua.study.poject.cruise.commands.DeleteFromCart");
+        adminAction.put(PAY, "ua.study.poject.cruise.commands.Pay");
+        adminAction.put(LOGOUT, "ua.study.poject.cruise.commands.Logout");
+        adminAction.put(CREATE_CRUISE, "ua.study.poject.cruise.commands.CreateCruise");
+        adminAction.put(CREATE_PORT, "ua.study.poject.cruise.commands.CreatePort");
+        adminAction.put(CREATE_SHIP, "ua.study.poject.cruise.commands.CreateShip");
+        adminAction.put(CREATE_EXCURSION, "ua.study.poject.cruise.commands.CreateExcursion");
+        adminAction.put(CHANGE_USER_ROLE, "ua.study.poject.cruise.commands.ChangeUserRole");
+        adminAction.put(START_PAGE, "ua.study.poject.cruise.commands.StartPage");
+        adminAction.put(CHANGE_LANGUAGE, "ua.study.poject.cruise.commands.ChangeLanguage");
+        adminAction.put(ADD_SHIP_SERVICES_TO_SYSTEM, "ua.study.poject.cruise.commands.AddShipServicesToSystem");
+        adminAction.put(ADD_SHIP_SERVICES_TO_SHIP, "ua.study.poject.cruise.commands.AddShipServicesToShip");
+        adminAction.put(DELETE_SHIP_SERVICES_FROM_SHIP, "ua.study.poject.cruise.commands.DeleteShipServicesFromShip");
+        adminAction.put(MY_ACCOUNT, "ua.study.poject.cruise.commands.MyAccountAdmin");
+        adminAction.put(VIEW_MY_CART, "ua.study.poject.cruise.commands.ViewCart");
+        adminAction.put(VIEW_CRUISE, "ua.study.poject.cruise.commands.ViewCruise");
+        adminAction.put(VIEW_EXCURSION, "ua.study.poject.cruise.commands.ViewExcursion");
+        adminAction.put(VIEW_MY_CRUISES, "ua.study.poject.cruise.commands.ViewMyCruises");
+        adminAction.put(VIEW_PORT, "ua.study.poject.cruise.commands.ViewPort");
+        adminAction.put(DELETE_ALL, "ua.study.poject.cruise.commands.DeleteAllFromCart");
     }
 
     private static ActionStorage instance = null;
 
-    private ActionStorage() {
-    }
+    private ActionStorage() {}
 
     /**
      * getAction method returns an instance of the class that implements the Action interface.
@@ -138,30 +137,58 @@ public class ActionStorage {
 
         String command = request.getParameter(COMMAND);
         if(command == null)
-            return generalAction.get(START_PAGE);
+            return new StartPage();
+
 
         Action action;
+        String actionString;
+
+//        switch (role) {
+//            case Role.ROLE_CUSTOMER:
+//                action = customerAction.get(command);
+//                return  action == null ? customerAction.get(START_PAGE) : action;
+//
+//            case Role.ROLE_MANAGER:
+//                action = managerAction.get(command);
+//                return  action == null ? managerAction.get(START_PAGE) : action;
+//
+//            case Role.ROLE_ADMIN:
+//                action = adminAction.get(command);
+//                return  action == null ? adminAction.get(START_PAGE) : action;
+//
+//            case UNSIGNED:
+//                action = generalAction.get(command);
+//                return  action == null ? generalAction.get(START_PAGE) : action;
+//
+//            default:
+//                return generalAction.get(START_PAGE);
+//        }
 
         switch (role) {
             case Role.ROLE_CUSTOMER:
-                action = customerAction.get(command);
-                return  action == null ? customerAction.get(START_PAGE) : action;
-
+                actionString = customerAction.get(command);
+                break;
             case Role.ROLE_MANAGER:
-                action = managerAction.get(command);
-                return  action == null ? managerAction.get(START_PAGE) : action;
-
+                actionString = managerAction.get(command);
+                break;
             case Role.ROLE_ADMIN:
-                action = adminAction.get(command);
-                return  action == null ? adminAction.get(START_PAGE) : action;
-
+                actionString = adminAction.get(command);
+                break;
             case UNSIGNED:
-                action = generalAction.get(command);
-                return  action == null ? generalAction.get(START_PAGE) : action;
-
+                actionString = generalAction.get(command);
+                break;
             default:
-                return generalAction.get(START_PAGE);
+                actionString = generalAction.get(START_PAGE);
         }
+        if (actionString == null) {
+            customerAction.get(START_PAGE);
+        }
+        try {
+            action = (Action)Class.forName(actionString).getDeclaredConstructor().newInstance();
+        } catch (Exception e) {
+            action = new StartPage();
+        }
+        return action;
     }
 
     private String checkRoleBySession(HttpServletRequest request) {

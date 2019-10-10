@@ -184,11 +184,11 @@ public class UserService {
      * @return number of entries made
      */
     public int changeUserRole(User oldUser, User adminUser, Role newRole) {
-        if (oldUser == null || oldUser.getId() <= 1 || oldUser.getLogin() == null || oldUser.getPassword() == null) {
+        if (oldUser == null || oldUser.getId() < 1 || oldUser.getLogin() == null || oldUser.getPassword() == null) {
             return -1;
         }
 
-        if (adminUser == null || adminUser.getId() <= 1 || adminUser.getLogin() == null || adminUser.getPassword() == null) {
+        if (adminUser == null || adminUser.getId() < 1 || adminUser.getLogin() == null || adminUser.getPassword() == null) {
             return -1;
         }
 
